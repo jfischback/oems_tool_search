@@ -4,63 +4,217 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OEMS Tools</title>
-<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; font-family: Inter, Arial, sans-serif; color: #0b1424; background: #f6f7f9; }
+  .wrap { padding: 0 8%; max-width: 1300px; margin: 0 auto; }
+
+  /* Hero */
+  .fh { position: relative; overflow: hidden; color: #fff; background: var(--hero); }
+  .fh::before { content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 90% at 70% 10%, #000 25%, transparent 75%); mask-image: radial-gradient(ellipse 80% 90% at 70% 10%, #000 25%, transparent 75%); }
+  .fh::after { content: ""; position: absolute; width: 900px; height: 900px; right: -200px; top: -460px; background: radial-gradient(circle, var(--glow) 0%, transparent 65%); pointer-events: none; }
+  .fh .wrap { position: relative; z-index: 1; }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; gap: 16px; }
+  .navl { display: flex; align-items: center; gap: 22px; min-width: 0; }
+  .brand { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 800; font-size: 18px; }
+  .brand i { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, var(--tag), var(--deep)); box-shadow: 0 0 18px var(--glow); }
+  .crumb { color: #8a97ab; font-size: 14px; font-weight: 500; white-space: nowrap; }
+  .crumb a { color: #c7d2e0; text-decoration: none; }
+  .crumb a:hover { color: #fff; }
+  .crumb b { color: #fff; font-weight: 600; }
+  .home { flex: 0 0 auto; color: #c7d2e0; text-decoration: none; font-size: 14px; font-weight: 500; padding: 8px 14px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; background: rgba(255,255,255,.04); transition: background .15s; }
+  .home:hover { background: rgba(255,255,255,.09); color: #fff; }
+
+  .hero-in { display: grid; grid-template-columns: 1.15fr .85fr; gap: 50px; align-items: center; padding: 56px 0 70px; }
+  .pill { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 500; color: #c7d2e0; padding: 7px 14px 7px 10px; border-radius: 999px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); }
+  .pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--tag); box-shadow: 0 0 8px var(--tag); }
+  .fh h1 { font-size: clamp(40px, 5.2vw, 70px); line-height: 1.02; letter-spacing: -.045em; font-weight: 800; margin: 24px 0 18px; }
+  .fh h1 span { display: block; color: var(--line2); }
+  .lede { color: #9aa8bb; font-size: 18px; line-height: 1.6; max-width: 560px; margin: 0 0 30px; }
+  .sbox { position: relative; max-width: 560px; }
+  .sbox svg { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 19px; height: 19px; color: #8a97ab; z-index: 2; }
+  .sbox input { width: 100%; font: 500 17px Inter, Arial; color: #fff; padding: 18px 20px 18px 52px; border-radius: 14px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); box-shadow: 0 20px 60px rgba(0,0,0,.45); transition: border-color .15s, background .15s; }
+  .sbox input:focus { outline: none; border-color: var(--tag); background: rgba(255,255,255,.09); }
+  .sbox input::placeholder { color: #7d8aa0; }
+  .sbox input::-webkit-search-cancel-button { filter: invert(1); opacity: .6; }
+  #count { color: #8a97ab; font-size: 13px; font-weight: 500; margin-top: 12px; min-height: 18px; }
+  .art { opacity: .95; filter: drop-shadow(0 0 30px var(--glow)); }
+  .art svg { width: 100%; height: auto; display: block; }
+
+  /* Topic bar */
+  .topics { position: sticky; top: 0; z-index: 5; background: rgba(246,247,249,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #e3e8ef; }
+  .topics .wrap { display: flex; gap: 8px; padding-top: 14px; padding-bottom: 14px; overflow-x: auto; scrollbar-width: none; }
+  .topics button { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; font: 600 14px Inter, Arial; color: #3b4a5e; padding: 8px 14px; border-radius: 999px; border: 1px solid #dfe5ec; background: #fff; cursor: pointer; transition: border-color .15s; }
+  .topics button:hover { border-color: var(--tag); }
+  .topics button em { font-style: normal; font-size: 12px; color: #8a97ab; background: #f1f4f8; border-radius: 999px; padding: 1px 8px; }
+  .topics button.on { background: var(--bg); color: #fff; border-color: var(--bg); }
+  .topics button.on em { background: rgba(255,255,255,.15); color: #fff; }
+
+  /* Featured */
+  .featured { padding: 54px 0 10px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--label); text-transform: uppercase; }
+  .featured h2 { font-size: 30px; letter-spacing: -.035em; font-weight: 800; margin: 10px 0 24px; }
+  .fgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .fcard { position: relative; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: #fff; background: linear-gradient(160deg, var(--fstart) 0%, var(--bg) 70%); border-radius: 16px; padding: 26px; min-height: 230px; box-shadow: 0 14px 34px rgba(16,29,48,.22); border: 1px solid rgba(255,255,255,.08); transition: transform .15s, box-shadow .15s; }
+  .fcard:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(16,29,48,.3); }
+  .fcard::after { content: ""; position: absolute; width: 260px; height: 260px; right: -90px; top: -110px; background: radial-gradient(circle, var(--glow), transparent 65%); }
+  .fcard .ic { width: 42px; height: 42px; border-radius: 10px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+  .fcard .ic svg { width: 22px; height: 22px; }
+  .fcard small { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--tag); }
+  .fcard h3 { font-size: 21px; letter-spacing: -.02em; margin: 8px 0; }
+  .fcard p { color: #aab7c8; font-size: 14px; line-height: 1.55; margin: 0 0 18px; }
+  .fcard .go { margin-top: auto; font-size: 14px; font-weight: 600; color: var(--tag); }
+  .fgrid.one { grid-template-columns: 1fr; }
+  .fgrid.one .fcard { min-height: 0; padding: 36px 40px; }
+  .fgrid.one .fcard h3 { font-size: 30px; letter-spacing: -.03em; }
+  .fgrid.one .fcard p { font-size: 16px; max-width: 620px; }
+  .fgrid.one .fcard::after { width: 520px; height: 520px; right: -120px; top: -260px; }
+
+  /* Sections */
+  .sec { padding: 46px 0 0; scroll-margin-top: 80px; }
+  .sechead { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .sechead .ic { width: 40px; height: 40px; border-radius: 10px; background: var(--iconbg); display: flex; align-items: center; justify-content: center; }
+  .sechead .ic svg { width: 22px; height: 22px; }
+  .sechead h2 { margin: 0; font-size: 24px; letter-spacing: -.035em; font-weight: 800; }
+  .sechead em { font-style: normal; font-size: 13px; font-weight: 600; color: #8a97ab; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .tile { display: flex; flex-direction: column; text-decoration: none; color: #0b1424; background: #fff; border: 1px solid #e3e8ef; border-radius: 12px; padding: 18px 18px 16px; transition: border-color .15s, box-shadow .15s, transform .15s; }
+  a.tile:hover { border-color: var(--tag); box-shadow: 0 10px 24px rgba(16,29,48,.08); transform: translateY(-2px); }
+  .tile h3 { font-size: 15.5px; font-weight: 700; letter-spacing: -.01em; margin: 0 0 6px; }
+  .tile p { font-size: 13.5px; line-height: 1.5; color: #5b6b7f; margin: 0 0 14px; }
+  .tile span { margin-top: auto; font-size: 13px; font-weight: 600; color: var(--label); }
+  .tile.soon { background: #fbfcfd; }
+  .tile.soon span { color: #8a97ab; }
+  .more { margin-top: 14px; font: 600 14px Inter, Arial; color: var(--label); background: none; border: 0; padding: 0; cursor: pointer; }
+  #none { display: none; padding: 50px 0 0; color: #5b6b7f; font-size: 16px; }
+  #none button { font: inherit; color: var(--label); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+  footer { text-align: center; color: #8a97ab; font-size: 13px; padding: 60px 0 50px; }
+
+  @media (max-width: 900px) { .hero-in { grid-template-columns: 1fr; } .art { display: none; } .fgrid, .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .fgrid, .grid { grid-template-columns: 1fr; } .crumb { display: none; } .hero-in { padding: 30px 0 46px; } }
+</style>
 </head>
 <body>
-<header class="hero" id="hero">
+<header class="fh">
   <div class="wrap">
-    <a class="back" href="index.html">← All tools</a>
+    <nav class="nav">
+      <div class="navl">
+        <a class="brand" href="index.html"><i></i>OEMS</a>
+        <div class="crumb"><a href="index.html">Tools</a> &nbsp;/&nbsp; <b id="crumb"></b></div>
+      </div>
+      <a class="home" href="https://www.oemsgroup.com">oemsgroup.com ↗</a>
+    </nav>
     <div class="hero-in">
       <div>
-        <div class="tag" id="tag"></div>
+        <div class="pill"><i></i><span id="pill"></span></div>
         <h1 id="title"></h1>
-        <p id="blurb"></p>
-        <input id="search" type="search" placeholder="Search these tools">
+        <p class="lede" id="blurb"></p>
+        <div class="sbox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="search" type="search" autocomplete="off">
+        </div>
         <div id="count"></div>
       </div>
       <div class="art" id="art" aria-hidden="true"></div>
     </div>
   </div>
 </header>
+<nav class="topics"><div class="wrap" id="topics"></div></nav>
 <div class="wrap">
-  <main>
-    <div id="list"></div>
-    <p id="none">No tools match. <button id="clear">Clear search</button></p>
-  </main>
+  <section class="featured" id="featured">
+    <div class="eyebrow">Start here</div>
+    <h2>Featured tools</h2>
+    <div class="fgrid" id="fgrid"></div>
+  </section>
+  <div id="secs"></div>
+  <p id="none">No tools match. <button id="clear">Clear search</button></p>
 </div>
+<footer>Built by OEMS · Occupational Exposure Management Systems</footer>
 <script src="tools.js"></script>
 <script src="groups.js"></script>
 <script>
   const slug = new URLSearchParams(location.search).get('g');
   const key = Object.keys(GROUPS).find(k => GROUPS[k].slug === slug) || 'IH';
-  const g = GROUPS[key], c = g.colors;
+  const g = GROUPS[key], th = g.theme;
+  const fieldName = key === 'IH' ? 'Industrial Hygiene' : key;
   const tools = TOOLS.filter(t => t.group === key);
+  const cats = [...new Set(tools.map(t => t.category))];
   const search = document.getElementById('search');
+  const SHOW = 6;
+  let topic = 'All';
+  const expanded = new Set();
 
-  document.title = 'OEMS ' + (key === 'IH' ? 'Industrial Hygiene' : key) + ' Tools';
-  document.getElementById('hero').style.background = c.bg;
-  document.getElementById('tag').textContent = g.tag;
-  document.getElementById('tag').style.color = c.tag;
-  document.getElementById('title').innerHTML = '<span>' + esc(g.title[0]) + '</span><span style="color:' + c.line2 + '">' + esc(g.title[1]) + '</span>';
+  // Theme
+  const root = document.documentElement.style;
+  Object.entries(th).forEach(([k, v]) => root.setProperty('--' + k, v));
+  root.setProperty('--grid', th.tag + '12');
+
+  document.title = 'OEMS ' + fieldName + ' Tools';
+  document.getElementById('crumb').textContent = fieldName;
+  document.getElementById('pill').textContent = tools.length + ' ' + g.noun + ' tools';
+  document.getElementById('title').innerHTML = esc(g.title[0]) + '<span>' + esc(g.title[1]) + '</span>';
   document.getElementById('blurb').textContent = g.blurb;
-  document.getElementById('blurb').style.color = c.text;
   document.getElementById('art').innerHTML = g.art;
-  document.getElementById('count').style.color = c.line2;
+  search.placeholder = 'Search ' + g.noun + ' tools…';
+
+  // Featured
+  const feat = g.featured.map(n => tools.find(t => t.name === n)).filter(Boolean);
+  document.getElementById('fgrid').classList.toggle('one', feat.length === 1);
+  document.getElementById('fgrid').innerHTML = feat.map(t =>
+    '<a class="fcard" href="' + esc(t.url) + '"><div class="ic">' + icon(t.category, th.tag) + '</div><small>' + esc(t.category.toUpperCase()) + '</small><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 120)) + '</p><div class="go">Open tool →</div></a>').join('');
+
+  function clip(s, n) { return s.length > n ? s.slice(0, n - 3).trim() + '…' : s; }
+
+  function tile(t) {
+    return t.url
+      ? '<a class="tile" href="' + esc(t.url) + '"><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 110)) + '</p><span>Open →</span></a>'
+      : '<div class="tile soon"><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 110)) + '</p><span>Coming soon</span></div>';
+  }
+
+  function renderTopics() {
+    document.getElementById('topics').innerHTML = ['All', ...cats].map(c => {
+      const n = c === 'All' ? tools.length : tools.filter(t => t.category === c).length;
+      return '<button data-c="' + esc(c) + '"' + (c === topic ? ' class="on"' : '') + '>' + esc(c) + ' <em>' + n + '</em></button>';
+    }).join('');
+  }
 
   function render() {
     const q = search.value.trim();
-    const found = tools.filter(t => matches(t, q));
-    const cats = [...new Set(found.map(t => t.category))];
-    document.getElementById('list').innerHTML = cats.map(cat =>
-      '<h2 style="color:' + c.label + '">' + esc(cat) + '</h2>' +
-      found.filter(t => t.category === cat).map(t => toolRow(t, false)).join('')
-    ).join('');
+    const searching = !!q;
+    const found = tools.filter(t => matches(t, q) && (topic === 'All' || t.category === topic));
+    const showCats = cats.filter(c => found.some(t => t.category === c));
+    document.getElementById('featured').hidden = searching || topic !== 'All' || !feat.length;
+    document.getElementById('secs').innerHTML = showCats.map(c => {
+      const list = found.filter(t => t.category === c);
+      const all = searching || topic !== 'All' || expanded.has(c);
+      const shown = all ? list : list.slice(0, SHOW);
+      return '<section class="sec"><div class="sechead"><div class="ic">' + icon(c, th.label) + '</div><h2>' + esc(c) + '</h2><em>' + list.length + ' tool' + (list.length === 1 ? '' : 's') + '</em></div>' +
+        '<div class="grid">' + shown.map(tile).join('') + '</div>' +
+        (!all && list.length > SHOW ? '<button class="more" data-more="' + esc(c) + '">Show all ' + list.length + ' ' + esc(c.toLowerCase()) + ' tools ↓</button>' : '') + '</section>';
+    }).join('');
     document.getElementById('none').style.display = found.length ? 'none' : 'block';
-    document.getElementById('count').textContent = q ? found.length + ' of ' + tools.length + ' tools' : tools.length + ' tools';
+    document.getElementById('count').textContent = searching ? found.length + ' of ' + tools.length + ' tools' : '';
   }
 
+  document.getElementById('topics').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    topic = b.dataset.c; renderTopics(); render();
+    window.scrollTo({ top: document.querySelector('.topics').offsetTop, behavior: 'smooth' });
+  });
+  document.getElementById('secs').addEventListener('click', e => {
+    const b = e.target.closest('[data-more]'); if (!b) return;
+    expanded.add(b.dataset.more); render();
+  });
   search.addEventListener('input', render);
-  document.getElementById('clear').addEventListener('click', () => { search.value = ''; render(); search.focus(); });
+  document.getElementById('clear').addEventListener('click', () => { search.value = ''; topic = 'All'; renderTopics(); render(); search.focus(); });
+  renderTopics();
   render();
 </script>
 </body>

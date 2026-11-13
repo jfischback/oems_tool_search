@@ -6,6 +6,9 @@ const GROUPS = {
     tag: "OEMS · PRACTICAL TOOLS",
     title: ["Industrial hygiene.", "Made practical."],
     blurb: "Tools to support clearer decisions about workplace exposures and controls.",
+    theme: { hero: "#070d18", bg: "#101d30", deep: "#2c5f99", tag: "#77baff", line2: "#9da2aa", label: "#1761a8", glow: "rgba(56,132,255,.35)", iconbg: "#e8f1fb", fstart: "#13243d" },
+    featured: ["Noise Exposure Calculator", "Laser Hazard Evaluation", "Respirator Selection Tool"],
+    noun: "industrial hygiene",
     colors: { bg: "#101d30", tag: "#77baff", line2: "#9da2aa", text: "#d0d9e4", button: "#153d74", label: "#1761a8", border: "#dbe3ec" },
     art: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none">
 <defs>
@@ -27,6 +30,9 @@ const GROUPS = {
     tag: "OEMS · ENVIRONMENTAL TOOLS",
     title: ["Environmental compliance.", "Made easy."],
     blurb: "Tools to support clearer decisions about emissions, discharges, and environmental compliance.",
+    theme: { hero: "#06120d", bg: "#0f2a1f", deep: "#2f7a52", tag: "#6fdc9c", line2: "#9fb0a7", label: "#2f7a52", glow: "rgba(111,220,156,.28)", iconbg: "#e6f4ec", fstart: "#163a2b" },
+    featured: ["Environmental Compliance Checker"],
+    noun: "environmental",
     colors: { bg: "#0f2a1f", tag: "#6fdc9c", line2: "#9fb0a7", text: "#d2e4da", button: "#1f5c3d", label: "#2f7a52", border: "#d6e6dc" },
     art: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none">
 <defs>
@@ -52,6 +58,9 @@ const GROUPS = {
     tag: "OEMS · SAFETY TOOLS",
     title: ["Workplace safety.", "Made clear."],
     blurb: "Tools to support better decisions about injury rates, fall protection, and lifting.",
+    theme: { hero: "#120708", bg: "#2a1012", deep: "#8f1d1d", tag: "#ff8a80", line2: "#b5a3a3", label: "#b3261e", glow: "rgba(255,138,128,.28)", iconbg: "#fdeceb", fstart: "#3a1719" },
+    featured: [],
+    noun: "safety",
     colors: { bg: "#2a1012", tag: "#ff8a80", line2: "#b5a3a3", text: "#ecd9d8", button: "#8f1d1d", label: "#b3261e", border: "#ecd6d6" },
     art: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none">
 <defs>
@@ -66,6 +75,27 @@ const GROUPS = {
 </svg>`
   }
 };
+
+// Section icons, taken from the category cards on the OEMS Squarespace pages.
+const ICONS = {
+  "Noise": '<path d="M2 12h2l2-5 3 10 3-14 3 14 3-10 2 5h2"/>',
+  "Ventilation": '<path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16a3 3 0 1 1-3 3"/><path d="M3 16h7"/>',
+  "Respiratory Protection": '<path d="M5 9c0-3 3-5 7-5s7 2 7 5v3c0 4-3 7-7 7s-7-3-7-7z"/><circle cx="9" cy="14" r="1.5"/><circle cx="15" cy="14" r="1.5"/><path d="M5 10H3M19 10h2"/>',
+  "Radiation": '<circle cx="12" cy="12" r="2"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M4.9 4.9a10 10 0 0 0 0 14.2M19.1 4.9a10 10 0 0 1 0 14.2"/>',
+  "Lasers": '<circle cx="4" cy="12" r="2"/><path d="M6 12h12"/><path d="M20 9v6M17.5 10l5 4M17.5 14l5-4"/>',
+  "Conversions": '<path d="M4 8h14l-3-3M20 16H6l3 3"/>',
+  "Exposure Assessment": '<path d="M3 3v18h18"/><path d="M3 8h18" stroke-dasharray="2 3"/><path d="M6 17l4-5 3 3 5-7"/>',
+  "Compliance": '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/>',
+  "Air Emissions": '<path d="M2 21h20"/><path d="M4 21V11l5 3v-3l5 3V7h4v14"/><path d="M15 4c0-1.1.9-2 2-2s2 .9 2 2"/>',
+  "Greenhouse Gas & Refrigerant": '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>',
+  "Water & Spill Prevention": '<path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/>',
+  "Waste & Chemical Reporting": '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/>',
+  "Injury & Illness Rates": '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
+  "Fall Protection": '<circle cx="12" cy="4" r="2"/><path d="M12 6v6"/><path d="M8 9h8"/><path d="M12 12l-3 5"/><path d="M12 12l3 5"/><path d="M4 21h16"/>',
+  "Lifting & Rigging": '<path d="M12 2v4"/><path d="M9 6h6"/><path d="M12 6l-7 9"/><path d="M12 6l7 9"/><rect x="4" y="15" width="16" height="6" rx="1"/>',
+  "Recordkeeping": '<path d="M9 4h6l1 2h3v15H5V6h3z"/><path d="M9 14l2 2 4-4"/>'
+};
+function icon(cat, color) { return '<svg viewBox="0 0 24 24" fill="none" stroke="' + color + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[cat] || '') + '</svg>'; }
 
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
