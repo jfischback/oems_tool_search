@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OEMS Tools</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #14243a; background: #f5f7fa; }
+  header { background: #101d30; color: #fff; padding: 40px 8% 32px; }
+  header small { color: #77baff; letter-spacing: .16em; font-size: 12px; font-weight: bold; }
+  header h1 { margin: 8px 0 6px; font-size: 32px; color: #f5f5f7; }
+  header p { margin: 0 0 22px; color: #d0d9e4; }
+  #search { width: 100%; max-width: 640px; font-size: 17px; padding: 14px 16px; border: 0; border-radius: 8px; }
+  #search:focus { outline: 3px solid #77baff; }
+  #count { margin-top: 10px; color: #9da2aa; font-size: 14px; }
+  main { padding: 28px 8% 60px; max-width: 1100px; }
+  h2 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #1761a8; margin: 30px 0 10px; }
+  .row { display: flex; align-items: center; gap: 20px; background: #fff; border: 1px solid #e2e7ee; border-radius: 8px; padding: 14px 18px; margin-bottom: 8px; }
+  .row div { flex: 1; min-width: 0; }
+  .row h3 { margin: 0 0 4px; font-size: 16px; }
+  .row p { margin: 0; color: #536579; font-size: 14px; line-height: 1.45; }
+  .row a { flex: 0 0 auto; background: #183d72; color: #fff; text-decoration: none; font-weight: bold; font-size: 14px; padding: 10px 16px; border-radius: 4px; }
+  .row a:hover { background: #1761a8; }
+  #none { display: none; color: #536579; }
+  #none button { background: none; border: 0; color: #1761a8; font-size: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
+  @media (max-width: 600px) { .row { flex-direction: column; align-items: flex-start; } }
+</style>
+</head>
+<body>
+<header>
+  <small>OEMS · PRACTICAL TOOLS</small>
+  <h1>Tool Library</h1>
+  <p>Search every OEMS tool, or browse by category below.</p>
+  <input id="search" type="search" placeholder="Search tools (e.g. noise dose, laser, ventilation)" autofocus>
+  <div id="count"></div>
+</header>
+<main>
+  <div id="list"></div>
+  <p id="none">No tools match. <button id="clear">Clear search</button></p>
+</main>
+<script src="tools.js"></script>
+<script>
+  const list = document.getElementById('list');
+  const search = document.getElementById('search');
+  const count = document.getElementById('count');
+  const none = document.getElementById('none');
+
+  function esc(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+  function render() {
+    const words = search.value.toLowerCase().split(/\s+/).filter(Boolean);
+    const matches = TOOLS.filter(t => {
+      const text = (t.name + ' ' + t.description + ' ' + t.category + ' ' + t.keywords).toLowerCase();
+      return words.every(w => text.includes(w));
+    });
+    const categories = [...new Set(matches.map(t => t.category))];
+    list.innerHTML = categories.map(cat =>
+      '<h2>' + esc(cat) + '</h2>' +
+      matches.filter(t => t.category === cat).map(t =>
+        '<div class="row"><div><h3>' + esc(t.name) + '</h3><p>' + esc(t.description) + '</p></div>' +
+        '<a href="' + esc(t.url) + '">Open →</a></div>'
+      ).join('')
+    ).join('');
+    count.textContent = words.length ? matches.length + ' of ' + TOOLS.length + ' tools' : TOOLS.length + ' tools';
+    none.style.display = matches.length ? 'none' : 'block';
+  }
+
+  search.addEventListener('input', render);
+  document.getElementById('clear').addEventListener('click', () => { search.value = ''; render(); search.focus(); });
+  render();
+</script>
+</body>
+</html>
