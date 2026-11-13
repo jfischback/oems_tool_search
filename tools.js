@@ -4,6 +4,7 @@
 // "keywords" is optional: extra words people might search for (separate with spaces).
 
 const TOOLS = [
+  { group: "IH", category: "Noise", name: "Noise Exposure and Employee Notification", description: "Calculate the noise exposure (8-hour TWA, dose, time allowed, task dose), then produce the employee notification of the result. Combines the Noise Exposure Calculator and the Noise Sampling Notification Template as two steps on one page.", url: "https://noise.oemsgroup.com/noise_exposure_and_notification", keywords: "combined" },
   { group: "IH", category: "Noise", name: "Sound Pressure Level from Sound Power Level (feet or meters)", description: "Estimate sound pressure level at a distance from a source's sound power level, with the distance in feet or meters. Combines the feet and meters calculators on one page.", url: "https://noise.oemsgroup.com/lp_from_lw_calculator", keywords: "combined" },
   { group: "IH", category: "Noise", name: "Sound Pressure, Intensity and Power Level", description: "Convert sound pressure, sound intensity or sound power to its level in decibels, and back. Combines the three level calculators on one page.", url: "https://noise.oemsgroup.com/sound_levels_calculator", keywords: "combined" },
   { group: "IH", category: "Noise", name: "Octave Band Frequencies", description: "Octave band and one-third octave band upper frequencies and the band center frequency, on one page.", url: "https://noise.oemsgroup.com/octave_bands_calculator", keywords: "combined" },
@@ -68,6 +69,7 @@ const TOOLS = [
   { group: "IH", category: "Ventilation", name: "Steady-State Concentration", description: "Calculate the equilibrium room concentration from generation rate and airflow.", url: "https://ventilation.oemsgroup.com/steady_state_concentration/", keywords: "" },
   { group: "IH", category: "Ventilation", name: "Hummel Generation Rate", description: "Estimate a contaminant generation rate using the Hummel method.", url: "https://ventilation.oemsgroup.com/hummel_generation_rate/", keywords: "" },
 
+  { group: "IH", category: "Respiratory Protection", name: "Respirator Protection Tool", description: "Respirator selection, the assigned protection factor check and the maximum use concentration on one page. Combines the Respirator Selection Tool, the APF Calculator and the MUC Calculator.", url: "", keywords: "combined" },
   { group: "IH", category: "Respiratory Protection", name: "Maximum Use Concentration (MUC) Calculator", description: "Calculate the maximum use concentration for a respirator from its assigned protection factor and the occupational exposure limit.", url: "https://muccalculator.oemsgroup.com/", keywords: "" },
   { group: "IH", category: "Respiratory Protection", name: "Assigned Protection Factor Calculator", description: "Determine the assigned protection factor for a respirator type.", url: "https://apfcalculator.oemsgroup.com/", keywords: "" },
   { group: "IH", category: "Respiratory Protection", name: "Respirator Selection Tool", description: "Select an appropriate respirator for a workplace hazard and exposure level.", url: "https://respiratorselection.oemsgroup.com/", keywords: "" },
