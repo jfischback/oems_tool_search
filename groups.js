@@ -85,6 +85,7 @@ const ICONS = {
   "Lasers": '<circle cx="4" cy="12" r="2"/><path d="M6 12h12"/><path d="M20 9v6M17.5 10l5 4M17.5 14l5-4"/>',
   "Conversions": '<path d="M4 8h14l-3-3M20 16H6l3 3"/>',
   "Exposure Assessment": '<path d="M3 3v18h18"/><path d="M3 8h18" stroke-dasharray="2 3"/><path d="M6 17l4-5 3 3 5-7"/>',
+  "Statistics": '<path d="M3 3v18h18"/><path d="M7 16v-4"/><path d="M12 16V8"/><path d="M17 16v-7"/>',
   "Compliance": '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/>',
   "Air Emissions": '<path d="M2 21h20"/><path d="M4 21V11l5 3v-3l5 3V7h4v14"/><path d="M15 4c0-1.1.9-2 2-2s2 .9 2 2"/>',
   "Greenhouse Gas & Refrigerant": '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>',
