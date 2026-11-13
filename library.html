@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OEMS Tools</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero" id="hero">
+  <div class="wrap">
+    <a class="back" href="index.html">← All tools</a>
+    <div class="hero-in">
+      <div>
+        <div class="tag" id="tag"></div>
+        <h1 id="title"></h1>
+        <p id="blurb"></p>
+        <input id="search" type="search" placeholder="Search these tools">
+        <div id="count"></div>
+      </div>
+      <div class="art" id="art" aria-hidden="true"></div>
+    </div>
+  </div>
+</header>
+<div class="wrap">
+  <main>
+    <div id="list"></div>
+    <p id="none">No tools match. <button id="clear">Clear search</button></p>
+  </main>
+</div>
+<script src="tools.js"></script>
+<script src="groups.js"></script>
+<script>
+  const slug = new URLSearchParams(location.search).get('g');
+  const key = Object.keys(GROUPS).find(k => GROUPS[k].slug === slug) || 'IH';
+  const g = GROUPS[key], c = g.colors;
+  const tools = TOOLS.filter(t => t.group === key);
+  const search = document.getElementById('search');
+
+  document.title = 'OEMS ' + (key === 'IH' ? 'Industrial Hygiene' : key) + ' Tools';
+  document.getElementById('hero').style.background = c.bg;
+  document.getElementById('tag').textContent = g.tag;
+  document.getElementById('tag').style.color = c.tag;
+  document.getElementById('title').innerHTML = '<span>' + esc(g.title[0]) + '</span><span style="color:' + c.line2 + '">' + esc(g.title[1]) + '</span>';
+  document.getElementById('blurb').textContent = g.blurb;
+  document.getElementById('blurb').style.color = c.text;
+  document.getElementById('art').innerHTML = g.art;
+  document.getElementById('count').style.color = c.line2;
+
+  function render() {
+    const q = search.value.trim();
+    const found = tools.filter(t => matches(t, q));
+    const cats = [...new Set(found.map(t => t.category))];
+    document.getElementById('list').innerHTML = cats.map(cat =>
+      '<h2 style="color:' + c.label + '">' + esc(cat) + '</h2>' +
+      found.filter(t => t.category === cat).map(t => toolRow(t, false)).join('')
+    ).join('');
+    document.getElementById('none').style.display = found.length ? 'none' : 'block';
+    document.getElementById('count').textContent = q ? found.length + ' of ' + tools.length + ' tools' : tools.length + ' tools';
+  }
+
+  search.addEventListener('input', render);
+  document.getElementById('clear').addEventListener('click', () => { search.value = ''; render(); search.focus(); });
+  render();
+</script>
+</body>
+</html>
