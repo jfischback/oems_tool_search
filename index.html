@@ -17,6 +17,10 @@
   </div>
 </header>
 <div class="wrap">
+  <section class="intro" id="intro">
+    <h2>Built for the work you actually do.</h2>
+    <p><span id="total"></span> practical tools for industrial hygienists, environmental professionals, and safety teams, from noise dose and capture velocity to SPCC containment and sling tension. Pick a field below, or search above if you already know what you need.</p>
+  </section>
   <section class="groups" id="groups"></section>
   <main id="results" hidden>
     <div id="list"></div>
@@ -41,9 +45,12 @@
       '</a>';
   }).join('');
 
+  document.getElementById('total').textContent = TOOLS.length;
+
   function render() {
     const q = search.value.trim();
     document.getElementById('groups').hidden = !!q;
+    document.getElementById('intro').hidden = !!q;
     document.getElementById('results').hidden = !q;
     if (!q) { count.textContent = TOOLS.length + ' tools'; return; }
     const found = TOOLS.filter(t => matches(t, q));
