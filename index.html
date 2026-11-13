@@ -4,20 +4,104 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OEMS Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  body { background: #f6f7f9; }
+  .sv { font-family: Inter, Arial, sans-serif; }
+
+  /* Hero */
+  .hero-x { position: relative; overflow: hidden; background: #070d18; color: #fff; }
+  .hero-x::before { content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(119,186,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(119,186,255,.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, #000 30%, transparent 75%);
+            mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, #000 30%, transparent 75%); }
+  .hero-x::after { content: ""; position: absolute; width: 900px; height: 900px; left: 50%; top: -520px; transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(56,132,255,.35) 0%, rgba(111,220,156,.10) 35%, rgba(255,138,128,.06) 55%, transparent 70%); pointer-events: none; }
+  .hero-x .wrap { position: relative; z-index: 1; }
+
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 800; letter-spacing: .02em; font-size: 18px; }
+  .brand i { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, #77baff, #2c5f99); box-shadow: 0 0 18px rgba(119,186,255,.5); }
+  .brand span { color: #8a97ab; font-weight: 500; font-size: 14px; letter-spacing: 0; }
+  .nav a.home { color: #c7d2e0; text-decoration: none; font-size: 14px; font-weight: 500; padding: 8px 14px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; background: rgba(255,255,255,.04); transition: background .15s, border-color .15s; }
+  .nav a.home:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.28); color: #fff; }
+
+  .hero-body { text-align: center; padding: 70px 0 84px; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; color: #c7d2e0; padding: 7px 14px 7px 10px; border-radius: 999px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); }
+  .pill b { display: inline-flex; gap: 4px; }
+  .pill b i { width: 7px; height: 7px; border-radius: 50%; }
+  .hero-x h1 { font-size: clamp(42px, 6vw, 76px); line-height: 1.02; letter-spacing: -.045em; font-weight: 800; margin: 26px auto 18px; max-width: 900px; }
+  .hero-x h1 em { font-style: normal; background: linear-gradient(90deg, #77baff 0%, #6fdc9c 50%, #ff8a80 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { color: #9aa8bb; font-size: 19px; line-height: 1.6; max-width: 620px; margin: 0 auto 38px; }
+
+  .searchbox { position: relative; max-width: 680px; margin: 0 auto; }
+  .searchbox::before { content: ""; position: absolute; inset: -1px; border-radius: 17px; padding: 1px;
+    background: linear-gradient(90deg, rgba(119,186,255,.7), rgba(111,220,156,.5), rgba(255,138,128,.5));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: .55; transition: opacity .2s; }
+  .searchbox:focus-within::before { opacity: 1; }
+  .searchbox svg { z-index: 2; position: absolute; left: 22px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: #8a97ab; }
+  .searchbox kbd { z-index: 2; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font: 600 12px Inter, Arial; color: #8a97ab; border: 1px solid rgba(255,255,255,.18); border-radius: 6px; padding: 3px 8px; }
+  .hero-x #search { width: 100%; max-width: none; font: 500 18px Inter, Arial, sans-serif; color: #fff; padding: 20px 60px 20px 56px; border-radius: 16px; border: 0;
+    background: rgba(255,255,255,.06); backdrop-filter: blur(12px); box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+  .hero-x #search::placeholder { color: #7d8aa0; }
+  .hero-x #search:focus { outline: none; background: rgba(255,255,255,.09); }
+  .hero-x #search::-webkit-search-cancel-button { filter: invert(1); opacity: .6; }
+
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 20px; }
+  .chips span { color: #7d8aa0; font-size: 13px; padding: 6px 4px; }
+  .chips button { font: 500 13px Inter, Arial; color: #c7d2e0; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 6px 13px; cursor: pointer; transition: all .15s; }
+  .chips button:hover { color: #fff; border-color: rgba(119,186,255,.6); background: rgba(119,186,255,.12); }
+
+  .stats { display: flex; justify-content: center; gap: 46px; margin-top: 54px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,.08); max-width: 680px; margin-left: auto; margin-right: auto; }
+  .stats div { text-align: center; }
+  .stats strong { display: block; font-size: 28px; font-weight: 700; letter-spacing: -.02em; }
+  .stats small { color: #7d8aa0; font-size: 13px; font-weight: 500; }
+
+  /* Intro */
+  .intro { padding: 72px 0 0; max-width: 720px; }
+  .eyebrow { font: 700 12px Inter, Arial; letter-spacing: .14em; color: #1761a8; text-transform: uppercase; }
+  .intro h2 { font: 800 36px/1.1 Inter, Arial, sans-serif; letter-spacing: -.035em; color: #0b1424; margin: 12px 0 14px; }
+  .intro p { font: 400 17px/1.65 Inter, Arial, sans-serif; color: #5b6b7f; }
+  .groups { padding-top: 34px; }
+
+  /* Results */
+  #results { padding-top: 30px; }
+  #count { text-align: center; color: #7d8aa0; font: 500 13px Inter, Arial; margin-top: 14px; min-height: 18px; }
+
+  footer.sv { text-align: center; color: #8a97ab; font-size: 13px; padding: 10px 0 50px; }
+
+  @media (max-width: 700px) { .stats { gap: 22px; } .stats strong { font-size: 22px; } .hero-body { padding: 40px 0 56px; } .searchbox kbd { display: none; } }
+</style>
 </head>
 <body>
-<header class="top">
+<header class="hero-x sv">
   <div class="wrap">
-    <small>OEMS · PRACTICAL TOOLS</small>
-    <h1>Tool Library</h1>
-    <p>Search every OEMS tool, or pick a category below.</p>
-    <input id="search" type="search" placeholder="Search tools (e.g. noise dose, laser, SPCC)" autofocus>
-    <div id="count"></div>
+    <nav class="nav">
+      <a class="brand" href="index.html"><i></i>OEMS <span>Tools</span></a>
+      <a class="home" href="https://www.oemsgroup.com">oemsgroup.com ↗</a>
+    </nav>
+    <div class="hero-body">
+      <div class="pill"><b><i style="background:#77baff"></i><i style="background:#6fdc9c"></i><i style="background:#ff8a80"></i></b>Industrial Hygiene · Environmental · Safety</div>
+      <h1>Every OEMS tool.<br><em>One search away.</em></h1>
+      <p class="lede">Practical calculators for exposures, emissions and workplace safety, built by an industrial hygienist for the people doing the work.</p>
+      <div class="searchbox">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="search" type="search" placeholder="Search tools: noise dose, capture velocity, SPCC…" autocomplete="off">
+        <kbd>/</kbd>
+      </div>
+      <div class="chips" id="chips"><span>Try:</span></div>
+      <div id="count"></div>
+      <div class="stats" id="stats"></div>
+    </div>
   </div>
 </header>
 <div class="wrap">
-  <section class="intro" id="intro">
+  <section class="intro sv" id="intro">
+    <div class="eyebrow">Browse by field</div>
     <h2>Built for the work you actually do.</h2>
     <p><span id="total"></span> practical tools for industrial hygienists, environmental professionals, and safety teams, from noise dose and capture velocity to SPCC containment and sling tension. Pick a field below, or search above if you already know what you need.</p>
   </section>
@@ -27,6 +111,7 @@
     <p id="none">No tools match. <button id="clear">Clear search</button></p>
   </main>
 </div>
+<footer class="sv">Built by OEMS · Occupational Exposure Management Systems</footer>
 <script src="tools.js"></script>
 <script src="groups.js"></script>
 <script>
@@ -47,12 +132,28 @@
 
   document.getElementById('total').textContent = TOOLS.length;
 
+  const live = TOOLS.filter(t => t.url).length;
+  const cats = new Set(TOOLS.map(t => t.group + t.category)).size;
+  document.getElementById('stats').innerHTML =
+    '<div><strong>' + TOOLS.length + '</strong><small>Tools</small></div>' +
+    '<div><strong>' + live + '</strong><small>Live now</small></div>' +
+    '<div><strong>' + cats + '</strong><small>Topics</small></div>' +
+    '<div><strong>3</strong><small>Fields</small></div>';
+
+  ['Noise dose', 'Capture velocity', 'SPCC', 'Laser NHZ', 'TRIR'].forEach(q => {
+    const b = document.createElement('button');
+    b.textContent = q;
+    b.onclick = () => { search.value = q; render(); search.focus(); };
+    document.getElementById('chips').appendChild(b);
+  });
+
   function render() {
     const q = search.value.trim();
     document.getElementById('groups').hidden = !!q;
     document.getElementById('intro').hidden = !!q;
     document.getElementById('results').hidden = !q;
-    if (!q) { count.textContent = TOOLS.length + ' tools'; return; }
+    document.getElementById('stats').hidden = !!q;
+    if (!q) { count.textContent = ''; return; }
     const found = TOOLS.filter(t => matches(t, q));
     document.getElementById('list').innerHTML = found.map(t => toolRow(t, true)).join('');
     document.getElementById('none').style.display = found.length ? 'none' : 'block';
@@ -60,6 +161,7 @@
   }
 
   search.addEventListener('input', render);
+  document.addEventListener('keydown', e => { if (e.key === '/' && document.activeElement !== search) { e.preventDefault(); search.focus(); } });
   document.getElementById('clear').addEventListener('click', () => { search.value = ''; render(); search.focus(); });
   render();
 </script>
