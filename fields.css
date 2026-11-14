@@ -325,3 +325,17 @@
   @media (max-width: 800px) { .pgrid2 { grid-template-columns: 1fr 1fr !important; } }
   @media (max-width: 600px) { .pgrid2 { grid-template-columns: 1fr !important; } }
   .bgrid.one { grid-template-columns: 1fr; max-width: 520px; }
+
+  /* Noise panel single tools row */
+  .nrow { display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 12px; align-items: stretch; }
+  .nall { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; text-decoration: none; font-size: 14px; font-weight: 700; color: var(--label); padding: 11px 6px 11px 10px; }
+  .nall i { font-style: normal; transition: transform .15s; }
+  .nall:hover i { transform: translateX(3px); }
+  @media (max-width: 900px) { .nrow { grid-template-columns: 1fr; } }
+  /* Back link to the guided assessment */
+  .guided { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 40px; padding: 16px 22px; border-radius: 14px; background: #fff; border: 1.5px solid var(--iconbg); text-decoration: none; color: #3b4a5e; font-size: 15px; transition: border-color .15s, box-shadow .15s; }
+  .guided b { color: var(--label); white-space: nowrap; }
+  .guided i { font-style: normal; display: inline-block; transition: transform .15s; }
+  .guided:hover { border-color: var(--label); box-shadow: 0 10px 24px rgba(16,29,48,.08); }
+  .guided:hover i { transform: translateX(3px); }
+  .guided + .bigsec { padding-top: 34px; }

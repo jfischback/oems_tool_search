@@ -234,10 +234,8 @@ function stepIcon(slug, color) { return '<svg viewBox="0 0 24 24" fill="none" st
 // Programs row on the IH home. Each opens a program page: featured tools in big cards, then all of the topic's tools.
 const PROGRAMS = {
   IH: [
-    { slug: "hearing", name: "Hearing Conservation", topic: "Noise", blurb: "Noise exposure, hearing protection, audiograms and employee notification.",
-      featured: ["Noise Exposure Assessment", "Hearing Protection Picker", "Standard Threshold Shift (STS) with Age Correction"],
-      assess: ["Noise Exposure Assessment", "Noise Exposure Calculator", "Noise Sampling Notification Template", "Standard Threshold Shift (STS) with Age Correction"],
-      control: ["Hearing Protection Picker", "Transmission Loss Calculator", "Sound Level Change with Distance"] },
+    { slug: "hearing", name: "Hearing Conservation", topic: "Noise", hidden: true, combined: true, guided: "Noise Exposure Assessment",
+      blurb: "Every noise tool: combined tools up top, single calculators below." },
     { slug: "respiratory", name: "Respiratory Protection", topic: "Respiratory Protection", blurb: "Respirator selection, assigned protection factors and maximum use concentrations.",
       featured: ["Respirator Selection Tool", "Maximum Use Concentration (MUC) Calculator", "Assigned Protection Factor Calculator"],
       assess: [],
@@ -286,9 +284,6 @@ function bigCard(t, o, th) {
 // Noise Exposure Assessment panel on the IH home (smaller than the chemical one). Each step lists its tools directly.
 const NOISE_FLOW = {
   guided: "Noise Exposure Assessment",
-  steps: [
-    { name: "Analyze", blurb: "Dosimeter results and audiograms.", tools: ["Noise Exposure Calculator", "Standard Threshold Shift (STS) with Age Correction"] },
-    { name: "Notify", blurb: "Tell the employee their result.", tools: ["Noise Sampling Notification Template"] },
-    { name: "Protect", blurb: "Check the hearing protection.", tools: ["Hearing Protection Picker"] }
-  ]
+  tools: ["Noise Exposure Calculator", "Noise Sampling Notification Template", "Hearing Protection Picker"],
+  all: "hearing"   // program page that lists every noise tool
 };

@@ -62,7 +62,7 @@
           <div class="nchain"><span><b>1</b>Analyze</span><i></i><span><b>2</b>Notify</span><i></i><span><b>3</b>Protect</span></div></div>
         <a class="nstart" id="nstart"></a>
       </div>
-      <div class="nsingle"><div class="nsl">Or use a single tool</div><div class="ngrid" id="ngrid"></div></div>
+      <div class="nsingle"><div class="nsl">Or use a single tool</div><div class="nrow" id="ngrid"></div></div>
     </div>
     <div class="progs" id="progs" hidden>
       <div class="progs-head"><h2>Programs</h2><p class="flow-dir">Everything for one program in one place.</p></div>
@@ -155,16 +155,15 @@
       const gt = TOOLS.find(t => t.name === NOISE_FLOW.guided);
       const ns = document.getElementById('nstart');
       if (gt && gt.url) { ns.href = gt.url; ns.innerHTML = 'Start a noise exposure assessment <i>→</i>'; } else { ns.outerHTML = '<span class="nstart soon">Coming soon</span>'; }
-      document.getElementById('ngrid').innerHTML = NOISE_FLOW.steps.map((st, i) =>
-        '<div class="nstep"><div class="ntop"><b>' + (i + 1) + '</b><h3>' + esc(st.name) + '</h3><span>' + esc(st.blurb) + '</span></div>' +
-        st.tools.map(n => TOOLS.find(t => t.name === n)).filter(Boolean).map(t => t.url
+      document.getElementById('ngrid').innerHTML = NOISE_FLOW.tools.map(n => TOOLS.find(t => t.name === n)).filter(Boolean).map(t => t.url
           ? '<a class="nlink" href="' + esc(t.url) + '"><span>' + esc(t.name) + '</span><i>→</i></a>'
-          : '<span class="nlink soon"><span>' + esc(t.name) + '</span><em>Coming soon</em></span>').join('') + '</div>').join('');
+          : '<span class="nlink soon"><span>' + esc(t.name) + '</span><em>Coming soon</em></span>').join('') +
+        '<a class="nall" href="topic.html?g=' + g.slug + '&p=' + NOISE_FLOW.all + '">See all noise tools <i>→</i></a>';
     }
     const progs = (typeof PROGRAMS !== 'undefined' && PROGRAMS[key]) || [];
     if (progs.length) {
       document.getElementById('progs').hidden = false;
-      document.getElementById('pgrid2').innerHTML = progs.map(pr => {
+      document.getElementById('pgrid2').innerHTML = progs.filter(pr => !pr.hidden).map(pr => {
         const all = TOOLS.filter(t => t.group === key && t.category === pr.topic && !isTucked(t));
         if (pr.tool) {
           const t = TOOLS.find(x => x.name === pr.tool);
