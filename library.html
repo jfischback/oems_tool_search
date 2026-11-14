@@ -52,7 +52,7 @@
   </section>
   <section class="flow" id="stepsSec" hidden>
     <div class="flow-panel">
-      <div class="flow-head"><h2>Chemical Exposure Assessment</h2><p class="flow-dir">Pick the step you are on to open its tools.</p></div>
+      <div class="flow-head"><h2>Chemical Exposure Assessment</h2><p class="flow-dir">Every step of a chemical exposure assessment, from the walkthrough to proving the controls work.</p></div>
       <div class="flow-rail" id="srail"></div>
       <div class="flow-steps" id="sgrid"></div>
     </div>
@@ -146,7 +146,7 @@
         '<div class="ftop"><span class="sic">' + stepIcon(st.slug, th.label) + '</span></div>' +
         '<small class="kick">' + esc(st.kicker || '') + '</small>' +
         '<h3>' + esc(st.name) + '</h3><p>' + esc(st.blurb) + '</p>' +
-        (st.features ? '<div class="feats">' + st.features.map(([n, line]) => { const ft = TOOLS.find(t => t.name === n); return '<div class="feat-i"><span class="fic">' + icon(ft ? ft.category : '', th.label) + '</span><div><strong>' + esc(n) + (ft && !ft.url ? ' <em>Coming soon</em>' : '') + '</strong><small>' + esc(line) + '</small></div></div>'; }).join('') + '</div>'
+        (st.features ? '<div class="feats">' + st.features.map(([n, cat]) => '<div class="feat-i"><span class="fic">' + icon(cat, th.label) + '</span><strong>' + esc(n) + '</strong></div>').join('') + '</div>'
           : '<ul class="inc">' + (st.includes || []).map(n => '<li>' + esc(n) + '</li>').join('') + '</ul>') +
         '<div class="meta">' + x.list.length + ' tool' + (x.list.length === 1 ? '' : 's') + (x.live < x.list.length ? ' · ' + (x.list.length - x.live) + ' coming soon' : '') + '</div>' +
         '<span class="btn">' + esc(st.cta || 'Open') + ' <i>→</i></span></a>';

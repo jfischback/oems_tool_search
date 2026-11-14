@@ -7,7 +7,7 @@ const GROUPS = {
     title: ["Industrial hygiene.", "Made practical."],
     blurb: "Tools to support clearer decisions about workplace exposures and controls.",
     theme: { hero: "#070d18", bg: "#101d30", deep: "#2c5f99", tag: "#77baff", line2: "#9da2aa", label: "#1761a8", glow: "rgba(56,132,255,.35)", iconbg: "#e8f1fb", fstart: "#13243d" },
-    featured: ["Non-Manufacturing Exposure Assessment", "Exposure Statistics Tool", "Sampling Plan Creator"],
+    featured: ["Non-Manufacturing Exposure Assessment", "Exposure Statistics Tool", "Sampling Plan Builder"],
     noun: "industrial hygiene",
     colors: { bg: "#101d30", tag: "#77baff", line2: "#9da2aa", text: "#d0d9e4", button: "#153d74", label: "#1761a8", border: "#dbe3ec" },
     art: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none">

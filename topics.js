@@ -147,7 +147,7 @@ function topicHref(group, cat) { return 'topic.html?g=' + GROUPS[group].slug + '
 const STEPS = {
   IH: [
     { slug: "assess", name: "Assess", kicker: "Exposure assessments", cta: "Start an assessment", includes: ["Manufacturing", "Non-manufacturing"],
-      features: [["Manufacturing Exposure Assessment", "Assess exposures at manufacturing sites"], ["Non-Manufacturing Exposure Assessment", "Assess exposures at non-manufacturing sites"]],
+      features: [["Manufacturing Exposure Assessment", "Exposure Assessment"], ["Non-Manufacturing Exposure Assessment", "Exposure Assessment"]],
       blurb: "Run a chemical exposure assessment and find out who is exposed, to what, and how much.",
       sections: [
         { name: "Chemical Exposure Assessment", items: ["Manufacturing Exposure Assessment", "Non-Manufacturing Exposure Assessment"] },
@@ -159,20 +159,20 @@ const STEPS = {
           options: [["Manufacturing", "Manufacturing Exposure Assessment"], ["Non-manufacturing", "Non-Manufacturing Exposure Assessment"]] }
       ] },
     { slug: "plan", name: "Plan", kicker: "Sampling plans", cta: "Plan sampling", includes: ["Sampling plans", "Exposure modeling"],
-      features: [["Sampling Plan Creator", "Builds your air sampling plan"], ["Room Concentration", "Models how a contaminant builds up and clears"]],
+      features: [["Sampling Plan Builder", "Exposure Assessment"], ["Room Concentration Models", "Ventilation"]],
       blurb: "Build a sampling plan and model expected exposures before you go to the field.",
       sections: [
-        { name: "Sampling", items: ["Sampling Plan Creator"] },
+        { name: "Sampling", items: ["Sampling Plan Builder"] },
         { name: "Exposure Modeling", items: ["Room Concentration", "Hummel Generation Rate", "Steady-State Concentration", "Concentration Buildup from Zero", "Concentration Buildup or Decay with Generation", "Purge"] }
       ] },
     { slug: "analyze", name: "Analyze", kicker: "Sampling results", cta: "Analyze results", includes: ["Exposure statistics", "OEL compliance call"],
-      features: [["Exposure Statistics Tool", "Runs the statistics and makes the call against the OEL"]],
+      features: [["Sampling Results Analyzer", "Statistics"]],
       blurb: "Run statistics on your sample results and make the call against the OEL.",
       sections: [
         { name: "Sampling Results", items: ["Exposure Statistics Tool"] }
       ] },
     { slug: "control", name: "Control", kicker: "Exposure controls", cta: "Choose controls", includes: ["Ventilation", "Confirm it's working"],
-      features: [["Capture Hood Airflow Calculator", "Sizes the airflow a hood needs"], ["Duct Airflow Basics", "Airflow, velocity and pressure in a duct"], ["Hood Pressure and Flow", "Confirms a hood is pulling what it should"]],
+      features: [["Ventilation Design and Testing", "Ventilation"]],
       blurb: "Design ventilation that brings exposures down, then confirm it is working.",
       sections: [
         { name: "Ventilation", topic: "Ventilation" },
