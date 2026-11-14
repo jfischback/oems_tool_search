@@ -145,21 +145,16 @@ function topicHref(group, cat) { return 'topic.html?g=' + GROUPS[group].slug + '
 // A tool listed by name in two steps (like Exposure Statistics Tool in Analyze and Control) shows in both.
 const STEPS = {
   IH: [
-    { slug: "assess", name: "Assess", kicker: "Exposure assessments", cta: "Start an assessment", includes: ["Chemical exposure", "Noise exposure"],
-      blurb: "Run a workplace exposure assessment and find out who is exposed, to what, and how much.",
+    { slug: "assess", name: "Assess", kicker: "Exposure assessments", cta: "Start an assessment", includes: ["Manufacturing", "Non-manufacturing"],
+      blurb: "Run a chemical exposure assessment and find out who is exposed, to what, and how much.",
       sections: [
         { name: "Chemical Exposure Assessment", items: ["Manufacturing Exposure Assessment", "Non-Manufacturing Exposure Assessment"] },
-        { name: "Noise", items: ["Noise Exposure and Employee Notification", "Noise Exposure Calculator"] }
       ],
       // The Assess page shows these as big "pick your assessment" cards
       cards: [
         { title: "Chemical Exposure Assessment", topic: "Exposure Assessment", kicker: "Exposure assessment",
           desc: "Assess airborne chemical exposures for a work setting. Pick the type of site.",
-          options: [["Manufacturing", "Manufacturing Exposure Assessment"], ["Non-manufacturing", "Non-Manufacturing Exposure Assessment"]] },
-        { tool: "Noise Exposure and Employee Notification", title: "Noise Exposure Assessment", topic: "Noise", kicker: "Exposure assessment",
-          desc: "Calculate each employee's noise exposure, then produce the notification of the result.",
-          outputs: ["8-hour TWA and percent dose", "Time allowed and task-by-task dose", "Employee notification of the result"],
-          also: "Noise Exposure Calculator" }
+          options: [["Manufacturing", "Manufacturing Exposure Assessment"], ["Non-manufacturing", "Non-Manufacturing Exposure Assessment"]] }
       ] },
     { slug: "plan", name: "Plan", kicker: "Sampling plans", cta: "Plan sampling", includes: ["Sampling plans", "Exposure modeling"],
       blurb: "Build a sampling plan and model expected exposures before you go to the field.",
@@ -167,10 +162,10 @@ const STEPS = {
         { name: "Sampling", items: ["Sampling Plan Creator"] },
         { name: "Exposure Modeling", items: ["Room Concentration", "Hummel Generation Rate", "Steady-State Concentration", "Concentration Buildup from Zero", "Concentration Buildup or Decay with Generation", "Purge"] }
       ] },
-    { slug: "analyze", name: "Analyze", kicker: "Sampling results", cta: "Analyze results", includes: ["Exposure statistics", "Employee notification"],
-      blurb: "Run statistics on your sample results, make the call against the OEL, and notify employees.",
+    { slug: "analyze", name: "Analyze", kicker: "Sampling results", cta: "Analyze results", includes: ["Exposure statistics", "OEL compliance call"],
+      blurb: "Run statistics on your sample results and make the call against the OEL.",
       sections: [
-        { name: "Sampling Results", items: ["Exposure Statistics Tool", "Noise Sampling Notification Template"] }
+        { name: "Sampling Results", items: ["Exposure Statistics Tool"] }
       ] },
     { slug: "control", name: "Control", kicker: "Exposure controls", cta: "Choose controls", includes: ["Ventilation", "Confirm it's working"],
       blurb: "Design ventilation that brings exposures down, then confirm it is working.",
@@ -239,13 +234,21 @@ function stepIcon(slug, color) { return '<svg viewBox="0 0 24 24" fill="none" st
 const PROGRAMS = {
   IH: [
     { slug: "hearing", name: "Hearing Conservation", topic: "Noise", blurb: "Noise exposure, hearing protection, audiograms and employee notification.",
-      featured: ["Noise Exposure and Employee Notification", "Hearing Protection Picker", "Standard Threshold Shift (STS) with Age Correction"] },
+      featured: ["Noise Exposure and Employee Notification", "Hearing Protection Picker", "Standard Threshold Shift (STS) with Age Correction"],
+      assess: ["Noise Exposure and Employee Notification", "Noise Exposure Calculator", "Noise Sampling Notification Template", "Standard Threshold Shift (STS) with Age Correction"],
+      control: ["Hearing Protection Picker", "Transmission Loss Calculator", "Sound Level Change with Distance"] },
     { slug: "respiratory", name: "Respiratory Protection", topic: "Respiratory Protection", blurb: "Respirator selection, assigned protection factors and maximum use concentrations.",
-      featured: ["Respirator Selection Tool", "Maximum Use Concentration (MUC) Calculator", "Assigned Protection Factor Calculator"] },
+      featured: ["Respirator Selection Tool", "Maximum Use Concentration (MUC) Calculator", "Assigned Protection Factor Calculator"],
+      assess: [],
+      control: ["Respirator Protection Tool", "Respirator Selection Tool", "Maximum Use Concentration (MUC) Calculator", "Assigned Protection Factor Calculator"] },
     { slug: "radiation", name: "Radiation", topic: "Radiation", blurb: "Shielding, decay and dose, RF antenna hazards and UV exposure.",
-      featured: ["Shielding Calculator HVL / TVL", "RF Antenna Hazard", "Radioactive Decay and Half-Life"] },
+      featured: ["Shielding Calculator HVL / TVL", "RF Antenna Hazard", "Radioactive Decay and Half-Life"],
+      assess: ["RF Antenna Hazard", "Gamma Dose Rate from a Point Source", "Dose Equivalent", "Dose Summation (TEDE)", "DAC from ALI", "RF Spatial Average", "RF Exposure Time Above the EL", "UV Permissible Exposure Time", "Radioactive Decay and Half-Life"],
+      control: ["Shielding Calculator HVL / TVL", "Inverse Square Law", "Shielding with Buildup Factor"] },
     { slug: "lasers", name: "Lasers", topic: "Lasers", blurb: "Laser hazard evaluation, hazard zones and laser eyewear.",
-      featured: ["Laser Hazard Evaluation", "Laser Eyewear Optical Density", "Laser NHZ, Direct Beam"] },
+      featured: ["Laser Hazard Evaluation", "Laser Eyewear Optical Density", "Laser NHZ, Direct Beam"],
+      assess: ["Laser Hazard Evaluation", "Laser NHZ, Direct Beam", "Laser NHZ, Lens on Laser", "Laser NHZ, Diffuse Reflection", "Ds (TL Form)", "Laser Beam Diameter at Distance"],
+      control: ["Laser Eyewear Optical Density"] },
     { slug: "heat", name: "Heat Illness Prevention", topic: "Heat", blurb: "Heat stress and heat illness prevention.", featured: [] }
   ]
 };
@@ -277,3 +280,13 @@ function bigCard(t, o, th) {
     '<p>' + esc(o.desc || t.description) + '</p>' + (outs ? '<ul class="inc">' + outs + '</ul>' : '') +
     '<div class="bfoot">' + btn + (also && also.url ? '<a class="balso" href="' + esc(also.url) + '">Or open the ' + esc(also.name) + ' on its own →</a>' : '') + '</div></div>';
 }
+
+// Noise Exposure Assessment panel on the IH home (smaller than the chemical one). Each step lists its tools directly.
+const NOISE_FLOW = [
+  { name: "Analyze", blurb: "Turn the dosimeter data into the 8-hour TWA and dose.",
+    tools: ["Noise Exposure and Employee Notification", "Noise Exposure Calculator"] },
+  { name: "Notify", blurb: "Give employees their results in a clear, visual format.",
+    tools: ["Noise Sampling Notification Template"] },
+  { name: "Protect", blurb: "Pick hearing protection and follow up on audiograms.",
+    tools: ["Hearing Protection Picker", "Standard Threshold Shift (STS) with Age Correction"] }
+];

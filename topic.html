@@ -83,7 +83,15 @@
     stepSections(key, step).forEach(x => groups.push([x.name, x.tools, x.eyebrow]));
   } else {
     const all = TOOLS.filter(t => t.group === key && t.category === cat);
-    if (info.subs) {
+    if (program && (program.assess || program.control)) {
+      const pick = names => (names || []).map(n => all.find(x => x.name === n)).filter(Boolean);
+      const a = pick(program.assess), c = pick(program.control);
+      const used = new Set([...a, ...c].map(x => x.name));
+      if (a.length) groups.push(['Assess', a, '']);
+      if (c.length) groups.push(['Control', c, '']);
+      const rest = all.filter(x => !used.has(x.name));
+      if (rest.length) groups.push(['Other ' + cat.toLowerCase() + ' tools', rest, '']);
+    } else if (info.subs) {
       const placed = new Set();
       for (const [name, names] of Object.entries(info.subs)) {
         const list = names.map(n => all.find(t => t.name === n)).filter(Boolean);
@@ -146,6 +154,7 @@
     document.getElementById('bigeye').textContent = 'Pick your assessment';
     document.getElementById('bigtitle').textContent = 'What are you assessing?';
     document.getElementById('bgrid').classList.toggle('two', step.cards.length === 2);
+    document.getElementById('bgrid').classList.toggle('one', step.cards.length === 1);
     document.getElementById('bgrid').innerHTML = step.cards.map(cd => bigCard(cd.tool ? TOOLS.find(t => t.name === cd.tool) : null, Object.assign({ cta: 'Start assessment' }, cd), th)).join('');
   } else if (program) {
     document.getElementById('bigeye').textContent = 'Featured';
@@ -169,7 +178,7 @@
     document.getElementById('none').style.display = 'none';
     document.getElementById('count').textContent = '';
     if (cardsOnly) { document.getElementById('secs').innerHTML = ''; document.getElementById('indiv').hidden = true; return; }
-    document.getElementById('secs').innerHTML = (program ? '<div class="allhead"><div class="eyebrow">Everything in this program</div><h2>All ' + esc(cat.toLowerCase()) + ' tools</h2></div>' : '') + groups.map(([name, list, eyebrow]) => {
+    document.getElementById('secs').innerHTML = (program ? '<div class="allhead"><div class="eyebrow">Everything in this program</div><h2>All tools</h2></div>' : '') + groups.map(([name, list, eyebrow]) => {
       const main = rank(list.filter(t => !isTucked(t)), '');
       if (!main.length) return '';
       return name ? section(name, main, eyebrow) : '<section class="sec"><div class="grid">' + main.map(tile).join('') + '</div></section>';
