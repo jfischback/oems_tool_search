@@ -285,3 +285,5 @@
   .prog.soon { background: #fbfcfd; cursor: default; }
   .prog.soon:hover { transform: none; border-color: #e3e8ef; box-shadow: none; }
   .soonpill { font-size: 12px; color: #8a97ab !important; background: #eef1f5; border-radius: 999px; padding: 4px 10px; }
+  .bgrid.two { grid-template-columns: 1fr 1fr; max-width: 920px; }
+  @media (max-width: 700px) { .bgrid.two { grid-template-columns: 1fr; } }

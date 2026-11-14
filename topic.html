@@ -145,7 +145,8 @@
   if (cardsOnly) {
     document.getElementById('bigeye').textContent = 'Pick your assessment';
     document.getElementById('bigtitle').textContent = 'What are you assessing?';
-    document.getElementById('bgrid').innerHTML = step.cards.map(cd => bigCard(TOOLS.find(t => t.name === cd.tool), Object.assign({ cta: 'Start assessment' }, cd), th)).join('');
+    document.getElementById('bgrid').classList.toggle('two', step.cards.length === 2);
+    document.getElementById('bgrid').innerHTML = step.cards.map(cd => bigCard(cd.tool ? TOOLS.find(t => t.name === cd.tool) : null, Object.assign({ cta: 'Start assessment' }, cd), th)).join('');
   } else if (program) {
     document.getElementById('bigeye').textContent = 'Featured';
     document.getElementById('bigtitle').textContent = 'Start here';

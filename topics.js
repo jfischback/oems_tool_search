@@ -145,17 +145,18 @@ function topicHref(group, cat) { return 'topic.html?g=' + GROUPS[group].slug + '
 // A tool listed by name in two steps (like Exposure Statistics Tool in Analyze and Control) shows in both.
 const STEPS = {
   IH: [
-    { slug: "assess", name: "Assess", kicker: "Exposure assessments", cta: "Start an assessment", includes: ["Manufacturing", "Non-manufacturing", "Noise"],
+    { slug: "assess", name: "Assess", kicker: "Exposure assessments", cta: "Start an assessment", includes: ["Chemical exposure", "Noise exposure"],
       blurb: "Run a workplace exposure assessment and find out who is exposed, to what, and how much.",
       sections: [
-        { name: "Exposure Assessments", items: ["Manufacturing Exposure Assessment", "Non-Manufacturing Exposure Assessment"] },
+        { name: "Chemical Exposure Assessment", items: ["Manufacturing Exposure Assessment", "Non-Manufacturing Exposure Assessment"] },
         { name: "Noise", items: ["Noise Exposure and Employee Notification", "Noise Exposure Calculator"] }
       ],
       // The Assess page shows these as big "pick your assessment" cards
       cards: [
-        { tool: "Manufacturing Exposure Assessment", title: "Manufacturing" },
-        { tool: "Non-Manufacturing Exposure Assessment", title: "Non-Manufacturing" },
-        { tool: "Noise Exposure and Employee Notification", title: "Noise", topic: "Noise", kicker: "Exposure assessment",
+        { title: "Chemical Exposure Assessment", topic: "Exposure Assessment", kicker: "Exposure assessment",
+          desc: "Assess airborne chemical exposures for a work setting. Pick the type of site.",
+          options: [["Manufacturing", "Manufacturing Exposure Assessment"], ["Non-manufacturing", "Non-Manufacturing Exposure Assessment"]] },
+        { tool: "Noise Exposure and Employee Notification", title: "Noise Exposure Assessment", topic: "Noise", kicker: "Exposure assessment",
           desc: "Calculate each employee's noise exposure, then produce the notification of the result.",
           outputs: ["8-hour TWA and percent dose", "Time allowed and task-by-task dose", "Employee notification of the result"],
           also: "Noise Exposure Calculator" }
@@ -171,16 +172,13 @@ const STEPS = {
       sections: [
         { name: "Sampling Results", items: ["Exposure Statistics Tool", "Noise Sampling Notification Template"] }
       ] },
-    { slug: "control", name: "Control", kicker: "Exposure controls", cta: "Choose controls", includes: ["Ventilation", "Shielding", "Respirators", "Hearing protection", "Confirm it's working"],
-      blurb: "Design the controls that bring exposures down, then confirm they are working.",
+    { slug: "control", name: "Control", kicker: "Exposure controls", cta: "Choose controls", includes: ["Ventilation", "Confirm it's working"],
+      blurb: "Design ventilation that brings exposures down, then confirm it is working.",
       sections: [
         { name: "Ventilation", topic: "Ventilation" },
-        { name: "Radiation Shielding", sub: ["Radiation", "Shielding"] },
-        { name: "Respiratory Protection", topic: "Respiratory Protection" },
-        { name: "Hearing Protection", items: ["Hearing Protection Picker"] },
         { name: "Confirm It's Working", items: ["Hood Pressure and Flow", "Exposure Statistics Tool"] }
       ] },
-    { slug: "tools", name: "Tools", blurb: "Reference calculators: noise math, radiation, lasers and unit conversions.", rest: true }
+    { slug: "tools", name: "Tools", blurb: "Every other IH calculator: noise, radiation, lasers, respiratory protection and unit conversions.", rest: true }
   ]
 };
 
@@ -255,6 +253,17 @@ const PROGRAMS = {
 // Big card used on the Assess page and for program featured tools
 function bigCard(t, o, th) {
   o = o || {};
+  if (!t && o.options) {
+    const opts = o.options.map(([label, name]) => [label, TOOLS.find(x => x.name === name)]).filter(x => x[1]);
+    const anyLive = opts.some(x => x[1].url);
+    return '<div class="bcard' + (anyLive ? '' : ' is-soon') + '">' +
+      '<span class="sic">' + icon(o.topic, th.label) + '</span>' +
+      '<small class="kick">' + esc(o.kicker || '') + '</small><h3>' + esc(o.title) + '</h3>' +
+      '<p>' + esc(o.desc || '') + '</p>' +
+      '<div class="bfoot">' + opts.map(([label, x]) => x.url
+        ? '<a class="bbtn" href="' + esc(x.url) + '">' + esc(label) + ' <i>→</i></a>'
+        : '<span class="bbtn soon">' + esc(label) + ' · Coming soon</span>').join('') + '</div></div>';
+  }
   if (!t) return '';
   const kick = o.kicker || t.category;
   const title = o.title || t.name;
