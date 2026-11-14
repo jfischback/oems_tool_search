@@ -62,7 +62,7 @@
           <div class="nchain"><span><b>1</b>Analyze</span><i></i><span><b>2</b>Notify</span><i></i><span><b>3</b>Protect</span></div></div>
         <a class="nstart" id="nstart"></a>
       </div>
-      <div class="nsingle"><div class="nsl">Or use a single tool</div><div class="nrow" id="ngrid"></div></div>
+      <div class="nsingle"><div class="nsl">Other noise tools</div><div class="nrow" id="ngrid"></div></div>
     </div>
     <div class="progs" id="progs" hidden>
       <div class="progs-head"><h2>Programs</h2><p class="flow-dir">Everything for one program in one place.</p></div>
@@ -146,7 +146,8 @@
         '<div class="ftop"><span class="sic">' + stepIcon(st.slug, th.label) + '</span></div>' +
         '<small class="kick">' + esc(st.kicker || '') + '</small>' +
         '<h3>' + esc(st.name) + '</h3><p>' + esc(st.blurb) + '</p>' +
-        '<ul class="inc">' + (st.includes || []).map(n => '<li>' + esc(n) + '</li>').join('') + '</ul>' +
+        (st.features ? '<div class="feats">' + st.features.map(([n, line]) => { const ft = TOOLS.find(t => t.name === n); return '<div class="feat-i"><span class="fic">' + icon(ft ? ft.category : '', th.label) + '</span><div><strong>' + esc(n) + (ft && !ft.url ? ' <em>Coming soon</em>' : '') + '</strong><small>' + esc(line) + '</small></div></div>'; }).join('') + '</div>'
+          : '<ul class="inc">' + (st.includes || []).map(n => '<li>' + esc(n) + '</li>').join('') + '</ul>') +
         '<div class="meta">' + x.list.length + ' tool' + (x.list.length === 1 ? '' : 's') + (x.live < x.list.length ? ' · ' + (x.list.length - x.live) + ' coming soon' : '') + '</div>' +
         '<span class="btn">' + esc(st.cta || 'Open') + ' <i>→</i></span></a>';
     }).join('');
@@ -155,10 +156,12 @@
       const gt = TOOLS.find(t => t.name === NOISE_FLOW.guided);
       const ns = document.getElementById('nstart');
       if (gt && gt.url) { ns.href = gt.url; ns.innerHTML = 'Start a noise exposure assessment <i>→</i>'; } else { ns.outerHTML = '<span class="nstart soon">Coming soon</span>'; }
-      document.getElementById('ngrid').innerHTML = NOISE_FLOW.tools.map(n => TOOLS.find(t => t.name === n)).filter(Boolean).map(t => t.url
-          ? '<a class="nlink" href="' + esc(t.url) + '"><span>' + esc(t.name) + '</span><i>→</i></a>'
-          : '<span class="nlink soon"><span>' + esc(t.name) + '</span><em>Coming soon</em></span>').join('') +
-        '<a class="nall" href="topic.html?g=' + g.slug + '&p=' + NOISE_FLOW.all + '">See all noise tools <i>→</i></a>';
+      const nAll = TOOLS.filter(t => t.group === key && t.category === 'Noise').length;
+      document.getElementById('ngrid').innerHTML = NOISE_FLOW.tools.map(([n, line]) => [TOOLS.find(t => t.name === n), line]).filter(x => x[0]).map(([t, line]) => {
+          const inner = '<span class="fic">' + icon(t.category, th.label) + '</span><strong>' + esc(t.name) + '</strong><small>' + esc(line) + '</small>';
+          return t.url ? '<a class="ncard" href="' + esc(t.url) + '">' + inner + '<b>Open →</b></a>' : '<div class="ncard soon">' + inner + '<b>Coming soon</b></div>';
+        }).join('') +
+        '<a class="nall" href="topic.html?g=' + g.slug + '&p=' + NOISE_FLOW.all + '"><strong>See all ' + nAll + ' noise tools</strong><i>→</i></a>';
     }
     const progs = (typeof PROGRAMS !== 'undefined' && PROGRAMS[key]) || [];
     if (progs.length) {
