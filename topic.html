@@ -51,6 +51,7 @@
   </div>
 </header>
 <div class="wrap">
+  <section class="bigsec" id="bigsec" hidden><div class="eyebrow" id="bigeye"></div><h2 id="bigtitle"></h2><div class="bgrid" id="bgrid"></div></section>
   <div id="secs"></div>
   <details class="indiv" id="indiv"></details>
   <nav class="stepnav" id="stepnav"></nav>
@@ -69,7 +70,9 @@
   const steps = (typeof STEPS !== 'undefined' && STEPS[key]) || [];
   const stepIdx = steps.findIndex(st => st.slug === params.get('s'));
   const step = stepIdx >= 0 ? steps[stepIdx] : null;
-  let cat = step ? null : cats.find(c => topicSlug(c) === params.get('t'));
+  const programs = (typeof PROGRAMS !== 'undefined' && PROGRAMS[key]) || [];
+  const program = step ? null : programs.find(pr => pr.slug === params.get('p'));
+  let cat = step ? null : (program ? program.topic : cats.find(c => topicSlug(c) === params.get('t')));
   if (!step && !cat) { location.replace('library.html?g=' + g.slug); cat = cats[0]; }
   const info = cat ? ((TOPICS[key] || {})[cat] || {}) : {};
   const search = document.getElementById('search');
@@ -92,20 +95,20 @@
     } else groups.push(['', all, '']);
   }
   const tools = groups.flatMap(x => x[1]);
-  const pageName = step ? step.name : cat;
+  const pageName = step ? step.name : (program ? program.name : cat);
 
   const root = document.documentElement.style;
   Object.entries(th).forEach(([k, v]) => root.setProperty('--' + k, v));
   root.setProperty('--grid', th.tag + '12');
 
-  document.title = 'OEMS ' + (step ? fieldName + ': ' + step.name : cat + ' Tools');
+  document.title = 'OEMS ' + (step ? fieldName + ': ' + step.name : pageName + (program ? '' : ' Tools'));
   const fl = document.getElementById('fieldlink'); fl.textContent = fieldName; fl.href = 'library.html?g=' + g.slug;
   document.getElementById('crumb').textContent = pageName;
   const mainTools = tools.filter(t => !isTucked(t));
   const live = mainTools.filter(t => t.url).length;
   document.getElementById('pill').textContent = (step ? 'Step ' + (stepIdx + 1) + ' of ' + steps.length + ' · ' : '') + mainTools.length + ' tool' + (mainTools.length === 1 ? '' : 's') + (live < mainTools.length ? ' · ' + (mainTools.length - live) + ' coming soon' : '');
   document.getElementById('title').innerHTML = esc(pageName) + '<span>' + esc(fieldName) + '</span>';
-  document.getElementById('blurb').textContent = step ? step.blurb : (info.blurb || g.blurb);
+  document.getElementById('blurb').textContent = step ? step.blurb : (program ? program.blurb : (info.blurb || g.blurb));
   document.getElementById('bigic').innerHTML = step ? stepIcon(step.slug, th.tag) : icon(cat, th.tag);
   if (step) {
     const flow = steps.filter(st => !st.rest);
@@ -136,9 +139,24 @@
     '<div class="sechead"><h2>' + esc(label || 'Tools') + '</h2><em>' + list.length + ' tool' + (list.length === 1 ? '' : 's') + '</em></div>' +
     '<div class="grid">' + list.map(tile).join('') + '</div></section>';
 
+  // Big cards: the Assess page's "pick your assessment" cards, or a program's featured tools
+  const bigSec = document.getElementById('bigsec');
+  const cardsOnly = !!(step && step.cards);
+  if (cardsOnly) {
+    document.getElementById('bigeye').textContent = 'Pick your assessment';
+    document.getElementById('bigtitle').textContent = 'What are you assessing?';
+    document.getElementById('bgrid').innerHTML = step.cards.map(cd => bigCard(TOOLS.find(t => t.name === cd.tool), Object.assign({ cta: 'Start assessment' }, cd), th)).join('');
+  } else if (program) {
+    document.getElementById('bigeye').textContent = 'Featured';
+    document.getElementById('bigtitle').textContent = 'Start here';
+    document.getElementById('bgrid').innerHTML = program.featured.map(n => bigCard(TOOLS.find(t => t.name === n), { cta: 'Open tool' }, th)).join('');
+  }
+  const hasBig = cardsOnly || !!program;
+
   function render() {
     const q = search.value.trim();
     const ind = document.getElementById('indiv');
+    bigSec.hidden = !hasBig || !!q;
     if (q) {
       const found = rank(tools.filter(t => matches(t, q)), q);
       document.getElementById('secs').innerHTML = found.length ? '<section class="sec"><div class="grid">' + found.map(tile).join('') + '</div></section>' : '';
@@ -149,7 +167,8 @@
     }
     document.getElementById('none').style.display = 'none';
     document.getElementById('count').textContent = '';
-    document.getElementById('secs').innerHTML = groups.map(([name, list, eyebrow]) => {
+    if (cardsOnly) { document.getElementById('secs').innerHTML = ''; document.getElementById('indiv').hidden = true; return; }
+    document.getElementById('secs').innerHTML = (program ? '<div class="allhead"><div class="eyebrow">Everything in this program</div><h2>All ' + esc(cat.toLowerCase()) + ' tools</h2></div>' : '') + groups.map(([name, list, eyebrow]) => {
       const main = rank(list.filter(t => !isTucked(t)), '');
       if (!main.length) return '';
       return name ? section(name, main, eyebrow) : '<section class="sec"><div class="grid">' + main.map(tile).join('') + '</div></section>';

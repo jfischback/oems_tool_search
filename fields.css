@@ -241,3 +241,43 @@
   .stepper i { width: 18px; height: 1.5px; background: rgba(255,255,255,.18); }
   .stepper em { width: 1px; height: 22px; background: rgba(255,255,255,.18); margin: 0 6px; }
   .bigic svg { width: 60px; height: 60px; }
+
+  /* Programs row (IH home) */
+  .progs { margin-top: 22px; background: #fff; border: 1px solid #e6eaf0; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(16,29,48,.07); }
+  .progs-head { margin-bottom: 20px; }
+  .progs-head h2 { font-size: 32px; font-weight: 800; letter-spacing: -.04em; margin: 0 0 6px; }
+  .pgrid2 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .prog { display: flex; flex-direction: column; text-decoration: none; color: #0b1424; border: 1.5px solid #e3e8ef; border-radius: 18px; padding: 20px; background: #fff; transition: transform .18s, box-shadow .18s, border-color .18s; }
+  .prog:hover { transform: translateY(-3px); border-color: var(--label); box-shadow: 0 16px 36px rgba(16,29,48,.12), 0 0 0 4px var(--iconbg); }
+  .prog .sic { margin-bottom: 14px; }
+  .prog h3 { font-size: 20px; font-weight: 800; letter-spacing: -.03em; margin: 0 0 6px; }
+  .prog p { font-size: 14px; line-height: 1.5; color: #5b6b7f; margin: 0 0 16px; }
+  .pfoot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid #eef1f5; font-size: 13px; }
+  .pfoot em { font-style: normal; color: #8a97ab; }
+  .pfoot b { color: var(--label); }
+  @media (max-width: 1100px) { .pgrid2 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .pgrid2 { grid-template-columns: 1fr; } .progs { padding: 20px 16px; } .progs-head h2 { font-size: 26px; } }
+
+  /* Big cards (Assess page, program featured tools) */
+  .bigsec { padding: 46px 0 0; }
+  .bigsec h2 { font-size: 30px; font-weight: 800; letter-spacing: -.035em; margin: 6px 0 20px; }
+  .bgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .bcard { display: flex; flex-direction: column; background: #fff; border: 1.5px solid #e3e8ef; border-radius: 20px; padding: 26px; box-shadow: 0 4px 14px rgba(16,29,48,.05); transition: transform .18s, box-shadow .18s, border-color .18s; }
+  .bcard:not(.is-soon):hover { transform: translateY(-3px); border-color: var(--label); box-shadow: 0 18px 40px rgba(16,29,48,.13), 0 0 0 4px var(--iconbg); }
+  .bcard .sic { width: 54px; height: 54px; border-radius: 15px; margin-bottom: 18px; }
+  .bcard .sic svg { width: 28px; height: 28px; }
+  .bcard h3 { font-size: 28px; font-weight: 800; letter-spacing: -.04em; margin: 4px 0 4px; }
+  .bsub { font-size: 13.5px; font-weight: 600; color: #8a97ab; margin-bottom: 8px; }
+  .bcard p { font-size: 14.5px; line-height: 1.55; color: #3b4a5e; margin: 6px 0 16px; }
+  .bfoot { margin-top: auto; display: grid; gap: 12px; }
+  .bbtn { display: flex; justify-content: center; align-items: center; gap: 8px; text-decoration: none; background: var(--label); color: #fff; font-size: 15px; font-weight: 700; padding: 13px 16px; border-radius: 12px; box-shadow: 0 6px 16px rgba(16,29,48,.18); transition: filter .15s; }
+  .bbtn i { font-style: normal; transition: transform .15s; }
+  .bbtn:hover { filter: brightness(1.15); }
+  .bbtn:hover i { transform: translateX(4px); }
+  .bbtn.soon { background: #eef1f5; color: #8a97ab; box-shadow: none; }
+  .balso { font-size: 13px; font-weight: 600; color: var(--label); text-decoration: none; text-align: center; }
+  .balso:hover { text-decoration: underline; }
+  @media (max-width: 1000px) { .bgrid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .bgrid { grid-template-columns: 1fr; } }
+  .allhead { padding-top: 56px; } .allhead h2 { font-size: 30px; font-weight: 800; letter-spacing: -.035em; margin: 6px 0 0; }
+  .allhead + .sec { padding-top: 22px; }

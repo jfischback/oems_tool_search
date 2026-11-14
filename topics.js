@@ -150,6 +150,15 @@ const STEPS = {
       sections: [
         { name: "Exposure Assessments", items: ["Manufacturing Exposure Assessment", "Non-Manufacturing Exposure Assessment"] },
         { name: "Noise", items: ["Noise Exposure and Employee Notification", "Noise Exposure Calculator"] }
+      ],
+      // The Assess page shows these as big "pick your assessment" cards
+      cards: [
+        { tool: "Manufacturing Exposure Assessment", title: "Manufacturing" },
+        { tool: "Non-Manufacturing Exposure Assessment", title: "Non-Manufacturing" },
+        { tool: "Noise Exposure and Employee Notification", title: "Noise", topic: "Noise", kicker: "Exposure assessment",
+          desc: "Calculate each employee's noise exposure, then produce the notification of the result.",
+          outputs: ["8-hour TWA and percent dose", "Time allowed and task-by-task dose", "Employee notification of the result"],
+          also: "Noise Exposure Calculator" }
       ] },
     { slug: "plan", name: "Plan", kicker: "Sampling plans", cta: "Plan sampling", includes: ["Sampling plans", "Exposure modeling"],
       blurb: "Build a sampling plan and model expected exposures before you go to the field.",
@@ -227,3 +236,34 @@ const STEP_ICONS = {
   tools: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'
 };
 function stepIcon(slug, color) { return '<svg viewBox="0 0 24 24" fill="none" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + (STEP_ICONS[slug] || '') + '</svg>'; }
+
+// Programs row on the IH home. Each opens a program page: featured tools in big cards, then all of the topic's tools.
+const PROGRAMS = {
+  IH: [
+    { slug: "hearing", name: "Hearing Conservation", topic: "Noise", blurb: "Noise exposure, hearing protection, audiograms and employee notification.",
+      featured: ["Noise Exposure and Employee Notification", "Hearing Protection Picker", "Standard Threshold Shift (STS) with Age Correction"] },
+    { slug: "respiratory", name: "Respiratory Protection", topic: "Respiratory Protection", blurb: "Respirator selection, assigned protection factors and maximum use concentrations.",
+      featured: ["Respirator Selection Tool", "Maximum Use Concentration (MUC) Calculator", "Assigned Protection Factor Calculator"] },
+    { slug: "radiation", name: "Radiation", topic: "Radiation", blurb: "Shielding, decay and dose, RF antenna hazards and UV exposure.",
+      featured: ["Shielding Calculator HVL / TVL", "RF Antenna Hazard", "Radioactive Decay and Half-Life"] },
+    { slug: "lasers", name: "Lasers", topic: "Lasers", blurb: "Laser hazard evaluation, hazard zones and laser eyewear.",
+      featured: ["Laser Hazard Evaluation", "Laser Eyewear Optical Density", "Laser NHZ, Direct Beam"] }
+  ]
+};
+
+// Big card used on the Assess page and for program featured tools
+function bigCard(t, o, th) {
+  o = o || {};
+  if (!t) return '';
+  const kick = o.kicker || t.category;
+  const title = o.title || t.name;
+  const outs = (o.outputs || []).map(x => '<li>' + esc(x) + '</li>').join('');
+  const also = o.also ? TOOLS.find(x => x.name === o.also) : null;
+  const btn = t.url ? '<a class="bbtn" href="' + esc(t.url) + '">' + esc(o.cta || 'Start') + ' <i>→</i></a>' : '<span class="bbtn soon">Coming soon</span>';
+  return '<div class="bcard' + (t.url ? '' : ' is-soon') + '">' +
+    '<span class="sic">' + icon(o.topic || t.category, th.label) + '</span>' +
+    '<small class="kick">' + esc(kick) + '</small><h3>' + esc(title) + '</h3>' +
+    (o.title && o.title !== t.name ? '<div class="bsub">' + esc(t.name) + '</div>' : '') +
+    '<p>' + esc(o.desc || t.description) + '</p>' + (outs ? '<ul class="inc">' + outs + '</ul>' : '') +
+    '<div class="bfoot">' + btn + (also && also.url ? '<a class="balso" href="' + esc(also.url) + '">Or open the ' + esc(also.name) + ' on its own →</a>' : '') + '</div></div>';
+}

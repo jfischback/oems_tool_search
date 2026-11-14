@@ -52,9 +52,13 @@
   </section>
   <section class="flow" id="stepsSec" hidden>
     <div class="flow-panel">
-      <div class="flow-head"><h2>The IH workflow</h2><p class="flow-dir">Pick the step you are on to open its tools.</p></div>
+      <div class="flow-head"><h2>Exposure Assessment Tools</h2><p class="flow-dir">Pick the step you are on to open its tools.</p></div>
       <div class="flow-rail" id="srail"></div>
       <div class="flow-steps" id="sgrid"></div>
+    </div>
+    <div class="progs" id="progs" hidden>
+      <div class="progs-head"><h2>Programs</h2><p class="flow-dir">Everything for one program in one place.</p></div>
+      <div class="pgrid2" id="pgrid2"></div>
     </div>
     <a class="refbar" id="refbar"></a>
   </section>
@@ -138,6 +142,15 @@
         '<div class="meta">' + x.list.length + ' tool' + (x.list.length === 1 ? '' : 's') + (x.live < x.list.length ? ' · ' + (x.list.length - x.live) + ' coming soon' : '') + '</div>' +
         '<span class="btn">' + esc(st.cta || 'Open') + ' <i>→</i></span></a>';
     }).join('');
+    const progs = (typeof PROGRAMS !== 'undefined' && PROGRAMS[key]) || [];
+    if (progs.length) {
+      document.getElementById('progs').hidden = false;
+      document.getElementById('pgrid2').innerHTML = progs.map(pr => {
+        const all = TOOLS.filter(t => t.group === key && t.category === pr.topic && !isTucked(t));
+        return '<a class="prog" href="topic.html?g=' + g.slug + '&p=' + pr.slug + '"><span class="sic">' + icon(pr.topic, th.label) + '</span>' +
+          '<h3>' + esc(pr.name) + '</h3><p>' + esc(pr.blurb) + '</p><div class="pfoot"><em>' + all.length + ' tools</em><b>Open program →</b></div></a>';
+      }).join('');
+    }
     if (ref) {
       const x = info(ref);
       const rb = document.getElementById('refbar');
