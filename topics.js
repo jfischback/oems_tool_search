@@ -142,6 +142,7 @@ function topicHref(group, cat) { return 'topic.html?g=' + GROUPS[group].slug + '
 // topic:  a whole topic (its sub-groups become sections), minus tools already placed in another step.
 // sub:    [topic, sub-group] from TOPICS above.
 // rest:   everything not placed in another step.
+// A tool listed by name in two steps (like Exposure Statistics Tool in Analyze and Control) shows in both.
 const STEPS = {
   IH: [
     { slug: "assess", name: "Assess", kicker: "Exposure assessments", cta: "Start an assessment", includes: ["Manufacturing", "Non-manufacturing", "Noise"],
@@ -161,13 +162,14 @@ const STEPS = {
       sections: [
         { name: "Sampling Results", items: ["Exposure Statistics Tool", "Noise Sampling Notification Template"] }
       ] },
-    { slug: "control", name: "Control", kicker: "Exposure controls", cta: "Choose controls", includes: ["Ventilation", "Shielding", "Respirators", "Hearing protection"],
-      blurb: "Design and check the controls that bring exposures down: ventilation, shielding, respirators and hearing protection.",
+    { slug: "control", name: "Control", kicker: "Exposure controls", cta: "Choose controls", includes: ["Ventilation", "Shielding", "Respirators", "Hearing protection", "Confirm it's working"],
+      blurb: "Design the controls that bring exposures down, then confirm they are working.",
       sections: [
         { name: "Ventilation", topic: "Ventilation" },
         { name: "Radiation Shielding", sub: ["Radiation", "Shielding"] },
         { name: "Respiratory Protection", topic: "Respiratory Protection" },
-        { name: "Hearing Protection", items: ["Hearing Protection Picker"] }
+        { name: "Hearing Protection", items: ["Hearing Protection Picker"] },
+        { name: "Confirm It's Working", items: ["Hood Pressure and Flow", "Exposure Statistics Tool"] }
       ] },
     { slug: "tools", name: "Tools", blurb: "Reference calculators: noise math, radiation, lasers and unit conversions.", rest: true }
   ]

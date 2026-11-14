@@ -142,7 +142,12 @@
       const x = info(ref);
       const rb = document.getElementById('refbar');
       rb.href = 'topic.html?g=' + g.slug + '&s=' + ref.slug;
-      rb.innerHTML = '<span class="sic dark">' + stepIcon(ref.slug, th.tag) + '</span><div><small>Reference library</small><strong>' + esc(ref.name) + '</strong><p>' + x.list.length + ' calculators · ' + [...new Set(x.secs.map(s => s.eyebrow || s.name))].join(' · ') + '</p></div><b>Browse →</b>';
+      const parts = {};
+      x.secs.forEach(s => { const k = s.eyebrow || s.name; parts[k] = (parts[k] || 0) + s.tools.filter(t => !isTucked(t)).length; });
+      rb.innerHTML = '<div class="rb-main"><span class="sic dark big">' + stepIcon(ref.slug, th.tag) + '</span><div><small>Reference library</small><strong>' + esc(ref.name) + '</strong>' +
+        '<p>Calculators for the math behind the work. ' + x.list.length + ' tools you can use at any step.</p>' +
+        '<div class="rb-chips">' + Object.entries(parts).map(([k, n]) => '<span>' + icon(k, th.tag) + esc(k) + ' <em>' + n + '</em></span>').join('') + '</div></div></div>' +
+        '<b>Browse all tools <i>→</i></b>';
     }
   }
 
