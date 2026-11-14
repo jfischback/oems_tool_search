@@ -4,7 +4,7 @@
 // "keywords" is optional: extra words people might search for (separate with spaces).
 
 const TOOLS = [
-  { group: "IH", category: "Noise", name: "Noise Exposure and Employee Notification", description: "Calculate the noise exposure (8-hour TWA, dose, time allowed, task dose), then produce the employee notification of the result. Combines the Noise Exposure Calculator and the Noise Sampling Notification Template as two steps on one page.", url: "https://noise.oemsgroup.com/noise_exposure_and_notification", keywords: "combined" },
+  { group: "IH", category: "Noise", name: "Noise Exposure Assessment", description: "A guided noise exposure assessment: analyze the dosimeter results (8-hour TWA, dose, time allowed, task dose), notify the employee, then check hearing protection. Each step carries the results into the next.", url: "https://noise.oemsgroup.com/noise_exposure_and_notification", keywords: "combined" },
   { group: "IH", category: "Noise", name: "Sound Pressure Level from Sound Power Level (feet or meters)", description: "Estimate sound pressure level at a distance from a source's sound power level, with the distance in feet or meters. Combines the feet and meters calculators on one page.", url: "https://noise.oemsgroup.com/lp_from_lw_calculator", keywords: "combined" },
   { group: "IH", category: "Noise", name: "Sound Pressure, Intensity and Power Level", description: "Convert sound pressure, sound intensity or sound power to its level in decibels, and back. Combines the three level calculators on one page.", url: "https://noise.oemsgroup.com/sound_levels_calculator", keywords: "combined" },
   { group: "IH", category: "Noise", name: "Octave Band Frequencies", description: "Octave band and one-third octave band upper frequencies and the band center frequency, on one page.", url: "https://noise.oemsgroup.com/octave_bands_calculator", keywords: "combined" },
@@ -110,6 +110,7 @@ const TOOLS = [
 
   { group: "IH", category: "Conversions", name: "ppm to mg/m³ (and back)", description: "Convert a gas or vapor concentration between ppm and mg/m³ using its molecular weight.", url: "https://conversions.oemsgroup.com/ppm-and-mg-m3/", keywords: "" },
 
+  { group: "IH", category: "PPE", name: "PPE Picker", description: "Pick the personal protective equipment a job needs.", url: "", keywords: "PPE hazard assessment" },
   { group: "IH", category: "Statistics", name: "Exposure Statistics Tool", description: "Walks a similar exposure group's sample results from a data-quality check through sampling and analytical error, confidence limits, the 95th percentile, UCL / UTL, exceedance fraction and Bayesian decision analysis to a plain-language compliance call against the OEL and the action level.", url: "https://oemsexposurestats.vercel.app/", keywords: "IHSTAT Bayesian SEG lognormal UCL UTL exceedance" },
   { group: "IH", category: "Exposure Assessment", name: "Manufacturing Exposure Assessment", description: "Exposure assessment for manufacturing work settings.", url: "", keywords: "" },
   { group: "IH", category: "Exposure Assessment", name: "Non-Manufacturing Exposure Assessment", description: "Exposure assessment for non-manufacturing work settings.", url: "", keywords: "" },

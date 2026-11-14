@@ -12,7 +12,7 @@ const TOPICS = {
     "Noise": {
       blurb: "Calculate exposure and dose, compare hearing protection options, and share sampling results with employees.",
       subs: {
-        "Exposure and Hearing Conservation": ["Noise Exposure and Employee Notification", "Noise Exposure Calculator", "Hearing Protection Picker", "Noise Sampling Notification Template", "Standard Threshold Shift (STS) with Age Correction"],
+        "Exposure and Hearing Conservation": ["Noise Exposure Assessment", "Noise Exposure Calculator", "Hearing Protection Picker", "Noise Sampling Notification Template", "Standard Threshold Shift (STS) with Age Correction"],
         "Sound Levels": ["Sound Pressure, Intensity and Power Level", "Decibel Addition Calculator", "Equivalent Continuous Sound Level (Leq)", "Sound Pressure Level Calculator", "Sound Intensity Level Calculator", "Sound Power Level Calculator"],
         "Distance, Barriers and Directivity": ["Sound Pressure Level from Sound Power Level (feet or meters)", "Sound Level Change with Distance", "Transmission Loss Calculator", "Directivity Index Calculator", "Sound Pressure Level from Sound Power Level (feet)", "Sound Pressure Level from Sound Power Level (meters)"],
         "Frequency": ["Octave Band Frequencies", "Frequency from Rotational Speed", "Frequency from Wavelength", "Octave Band Upper Frequency", "Band Center Frequency", "One-Third Octave Band Upper Frequency"]
@@ -39,6 +39,7 @@ const TOPICS = {
     "Lasers": { blurb: "Evaluate laser hazards and select laser eye protection." },
     "Conversions": { blurb: "Convert between common industrial hygiene units, such as ppm and mg/m³." },
     "Statistics": { blurb: "Statistical analysis of exposure data." },
+    "PPE": { blurb: "Pick the personal protective equipment a job needs." },
     "Exposure Assessment": { blurb: "Evaluate workplace exposures and compare results against occupational exposure limits." }
   },
   Environmental: {
@@ -234,8 +235,8 @@ function stepIcon(slug, color) { return '<svg viewBox="0 0 24 24" fill="none" st
 const PROGRAMS = {
   IH: [
     { slug: "hearing", name: "Hearing Conservation", topic: "Noise", blurb: "Noise exposure, hearing protection, audiograms and employee notification.",
-      featured: ["Noise Exposure and Employee Notification", "Hearing Protection Picker", "Standard Threshold Shift (STS) with Age Correction"],
-      assess: ["Noise Exposure and Employee Notification", "Noise Exposure Calculator", "Noise Sampling Notification Template", "Standard Threshold Shift (STS) with Age Correction"],
+      featured: ["Noise Exposure Assessment", "Hearing Protection Picker", "Standard Threshold Shift (STS) with Age Correction"],
+      assess: ["Noise Exposure Assessment", "Noise Exposure Calculator", "Noise Sampling Notification Template", "Standard Threshold Shift (STS) with Age Correction"],
       control: ["Hearing Protection Picker", "Transmission Loss Calculator", "Sound Level Change with Distance"] },
     { slug: "respiratory", name: "Respiratory Protection", topic: "Respiratory Protection", blurb: "Respirator selection, assigned protection factors and maximum use concentrations.",
       featured: ["Respirator Selection Tool", "Maximum Use Concentration (MUC) Calculator", "Assigned Protection Factor Calculator"],
@@ -249,6 +250,7 @@ const PROGRAMS = {
       featured: ["Laser Hazard Evaluation", "Laser Eyewear Optical Density", "Laser NHZ, Direct Beam"],
       assess: ["Laser Hazard Evaluation", "Laser NHZ, Direct Beam", "Laser NHZ, Lens on Laser", "Laser NHZ, Diffuse Reflection", "Ds (TL Form)", "Laser Beam Diameter at Distance"],
       control: ["Laser Eyewear Optical Density"] },
+    { slug: "ppe", name: "PPE", topic: "PPE", tool: "PPE Picker", blurb: "Pick the personal protective equipment a job needs." },
     { slug: "heat", name: "Heat Illness Prevention", topic: "Heat", blurb: "Heat stress and heat illness prevention.", featured: [] }
   ]
 };
@@ -282,11 +284,11 @@ function bigCard(t, o, th) {
 }
 
 // Noise Exposure Assessment panel on the IH home (smaller than the chemical one). Each step lists its tools directly.
-const NOISE_FLOW = [
-  { name: "Analyze", blurb: "Turn the dosimeter data into the 8-hour TWA and dose.",
-    tools: ["Noise Exposure and Employee Notification", "Noise Exposure Calculator"] },
-  { name: "Notify", blurb: "Give employees their results in a clear, visual format.",
-    tools: ["Noise Sampling Notification Template"] },
-  { name: "Protect", blurb: "Pick hearing protection and follow up on audiograms.",
-    tools: ["Hearing Protection Picker", "Standard Threshold Shift (STS) with Age Correction"] }
-];
+const NOISE_FLOW = {
+  guided: "Noise Exposure Assessment",
+  steps: [
+    { name: "Analyze", blurb: "Dosimeter results and audiograms.", tools: ["Noise Exposure Calculator", "Standard Threshold Shift (STS) with Age Correction"] },
+    { name: "Notify", blurb: "Tell the employee their result.", tools: ["Noise Sampling Notification Template"] },
+    { name: "Protect", blurb: "Check the hearing protection.", tools: ["Hearing Protection Picker"] }
+  ]
+};

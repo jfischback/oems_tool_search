@@ -57,8 +57,12 @@
       <div class="flow-steps" id="sgrid"></div>
     </div>
     <div class="noise" id="noise" hidden>
-      <div class="noise-head"><h2>Noise Exposure Assessment</h2><p class="flow-dir">Analyze the dosimeter data, notify employees, then protect their hearing.</p></div>
-      <div class="ngrid" id="ngrid"></div>
+      <div class="noise-top">
+        <div class="noise-head"><h2>Noise Exposure Assessment</h2><p class="flow-dir">One guided tool: analyze the dosimeter results, notify the employee, then check hearing protection. Each step carries the results into the next.</p>
+          <div class="nchain"><span><b>1</b>Analyze</span><i></i><span><b>2</b>Notify</span><i></i><span><b>3</b>Protect</span></div></div>
+        <a class="nstart" id="nstart"></a>
+      </div>
+      <div class="nsingle"><div class="nsl">Or use a single tool</div><div class="ngrid" id="ngrid"></div></div>
     </div>
     <div class="progs" id="progs" hidden>
       <div class="progs-head"><h2>Programs</h2><p class="flow-dir">Everything for one program in one place.</p></div>
@@ -148,8 +152,11 @@
     }).join('');
     if (key === 'IH' && typeof NOISE_FLOW !== 'undefined') {
       document.getElementById('noise').hidden = false;
-      document.getElementById('ngrid').innerHTML = NOISE_FLOW.map((st, i) =>
-        '<div class="nstep"><div class="ntop"><b>' + (i + 1) + '</b><h3>' + esc(st.name) + '</h3></div><p>' + esc(st.blurb) + '</p>' +
+      const gt = TOOLS.find(t => t.name === NOISE_FLOW.guided);
+      const ns = document.getElementById('nstart');
+      if (gt && gt.url) { ns.href = gt.url; ns.innerHTML = 'Start a noise exposure assessment <i>→</i>'; } else { ns.outerHTML = '<span class="nstart soon">Coming soon</span>'; }
+      document.getElementById('ngrid').innerHTML = NOISE_FLOW.steps.map((st, i) =>
+        '<div class="nstep"><div class="ntop"><b>' + (i + 1) + '</b><h3>' + esc(st.name) + '</h3><span>' + esc(st.blurb) + '</span></div>' +
         st.tools.map(n => TOOLS.find(t => t.name === n)).filter(Boolean).map(t => t.url
           ? '<a class="nlink" href="' + esc(t.url) + '"><span>' + esc(t.name) + '</span><i>→</i></a>'
           : '<span class="nlink soon"><span>' + esc(t.name) + '</span><em>Coming soon</em></span>').join('') + '</div>').join('');
@@ -159,6 +166,11 @@
       document.getElementById('progs').hidden = false;
       document.getElementById('pgrid2').innerHTML = progs.map(pr => {
         const all = TOOLS.filter(t => t.group === key && t.category === pr.topic && !isTucked(t));
+        if (pr.tool) {
+          const t = TOOLS.find(x => x.name === pr.tool);
+          if (t && t.url) return '<a class="prog" href="' + esc(t.url) + '"><span class="sic">' + icon(pr.topic, th.label) + '</span><h3>' + esc(pr.name) + '</h3><p>' + esc(pr.blurb) + '</p><div class="pfoot"><em>1 tool</em><b>Open →</b></div></a>';
+          return '<div class="prog soon"><span class="sic">' + icon(pr.topic, th.label) + '</span><h3>' + esc(pr.name) + '</h3><p>' + esc(pr.blurb) + '</p><div class="pfoot"><em></em><b class="soonpill">Coming soon</b></div></div>';
+        }
         if (!all.length) return '<div class="prog soon"><span class="sic">' + icon(pr.topic, th.label) + '</span>' +
           '<h3>' + esc(pr.name) + '</h3><p>' + esc(pr.blurb) + '</p><div class="pfoot"><em></em><b class="soonpill">Coming soon</b></div></div>';
         return '<a class="prog" href="topic.html?g=' + g.slug + '&p=' + pr.slug + '"><span class="sic">' + icon(pr.topic, th.label) + '</span>' +

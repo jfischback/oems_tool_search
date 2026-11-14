@@ -91,6 +91,7 @@ const ICONS = {
   "Greenhouse Gas & Refrigerant": '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>',
   "Water & Spill Prevention": '<path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/>',
   "Waste & Chemical Reporting": '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/>',
+  "PPE": '<path d="M4 15a8 8 0 0 1 16 0"/><path d="M2 15h20v3H2z"/><path d="M10 7V5h4v2"/>',
   "Heat": '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/><path d="M11.5 9v8"/><path d="M18 4l2-1M19 8h2M18 12l2 1"/>',
   "Injury & Illness Rates": '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
   "Fall Protection": '<circle cx="12" cy="4" r="2"/><path d="M12 6v6"/><path d="M8 9h8"/><path d="M12 12l-3 5"/><path d="M12 12l3 5"/><path d="M4 21h16"/>',
