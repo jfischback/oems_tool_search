@@ -132,3 +132,15 @@
   @media (max-width: 900px) { .tgrid { grid-template-columns: 1fr 1fr; } .bigic { display: none; } }
   @media (max-width: 600px) { .tgrid { grid-template-columns: 1fr; } .irow small { display: none; } }
   .fh h1.th1 span { font-size: .42em; letter-spacing: -.02em; margin-top: 10px; }
+
+  /* Search band on field pages (below featured tools) */
+  .lsearch { padding: 46px 0 0; }
+  .sbox.light { max-width: 640px; }
+  .sbox.light svg { color: #8a97ab; }
+  .sbox.light input { color: #0b1424; background: #fff; border: 1px solid #dfe5ec; box-shadow: 0 6px 20px rgba(16,29,48,.06); }
+  .sbox.light input:focus { border-color: var(--label); background: #fff; box-shadow: 0 0 0 4px var(--iconbg), 0 6px 20px rgba(16,29,48,.06); }
+  .sbox.light input::placeholder { color: #8a97ab; }
+  .sbox.light input::-webkit-search-cancel-button { filter: none; }
+  .lsearch #count { color: #8a97ab; }
+  .fcard.soon .go { align-self: flex-start; color: #c7d2e0; font-size: 12px; letter-spacing: .04em; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 5px 12px; }
+  .topics-sec { padding-top: 46px; }

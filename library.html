@@ -39,11 +39,6 @@
         <div class="pill"><i></i><span id="pill"></span></div>
         <h1 id="title"></h1>
         <p class="lede" id="blurb"></p>
-        <div class="sbox">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-          <input id="search" type="search" autocomplete="off">
-        </div>
-        <div id="count"></div>
       </div>
       <div class="art" id="art" aria-hidden="true"></div>
     </div>
@@ -55,12 +50,20 @@
     <h2>Featured tools</h2>
     <div class="fgrid" id="fgrid"></div>
   </section>
-  <section class="topics-sec" id="topicsSec">
-    <div class="eyebrow">Browse by topic</div>
-    <h2>Topics</h2>
-    <div class="tgrid" id="tgrid"></div>
+  <section class="lsearch">
+    <div class="sbox light">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search" type="search" autocomplete="off">
+    </div>
+    <div id="count"></div>
   </section>
   <div id="secs"></div>
+  <section class="topics-sec" id="topicsSec">
+    <div class="eyebrow" id="teyebrow">Browse by topic</div>
+    <h2 id="ttitle">Topics</h2>
+    <div class="tgrid" id="tgrid"></div>
+  </section>
+
   <p id="none">No tools match. <button id="clear">Clear search</button></p>
 </div>
 <footer>Built by OEMS · Occupational Exposure Management Systems</footer>
@@ -92,8 +95,11 @@
   // Featured
   const feat = g.featured.map(n => tools.find(t => t.name === n)).filter(Boolean);
   document.getElementById('fgrid').classList.toggle('one', feat.length === 1);
-  document.getElementById('fgrid').innerHTML = feat.map(t =>
-    '<a class="fcard" href="' + esc(t.url) + '"><div class="ic">' + icon(t.category, th.tag) + '</div><small>' + esc(t.category.toUpperCase()) + '</small><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 120)) + '</p><div class="go">Open tool →</div></a>').join('');
+  document.getElementById('fgrid').innerHTML = feat.map(t => {
+    const inner = '<div class="ic">' + icon(t.category, th.tag) + '</div><small>' + esc(t.category.toUpperCase()) + '</small><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 120)) + '</p>';
+    return t.url ? '<a class="fcard" href="' + esc(t.url) + '">' + inner + '<div class="go">Open tool →</div></a>'
+                 : '<div class="fcard soon">' + inner + '<div class="go">Coming soon</div></div>';
+  }).join('');
 
   function clip(s, n) { return s.length > n ? s.slice(0, n - 3).trim() + '…' : s; }
 
@@ -104,7 +110,13 @@
   }
 
   // Topic cards
-  document.getElementById('tgrid').innerHTML = cats.map(c => {
+  const featNames = new Set(g.featured);
+  const topicCats = cats.filter(c => tools.some(t => t.category === c && !featNames.has(t.name)));
+  if (feat.length) {
+    document.getElementById('teyebrow').textContent = 'More tools';
+    document.getElementById('ttitle').textContent = 'Other ' + (key === 'IH' ? 'IH' : g.noun) + ' tools';
+  }
+  document.getElementById('tgrid').innerHTML = topicCats.map(c => {
     const list = tools.filter(t => t.category === c);
     const info = (TOPICS[key] || {})[c] || {};
     const subs = info.subs ? Object.keys(info.subs) : [];
@@ -122,7 +134,7 @@
   function render() {
     const q = search.value.trim();
     const searching = !!q;
-    document.getElementById('featured').hidden = searching || !feat.length;
+    document.getElementById('featured').hidden = !feat.length;
     document.getElementById('topicsSec').hidden = searching;
     if (!searching) { document.getElementById('secs').innerHTML = ''; document.getElementById('none').style.display = 'none'; document.getElementById('count').textContent = ''; return; }
     const found = rank(tools.filter(t => matches(t, q)), q);

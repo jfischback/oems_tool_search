@@ -7,7 +7,7 @@ const GROUPS = {
     title: ["Industrial hygiene.", "Made practical."],
     blurb: "Tools to support clearer decisions about workplace exposures and controls.",
     theme: { hero: "#070d18", bg: "#101d30", deep: "#2c5f99", tag: "#77baff", line2: "#9da2aa", label: "#1761a8", glow: "rgba(56,132,255,.35)", iconbg: "#e8f1fb", fstart: "#13243d" },
-    featured: ["Noise Exposure Calculator", "Laser Hazard Evaluation", "Respirator Selection Tool"],
+    featured: ["Non-Manufacturing Exposure Assessment", "Exposure Statistics Tool", "Sampling Plan Creator"],
     noun: "industrial hygiene",
     colors: { bg: "#101d30", tag: "#77baff", line2: "#9da2aa", text: "#d0d9e4", button: "#153d74", label: "#1761a8", border: "#dbe3ec" },
     art: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none">
@@ -100,12 +100,10 @@ function icon(cat, color) { return '<svg viewBox="0 0 24 24" fill="none" stroke=
 
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
-// The "Popular tools" row on the main page. Swap these once Vercel Analytics shows what people actually use.
-const POPULAR = ["Noise Exposure Calculator", "Exposure Statistics Tool", "Environmental Compliance Checker"];
 
-// Featured: the popular picks, each field's featured picks, and every live combined tool (keyword "combined").
+// Featured (badge + top of search): each field's featured picks and every combined tool (keyword "combined"), once live.
 function isCombined(t) { return /\bcombined\b/.test(t.keywords); }
-function isFeatured(t) { return POPULAR.includes(t.name) || GROUPS[t.group].featured.includes(t.name) || (isCombined(t) && !!t.url); }
+function isFeatured(t) { return !!t.url && (GROUPS[t.group].featured.includes(t.name) || isCombined(t)); }
 
 function matches(tool, query) {
   const words = query.toLowerCase().split(/\s+/).filter(Boolean);
@@ -120,6 +118,7 @@ function rank(list, query) {
     const name = t.name.toLowerCase();
     let s = 0;
     if (isFeatured(t)) s += 8;
+    if (t.url && GROUPS[t.group].featured.includes(t.name)) s += 2; // the field's own picks first
     if (words.length && words.every(w => name.includes(w))) s += 2;
     if (t.url) s += 3;
     return s;

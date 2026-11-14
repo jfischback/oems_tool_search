@@ -112,6 +112,7 @@ const TOOLS = [
 
   { group: "IH", category: "Statistics", name: "Exposure Statistics Tool", description: "Walks a similar exposure group's sample results from a data-quality check through sampling and analytical error, confidence limits, the 95th percentile, UCL / UTL, exceedance fraction and Bayesian decision analysis to a plain-language compliance call against the OEL and the action level.", url: "https://oemsexposurestats.vercel.app/", keywords: "IHSTAT Bayesian SEG lognormal UCL UTL exceedance" },
   { group: "IH", category: "Exposure Assessment", name: "Non-Manufacturing Exposure Assessment", description: "Exposure assessment for non-manufacturing work settings.", url: "", keywords: "" },
+  { group: "IH", category: "Exposure Assessment", name: "Sampling Plan Creator", description: "Create an air sampling plan.", url: "", keywords: "sampling plan" },
 
   { group: "Environmental", category: "Compliance", name: "Environmental Compliance Checker", description: "Answer a few questions about your site and see which federal environmental programs apply to you, all in one place.", url: "https://oemsenvironmental.vercel.app/compliance-checker/", keywords: "" },
   { group: "Environmental", category: "Air Emissions", name: "Emission Rate from Stack Concentration (ppm or mg/m³)", description: "Calculate an emission rate in lb/hr from a stack concentration in ppmv or mg/dscm, on one page.", url: "https://oemsenvironmental.vercel.app/emission-rate/", keywords: "combined" },
