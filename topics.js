@@ -136,3 +136,78 @@ function isTucked(t) {
 
 function topicSlug(cat) { return cat.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
 function topicHref(group, cat) { return 'topic.html?g=' + GROUPS[group].slug + '&t=' + topicSlug(cat); }
+
+// Industrial Hygiene home: the IH workflow, in order. Each step opens its own page.
+// items:  exact tool names, in the order shown.
+// topic:  a whole topic (its sub-groups become sections), minus tools already placed in another step.
+// sub:    [topic, sub-group] from TOPICS above.
+// rest:   everything not placed in another step.
+const STEPS = {
+  IH: [
+    { slug: "assess", name: "Assess", blurb: "Exposure assessments for noise, manufacturing and non-manufacturing work.",
+      sections: [
+        { name: "Exposure Assessments", items: ["Manufacturing Exposure Assessment", "Non-Manufacturing Exposure Assessment"] },
+        { name: "Noise", items: ["Noise Exposure and Employee Notification", "Noise Exposure Calculator"] }
+      ] },
+    { slug: "plan", name: "Plan", blurb: "Plan your sampling and model exposures before you sample.",
+      sections: [
+        { name: "Sampling", items: ["Sampling Plan Creator"] },
+        { name: "Exposure Modeling", items: ["Room Concentration", "Hummel Generation Rate", "Steady-State Concentration", "Concentration Buildup from Zero", "Concentration Buildup or Decay with Generation", "Purge"] }
+      ] },
+    { slug: "analyze", name: "Analyze", blurb: "Turn sampling results into statistics, compliance calls and employee notices.",
+      sections: [
+        { name: "Sampling Results", items: ["Exposure Statistics Tool", "Noise Sampling Notification Template"] }
+      ] },
+    { slug: "control", name: "Control", blurb: "Ventilation, shielding, respirators and hearing protection.",
+      sections: [
+        { name: "Ventilation", topic: "Ventilation" },
+        { name: "Radiation Shielding", sub: ["Radiation", "Shielding"] },
+        { name: "Respiratory Protection", topic: "Respiratory Protection" },
+        { name: "Hearing Protection", items: ["Hearing Protection Picker"] }
+      ] },
+    { slug: "tools", name: "Tools", blurb: "Reference calculators: noise math, radiation, lasers and unit conversions.", rest: true }
+  ]
+};
+
+// Turns a step into sections: [{ eyebrow, name, tools }]
+function stepSections(group, step) {
+  const all = TOOLS.filter(t => t.group === group);
+  const byName = n => all.find(t => t.name === n);
+  const claimed = new Set();
+  // explicit items in every step are claimed first
+  STEPS[group].forEach(st => (st.sections || []).forEach(sec => (sec.items || []).forEach(n => claimed.add(n))));
+  const subsOf = topic => ((TOPICS[group] || {})[topic] || {}).subs;
+  const topicSections = (topic, eyebrowName, skip) => {
+    const subs = subsOf(topic), out = [];
+    const tools = all.filter(t => t.category === topic && !skip.has(t.name));
+    if (subs) {
+      const placed = new Set();
+      for (const [sub, names] of Object.entries(subs)) {
+        const list = names.map(byName).filter(t => t && t.category === topic && !skip.has(t.name));
+        list.forEach(t => placed.add(t.name));
+        if (list.length) out.push({ eyebrow: eyebrowName, name: sub, tools: list });
+      }
+      const left = tools.filter(t => !placed.has(t.name));
+      if (left.length) out.push({ eyebrow: eyebrowName, name: "More " + topic.toLowerCase() + " tools", tools: left });
+    } else if (tools.length) out.push({ eyebrow: "", name: eyebrowName, tools });
+    return out;
+  };
+  // tools claimed by sub / topic sections of non-rest steps
+  const claimedByStructure = new Set(claimed);
+  STEPS[group].forEach(st => (st.sections || []).forEach(sec => {
+    if (sec.sub) ((subsOf(sec.sub[0]) || {})[sec.sub[1]] || []).forEach(n => claimedByStructure.add(n));
+    if (sec.topic) all.filter(t => t.category === sec.topic).forEach(t => claimedByStructure.add(t.name));
+  }));
+  if (step.rest) {
+    const left = all.filter(t => !claimedByStructure.has(t.name));
+    const cats = [...new Set(left.map(t => t.category))];
+    return cats.flatMap(c => topicSections(c, c, claimedByStructure));
+  }
+  const out = [];
+  for (const sec of step.sections) {
+    if (sec.items) { const list = sec.items.map(byName).filter(Boolean); if (list.length) out.push({ eyebrow: "", name: sec.name, tools: list }); }
+    else if (sec.sub) { const list = ((subsOf(sec.sub[0]) || {})[sec.sub[1]] || []).map(byName).filter(t => t && !claimed.has(t.name)); if (list.length) out.push({ eyebrow: "", name: sec.name, tools: list }); }
+    else if (sec.topic) out.push(...topicSections(sec.topic, sec.name, claimed));
+  }
+  return out;
+}

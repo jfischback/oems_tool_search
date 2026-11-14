@@ -50,6 +50,11 @@
     <h2>Featured tools</h2>
     <div class="fgrid" id="fgrid"></div>
   </section>
+  <section class="steps-sec" id="stepsSec" hidden>
+    <div class="eyebrow">The IH workflow</div>
+    <h2>Assess. Plan. Analyze. Control.</h2>
+    <div class="sgrid" id="sgrid"></div>
+  </section>
   <section class="lsearch">
     <div class="sbox light">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
@@ -110,13 +115,32 @@
   }
 
   // Topic cards
+  // Workflow steps (Industrial Hygiene)
+  const steps = (typeof STEPS !== 'undefined' && STEPS[key]) || null;
+  if (steps) {
+    document.getElementById('stepsSec').hidden = false;
+    document.getElementById('featured').remove();
+    document.getElementById('topicsSec').remove();
+    document.getElementById('sgrid').innerHTML = steps.map((st, i) => {
+      const secs = stepSections(key, st);
+      const list = secs.flatMap(x => x.tools).filter(t => !isTucked(t));
+      const live = list.filter(t => t.url).length;
+      const shown = [...new Set(secs.map(x => x.eyebrow || x.name))];
+      return '<a class="scard" href="topic.html?g=' + g.slug + '&s=' + st.slug + '">' +
+        '<div class="num">' + String(i + 1).padStart(2, '0') + '</div>' +
+        '<h3>' + esc(st.name) + '</h3><p>' + esc(st.blurb) + '</p>' +
+        '<div class="incl">' + shown.slice(0, 4).map(x => '<span>' + esc(x) + '</span>').join('') + '</div>' +
+        '<div class="foot"><em>' + list.length + ' tool' + (list.length === 1 ? '' : 's') + (live < list.length ? ' · ' + (list.length - live) + ' coming soon' : '') + '</em><b>→</b></div></a>';
+    }).join('');
+  }
+
   const featNames = new Set(g.featured);
   const topicCats = cats.filter(c => tools.some(t => t.category === c && !featNames.has(t.name)));
-  if (feat.length) {
+  if (!steps && feat.length) {
     document.getElementById('teyebrow').textContent = 'More tools';
     document.getElementById('ttitle').textContent = 'Other ' + (key === 'IH' ? 'IH' : g.noun) + ' tools';
   }
-  document.getElementById('tgrid').innerHTML = topicCats.map(c => {
+  if (!steps) document.getElementById('tgrid').innerHTML = topicCats.map(c => {
     const list = tools.filter(t => t.category === c);
     const info = (TOPICS[key] || {})[c] || {};
     const subs = info.subs ? Object.keys(info.subs) : [];
@@ -134,8 +158,8 @@
   function render() {
     const q = search.value.trim();
     const searching = !!q;
-    document.getElementById('featured').hidden = !feat.length;
-    document.getElementById('topicsSec').hidden = searching;
+    if (!steps) document.getElementById('featured').hidden = !feat.length;
+    if (!steps) document.getElementById('topicsSec').hidden = searching;
     if (!searching) { document.getElementById('secs').innerHTML = ''; document.getElementById('none').style.display = 'none'; document.getElementById('count').textContent = ''; return; }
     const found = rank(tools.filter(t => matches(t, q)), q);
     const showCats = [...new Set(found.map(t => t.category))];

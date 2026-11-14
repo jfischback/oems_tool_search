@@ -144,3 +144,32 @@
   .lsearch #count { color: #8a97ab; }
   .fcard.soon .go { align-self: flex-start; color: #c7d2e0; font-size: 12px; letter-spacing: .04em; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 5px 12px; }
   .topics-sec { padding-top: 46px; }
+
+  /* IH workflow step cards */
+  .steps-sec { padding: 54px 0 0; }
+  .steps-sec h2 { font-size: 30px; letter-spacing: -.035em; font-weight: 800; margin: 10px 0 24px; }
+  .sgrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .scard { position: relative; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: #fff; background: linear-gradient(165deg, var(--fstart) 0%, var(--bg) 75%); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 22px 20px 18px; min-height: 290px; box-shadow: 0 14px 34px rgba(16,29,48,.2); transition: transform .15s, box-shadow .15s; }
+  .scard:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(16,29,48,.3); }
+  .scard::after { content: ""; position: absolute; width: 220px; height: 220px; right: -90px; top: -100px; background: radial-gradient(circle, var(--glow), transparent 65%); }
+  .scard .num { font-size: 13px; font-weight: 700; letter-spacing: .14em; color: var(--tag); }
+  .scard h3 { font-size: 26px; font-weight: 800; letter-spacing: -.035em; margin: 10px 0 8px; }
+  .scard p { color: #aab7c8; font-size: 13.5px; line-height: 1.5; margin: 0 0 14px; }
+  .scard .incl { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+  .scard .incl span { font-size: 11.5px; font-weight: 600; color: #c7d2e0; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: 999px; padding: 3px 9px; }
+  .scard .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.1); font-size: 13px; }
+  .scard .foot em { font-style: normal; color: #9aa8bb; font-weight: 500; }
+  .scard .foot b { color: var(--tag); font-size: 17px; transition: transform .15s; }
+  .scard:hover .foot b { transform: translateX(3px); }
+  @media (max-width: 1150px) { .sgrid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px) { .sgrid { grid-template-columns: 1fr; } .scard { min-height: 0; } }
+
+  /* Step pages */
+  .bignum { font-size: 54px; font-weight: 800; letter-spacing: -.04em; color: var(--tag); }
+  .stepnav { display: flex; justify-content: space-between; gap: 16px; margin-top: 54px; }
+  .stepnav:empty { display: none; }
+  .stepnav a { flex: 0 1 320px; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #0b1424; background: #fff; border: 1px solid #e3e8ef; border-radius: 14px; padding: 16px 20px; transition: border-color .15s, box-shadow .15s; }
+  .stepnav a.next { text-align: right; margin-left: auto; }
+  .stepnav a:hover { border-color: var(--label); box-shadow: 0 10px 24px rgba(16,29,48,.08); }
+  .stepnav small { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--label); }
+  .stepnav strong { font-size: 19px; font-weight: 800; letter-spacing: -.02em; }

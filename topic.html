@@ -52,6 +52,7 @@
 <div class="wrap">
   <div id="secs"></div>
   <details class="indiv" id="indiv"></details>
+  <nav class="stepnav" id="stepnav"></nav>
   <p id="none">No tools match. <button id="clear">Clear search</button></p>
 </div>
 <footer>Built by OEMS · Occupational Exposure Management Systems</footer>
@@ -64,25 +65,55 @@
   const g = GROUPS[key], th = g.theme;
   const fieldName = key === 'IH' ? 'Industrial Hygiene' : key;
   const cats = [...new Set(TOOLS.filter(t => t.group === key).map(t => t.category))];
-  let cat = cats.find(c => topicSlug(c) === params.get('t'));
-  if (!cat) { location.replace('library.html?g=' + g.slug); cat = cats[0]; }
-  const info = (TOPICS[key] || {})[cat] || {};
-  const tools = TOOLS.filter(t => t.group === key && t.category === cat);
+  const steps = (typeof STEPS !== 'undefined' && STEPS[key]) || [];
+  const stepIdx = steps.findIndex(st => st.slug === params.get('s'));
+  const step = stepIdx >= 0 ? steps[stepIdx] : null;
+  let cat = step ? null : cats.find(c => topicSlug(c) === params.get('t'));
+  if (!step && !cat) { location.replace('library.html?g=' + g.slug); cat = cats[0]; }
+  const info = cat ? ((TOPICS[key] || {})[cat] || {}) : {};
   const search = document.getElementById('search');
+
+  // groups: [label, tools, eyebrow]
+  const groups = [];
+  if (step) {
+    stepSections(key, step).forEach(x => groups.push([x.name, x.tools, x.eyebrow]));
+  } else {
+    const all = TOOLS.filter(t => t.group === key && t.category === cat);
+    if (info.subs) {
+      const placed = new Set();
+      for (const [name, names] of Object.entries(info.subs)) {
+        const list = names.map(n => all.find(t => t.name === n)).filter(Boolean);
+        list.forEach(t => placed.add(t.name));
+        if (list.length) groups.push([name, list, '']);
+      }
+      const rest = all.filter(t => !placed.has(t.name));
+      if (rest.length) groups.push(['More tools', rest, '']);
+    } else groups.push(['', all, '']);
+  }
+  const tools = groups.flatMap(x => x[1]);
+  const pageName = step ? step.name : cat;
 
   const root = document.documentElement.style;
   Object.entries(th).forEach(([k, v]) => root.setProperty('--' + k, v));
   root.setProperty('--grid', th.tag + '12');
 
-  document.title = 'OEMS ' + cat + ' Tools';
+  document.title = 'OEMS ' + (step ? fieldName + ': ' + step.name : cat + ' Tools');
   const fl = document.getElementById('fieldlink'); fl.textContent = fieldName; fl.href = 'library.html?g=' + g.slug;
-  document.getElementById('crumb').textContent = cat;
-  const live = tools.filter(t => t.url).length;
-  document.getElementById('pill').textContent = tools.length + ' ' + cat.toLowerCase() + ' tool' + (tools.length === 1 ? '' : 's') + (live < tools.length ? ' · ' + (tools.length - live) + ' coming soon' : '');
-  document.getElementById('title').innerHTML = esc(cat) + '<span>' + esc(fieldName) + '</span>';
-  document.getElementById('blurb').textContent = info.blurb || g.blurb;
-  document.getElementById('bigic').innerHTML = icon(cat, th.tag);
-  search.placeholder = 'Search ' + cat.toLowerCase() + ' tools…';
+  document.getElementById('crumb').textContent = pageName;
+  const mainTools = tools.filter(t => !isTucked(t));
+  const live = mainTools.filter(t => t.url).length;
+  document.getElementById('pill').textContent = (step ? 'Step ' + (stepIdx + 1) + ' of ' + steps.length + ' · ' : '') + mainTools.length + ' tool' + (mainTools.length === 1 ? '' : 's') + (live < mainTools.length ? ' · ' + (mainTools.length - live) + ' coming soon' : '');
+  document.getElementById('title').innerHTML = esc(pageName) + '<span>' + esc(fieldName) + '</span>';
+  document.getElementById('blurb').textContent = step ? step.blurb : (info.blurb || g.blurb);
+  document.getElementById('bigic').innerHTML = step ? '<span class="bignum">' + String(stepIdx + 1).padStart(2, '0') + '</span>' : icon(cat, th.tag);
+  search.placeholder = 'Search ' + pageName.toLowerCase() + ' tools…';
+
+  // Previous / next step
+  if (step) {
+    const prev = steps[stepIdx - 1], next = steps[stepIdx + 1];
+    const link = (st, dir) => st ? '<a class="' + dir + '" href="topic.html?g=' + g.slug + '&s=' + st.slug + '"><small>' + (dir === 'prev' ? '← Previous' : 'Next →') + '</small><strong>' + esc(st.name) + '</strong></a>' : '<span></span>';
+    document.getElementById('stepnav').innerHTML = link(prev, 'prev') + link(next, 'next');
+  }
 
   function clip(s, n) { return s.length > n ? s.slice(0, n - 3).trim() + '…' : s; }
   function tile(t) {
@@ -93,22 +124,9 @@
   function irow(t) {
     return '<a class="irow" href="' + esc(t.url) + '"><strong>' + esc(t.name) + '</strong><small>Also in ' + esc(COVERED_BY[t.name]) + '</small><span>Open →</span></a>';
   }
-  const section = (label, list) => '<section class="sec">' +
+  const section = (label, list, eyebrow) => '<section class="sec">' + (eyebrow ? '<div class="sublabel">' + esc(eyebrow) + '</div>' : '') +
     '<div class="sechead"><h2>' + esc(label || 'Tools') + '</h2><em>' + list.length + ' tool' + (list.length === 1 ? '' : 's') + '</em></div>' +
     '<div class="grid">' + list.map(tile).join('') + '</div></section>';
-
-  // Group tools into sub-groups (or one group), keeping the order given in topics.js
-  const groups = [];
-  if (info.subs) {
-    const placed = new Set();
-    for (const [name, names] of Object.entries(info.subs)) {
-      const list = names.map(n => tools.find(t => t.name === n)).filter(Boolean);
-      list.forEach(t => placed.add(t.name));
-      if (list.length) groups.push([name, list]);
-    }
-    const rest = tools.filter(t => !placed.has(t.name));
-    if (rest.length) groups.push(['More tools', rest]);
-  } else groups.push(['', tools]);
 
   function render() {
     const q = search.value.trim();
@@ -123,19 +141,19 @@
     }
     document.getElementById('none').style.display = 'none';
     document.getElementById('count').textContent = '';
-    document.getElementById('secs').innerHTML = groups.map(([name, list]) => {
+    document.getElementById('secs').innerHTML = groups.map(([name, list, eyebrow]) => {
       const main = rank(list.filter(t => !isTucked(t)), '');
       if (!main.length) return '';
-      return name ? section(name, main) : '<section class="sec"><div class="grid">' + main.map(tile).join('') + '</div></section>';
+      return name ? section(name, main, eyebrow) : '<section class="sec"><div class="grid">' + main.map(tile).join('') + '</div></section>';
     }).join('');
     const tucked = tools.filter(isTucked);
     ind.hidden = !tucked.length;
     if (tucked.length) {
       const wasOpen = ind.open;
       ind.innerHTML = '<summary><div><h2>Individual calculators</h2><p>' + tucked.length + ' single-equation calculators. Each one is also part of a bigger tool above.</p></div><span class="chev"><span class="o">Show ↓</span><span class="c">Hide ↑</span></span></summary>' +
-        '<div class="ilist">' + groups.map(([name, list]) => {
+        '<div class="ilist">' + groups.map(([name, list, eyebrow]) => {
           const t2 = list.filter(isTucked);
-          return t2.length ? (name ? '<h4>' + esc(name) + '</h4>' : '') + t2.map(irow).join('') : '';
+          return t2.length ? (name ? '<h4>' + esc((eyebrow ? eyebrow + ' · ' : '') + name) + '</h4>' : '') + t2.map(irow).join('') : '';
         }).join('') + '</div>';
       ind.open = wasOpen;
     }
