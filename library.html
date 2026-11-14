@@ -52,7 +52,8 @@
   </section>
   <section class="flow" id="stepsSec" hidden>
     <div class="flow-panel">
-      <div class="flow-head"><span class="eyebrow">The IH workflow</span><span class="flow-hint">Start anywhere. Each step opens its own workspace.</span></div>
+      <div class="flow-head"><div><span class="eyebrow">The IH workflow</span><h2>Where are you in the job?</h2></div><span class="flow-hint">Pick a step to open its tools.</span></div>
+      <div class="flow-rail" id="srail"></div>
       <div class="flow-steps" id="sgrid"></div>
     </div>
     <a class="refbar" id="refbar"></a>
@@ -126,13 +127,16 @@
     document.getElementById('fh').classList.add('has-flow');
     const info = st => { const secs = stepSections(key, st); const list = secs.flatMap(x => x.tools).filter(t => !isTucked(t)); return { secs, list, live: list.filter(t => t.url).length }; };
     const flow = steps.filter(st => !st.rest), ref = steps.find(st => st.rest);
+    document.getElementById('srail').innerHTML = flow.map((st, i) => '<span><b>' + (i + 1) + '</b>' + esc(st.name) + '</span>').join('');
     document.getElementById('sgrid').innerHTML = flow.map((st, i) => {
       const x = info(st);
       return '<a class="fstep" href="topic.html?g=' + g.slug + '&s=' + st.slug + '">' +
-        '<div class="rail"><span class="node">' + (i + 1) + '</span></div>' +
-        '<span class="sic">' + stepIcon(st.slug, th.label) + '</span>' +
+        '<div class="ftop"><span class="sic">' + stepIcon(st.slug, th.label) + '</span></div>' +
+        '<small class="kick">' + esc(st.kicker || '') + '</small>' +
         '<h3>' + esc(st.name) + '</h3><p>' + esc(st.blurb) + '</p>' +
-        '<div class="meta"><span>' + x.list.length + ' tool' + (x.list.length === 1 ? '' : 's') + (x.live < x.list.length ? ' · ' + (x.list.length - x.live) + ' coming soon' : '') + '</span><b>Open →</b></div></a>';
+        '<ul class="inc">' + (st.includes || []).map(n => '<li>' + esc(n) + '</li>').join('') + '</ul>' +
+        '<div class="meta">' + x.list.length + ' tool' + (x.list.length === 1 ? '' : 's') + (x.live < x.list.length ? ' · ' + (x.list.length - x.live) + ' coming soon' : '') + '</div>' +
+        '<span class="btn">' + esc(st.cta || 'Open') + ' <i>→</i></span></a>';
     }).join('');
     if (ref) {
       const x = info(ref);

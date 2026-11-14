@@ -144,21 +144,25 @@ function topicHref(group, cat) { return 'topic.html?g=' + GROUPS[group].slug + '
 // rest:   everything not placed in another step.
 const STEPS = {
   IH: [
-    { slug: "assess", name: "Assess", blurb: "Exposure assessments for noise, manufacturing and non-manufacturing work.",
+    { slug: "assess", name: "Assess", kicker: "Exposure assessments", cta: "Start an assessment", includes: ["Manufacturing", "Non-manufacturing", "Noise"],
+      blurb: "Run a workplace exposure assessment and find out who is exposed, to what, and how much.",
       sections: [
         { name: "Exposure Assessments", items: ["Manufacturing Exposure Assessment", "Non-Manufacturing Exposure Assessment"] },
         { name: "Noise", items: ["Noise Exposure and Employee Notification", "Noise Exposure Calculator"] }
       ] },
-    { slug: "plan", name: "Plan", blurb: "Plan your sampling and model exposures before you sample.",
+    { slug: "plan", name: "Plan", kicker: "Sampling plans", cta: "Plan sampling", includes: ["Sampling plans", "Exposure modeling"],
+      blurb: "Build a sampling plan and model expected exposures before you go to the field.",
       sections: [
         { name: "Sampling", items: ["Sampling Plan Creator"] },
         { name: "Exposure Modeling", items: ["Room Concentration", "Hummel Generation Rate", "Steady-State Concentration", "Concentration Buildup from Zero", "Concentration Buildup or Decay with Generation", "Purge"] }
       ] },
-    { slug: "analyze", name: "Analyze", blurb: "Turn sampling results into statistics, compliance calls and employee notices.",
+    { slug: "analyze", name: "Analyze", kicker: "Sampling results", cta: "Analyze results", includes: ["Exposure statistics", "Employee notification"],
+      blurb: "Run statistics on your sample results, make the call against the OEL, and notify employees.",
       sections: [
         { name: "Sampling Results", items: ["Exposure Statistics Tool", "Noise Sampling Notification Template"] }
       ] },
-    { slug: "control", name: "Control", blurb: "Ventilation, shielding, respirators and hearing protection.",
+    { slug: "control", name: "Control", kicker: "Exposure controls", cta: "Choose controls", includes: ["Ventilation", "Shielding", "Respirators", "Hearing protection"],
+      blurb: "Design and check the controls that bring exposures down: ventilation, shielding, respirators and hearing protection.",
       sections: [
         { name: "Ventilation", topic: "Ventilation" },
         { name: "Radiation Shielding", sub: ["Radiation", "Shielding"] },
