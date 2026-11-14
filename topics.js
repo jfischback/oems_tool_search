@@ -211,3 +211,13 @@ function stepSections(group, step) {
   }
   return out;
 }
+
+// Icons for the workflow steps
+const STEP_ICONS = {
+  assess: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',
+  plan: '<circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h4a3 3 0 0 0 3-3V9a3 3 0 0 1 3-3h0"/><path d="M12 3h-2M4 9V7"/>',
+  analyze: '<path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 6-7"/><circle cx="20" cy="6" r="1.5"/>',
+  control: '<path d="M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+  tools: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'
+};
+function stepIcon(slug, color) { return '<svg viewBox="0 0 24 24" fill="none" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + (STEP_ICONS[slug] || '') + '</svg>'; }

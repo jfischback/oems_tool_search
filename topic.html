@@ -36,7 +36,8 @@
     </nav>
     <div class="hero-in tight">
       <div>
-        <div class="pill"><i></i><span id="pill"></span></div>
+        <div class="pill" id="pillwrap"><i></i><span id="pill"></span></div>
+        <div class="stepper" id="stepper" hidden></div>
         <h1 id="title" class="th1"></h1>
         <p class="lede" id="blurb"></p>
         <div class="sbox">
@@ -105,7 +106,14 @@
   document.getElementById('pill').textContent = (step ? 'Step ' + (stepIdx + 1) + ' of ' + steps.length + ' · ' : '') + mainTools.length + ' tool' + (mainTools.length === 1 ? '' : 's') + (live < mainTools.length ? ' · ' + (mainTools.length - live) + ' coming soon' : '');
   document.getElementById('title').innerHTML = esc(pageName) + '<span>' + esc(fieldName) + '</span>';
   document.getElementById('blurb').textContent = step ? step.blurb : (info.blurb || g.blurb);
-  document.getElementById('bigic').innerHTML = step ? '<span class="bignum">' + String(stepIdx + 1).padStart(2, '0') + '</span>' : icon(cat, th.tag);
+  document.getElementById('bigic').innerHTML = step ? stepIcon(step.slug, th.tag) : icon(cat, th.tag);
+  if (step) {
+    const flow = steps.filter(st => !st.rest);
+    const sp = document.getElementById('stepper'); sp.hidden = false;
+    sp.innerHTML = flow.map((st, i) => '<a class="' + (st.slug === step.slug ? 'on' : (flow.indexOf(step) > i ? 'done' : '')) + '" href="topic.html?g=' + g.slug + '&s=' + st.slug + '"><span>' + (i + 1) + '</span>' + esc(st.name) + '</a>').join('<i></i>') +
+      '<em></em><a class="' + (step.rest ? 'on ref' : 'ref') + '" href="topic.html?g=' + g.slug + '&s=tools">Tools</a>';
+    document.getElementById('pillwrap').hidden = true;
+  }
   search.placeholder = 'Search ' + pageName.toLowerCase() + ' tools…';
 
   // Previous / next step

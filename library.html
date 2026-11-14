@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="fields.css">
 </head>
 <body>
-<header class="fh">
+<header class="fh" id="fh">
   <div class="wrap">
     <nav class="nav">
       <div class="navl">
@@ -50,10 +50,12 @@
     <h2>Featured tools</h2>
     <div class="fgrid" id="fgrid"></div>
   </section>
-  <section class="steps-sec" id="stepsSec" hidden>
-    <div class="eyebrow">The IH workflow</div>
-    <h2>Assess. Plan. Analyze. Control.</h2>
-    <div class="sgrid" id="sgrid"></div>
+  <section class="flow" id="stepsSec" hidden>
+    <div class="flow-panel">
+      <div class="flow-head"><span class="eyebrow">The IH workflow</span><span class="flow-hint">Start anywhere. Each step opens its own workspace.</span></div>
+      <div class="flow-steps" id="sgrid"></div>
+    </div>
+    <a class="refbar" id="refbar"></a>
   </section>
   <section class="lsearch">
     <div class="sbox light">
@@ -121,17 +123,23 @@
     document.getElementById('stepsSec').hidden = false;
     document.getElementById('featured').remove();
     document.getElementById('topicsSec').remove();
-    document.getElementById('sgrid').innerHTML = steps.map((st, i) => {
-      const secs = stepSections(key, st);
-      const list = secs.flatMap(x => x.tools).filter(t => !isTucked(t));
-      const live = list.filter(t => t.url).length;
-      const shown = [...new Set(secs.map(x => x.eyebrow || x.name))];
-      return '<a class="scard" href="topic.html?g=' + g.slug + '&s=' + st.slug + '">' +
-        '<div class="num">' + String(i + 1).padStart(2, '0') + '</div>' +
+    document.getElementById('fh').classList.add('has-flow');
+    const info = st => { const secs = stepSections(key, st); const list = secs.flatMap(x => x.tools).filter(t => !isTucked(t)); return { secs, list, live: list.filter(t => t.url).length }; };
+    const flow = steps.filter(st => !st.rest), ref = steps.find(st => st.rest);
+    document.getElementById('sgrid').innerHTML = flow.map((st, i) => {
+      const x = info(st);
+      return '<a class="fstep" href="topic.html?g=' + g.slug + '&s=' + st.slug + '">' +
+        '<div class="rail"><span class="node">' + (i + 1) + '</span></div>' +
+        '<span class="sic">' + stepIcon(st.slug, th.label) + '</span>' +
         '<h3>' + esc(st.name) + '</h3><p>' + esc(st.blurb) + '</p>' +
-        '<div class="incl">' + shown.slice(0, 4).map(x => '<span>' + esc(x) + '</span>').join('') + '</div>' +
-        '<div class="foot"><em>' + list.length + ' tool' + (list.length === 1 ? '' : 's') + (live < list.length ? ' · ' + (list.length - live) + ' coming soon' : '') + '</em><b>→</b></div></a>';
+        '<div class="meta"><span>' + x.list.length + ' tool' + (x.list.length === 1 ? '' : 's') + (x.live < x.list.length ? ' · ' + (x.list.length - x.live) + ' coming soon' : '') + '</span><b>Open →</b></div></a>';
     }).join('');
+    if (ref) {
+      const x = info(ref);
+      const rb = document.getElementById('refbar');
+      rb.href = 'topic.html?g=' + g.slug + '&s=' + ref.slug;
+      rb.innerHTML = '<span class="sic dark">' + stepIcon(ref.slug, th.tag) + '</span><div><small>Reference library</small><strong>' + esc(ref.name) + '</strong><p>' + x.list.length + ' calculators · ' + [...new Set(x.secs.map(s => s.eyebrow || s.name))].join(' · ') + '</p></div><b>Browse →</b>';
+    }
   }
 
   const featNames = new Set(g.featured);
