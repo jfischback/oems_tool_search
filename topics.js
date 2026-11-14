@@ -247,7 +247,8 @@ const PROGRAMS = {
     { slug: "radiation", name: "Radiation", topic: "Radiation", blurb: "Shielding, decay and dose, RF antenna hazards and UV exposure.",
       featured: ["Shielding Calculator HVL / TVL", "RF Antenna Hazard", "Radioactive Decay and Half-Life"] },
     { slug: "lasers", name: "Lasers", topic: "Lasers", blurb: "Laser hazard evaluation, hazard zones and laser eyewear.",
-      featured: ["Laser Hazard Evaluation", "Laser Eyewear Optical Density", "Laser NHZ, Direct Beam"] }
+      featured: ["Laser Hazard Evaluation", "Laser Eyewear Optical Density", "Laser NHZ, Direct Beam"] },
+    { slug: "heat", name: "Heat Illness Prevention", topic: "Heat", blurb: "Heat stress and heat illness prevention.", featured: [] }
   ]
 };
 

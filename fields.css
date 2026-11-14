@@ -246,16 +246,17 @@
   .progs { margin-top: 22px; background: #fff; border: 1px solid #e6eaf0; border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(16,29,48,.07); }
   .progs-head { margin-bottom: 20px; }
   .progs-head h2 { font-size: 32px; font-weight: 800; letter-spacing: -.04em; margin: 0 0 6px; }
-  .pgrid2 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .pgrid2 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
   .prog { display: flex; flex-direction: column; text-decoration: none; color: #0b1424; border: 1.5px solid #e3e8ef; border-radius: 18px; padding: 20px; background: #fff; transition: transform .18s, box-shadow .18s, border-color .18s; }
   .prog:hover { transform: translateY(-3px); border-color: var(--label); box-shadow: 0 16px 36px rgba(16,29,48,.12), 0 0 0 4px var(--iconbg); }
   .prog .sic { margin-bottom: 14px; }
   .prog h3 { font-size: 20px; font-weight: 800; letter-spacing: -.03em; margin: 0 0 6px; }
   .prog p { font-size: 14px; line-height: 1.5; color: #5b6b7f; margin: 0 0 16px; }
   .pfoot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid #eef1f5; font-size: 13px; }
-  .pfoot em { font-style: normal; color: #8a97ab; }
-  .pfoot b { color: var(--label); }
-  @media (max-width: 1100px) { .pgrid2 { grid-template-columns: 1fr 1fr; } }
+  .pfoot em { font-style: normal; color: #8a97ab; white-space: nowrap; }
+  .pfoot b { color: var(--label); white-space: nowrap; }
+  @media (max-width: 1200px) { .pgrid2 { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 800px) { .pgrid2 { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 600px) { .pgrid2 { grid-template-columns: 1fr; } .progs { padding: 20px 16px; } .progs-head h2 { font-size: 26px; } }
 
   /* Big cards (Assess page, program featured tools) */
@@ -281,3 +282,6 @@
   @media (max-width: 600px) { .bgrid { grid-template-columns: 1fr; } }
   .allhead { padding-top: 56px; } .allhead h2 { font-size: 30px; font-weight: 800; letter-spacing: -.035em; margin: 6px 0 0; }
   .allhead + .sec { padding-top: 22px; }
+  .prog.soon { background: #fbfcfd; cursor: default; }
+  .prog.soon:hover { transform: none; border-color: #e3e8ef; box-shadow: none; }
+  .soonpill { font-size: 12px; color: #8a97ab !important; background: #eef1f5; border-radius: 999px; padding: 4px 10px; }

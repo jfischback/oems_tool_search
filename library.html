@@ -147,8 +147,10 @@
       document.getElementById('progs').hidden = false;
       document.getElementById('pgrid2').innerHTML = progs.map(pr => {
         const all = TOOLS.filter(t => t.group === key && t.category === pr.topic && !isTucked(t));
+        if (!all.length) return '<div class="prog soon"><span class="sic">' + icon(pr.topic, th.label) + '</span>' +
+          '<h3>' + esc(pr.name) + '</h3><p>' + esc(pr.blurb) + '</p><div class="pfoot"><em></em><b class="soonpill">Coming soon</b></div></div>';
         return '<a class="prog" href="topic.html?g=' + g.slug + '&p=' + pr.slug + '"><span class="sic">' + icon(pr.topic, th.label) + '</span>' +
-          '<h3>' + esc(pr.name) + '</h3><p>' + esc(pr.blurb) + '</p><div class="pfoot"><em>' + all.length + ' tools</em><b>Open program →</b></div></a>';
+          '<h3>' + esc(pr.name) + '</h3><p>' + esc(pr.blurb) + '</p><div class="pfoot"><em>' + all.length + ' tools</em><b>Open →</b></div></a>';
       }).join('');
     }
     if (ref) {
