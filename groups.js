@@ -103,7 +103,9 @@ function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<':
 // The "Popular tools" row on the main page. Swap these once Vercel Analytics shows what people actually use.
 const POPULAR = ["Noise Exposure Calculator", "Exposure Statistics Tool", "Environmental Compliance Checker"];
 
-function isFeatured(t) { return POPULAR.includes(t.name) || GROUPS[t.group].featured.includes(t.name); }
+// Featured: the popular picks, each field's featured picks, and every live combined tool (keyword "combined").
+function isCombined(t) { return /\bcombined\b/.test(t.keywords); }
+function isFeatured(t) { return POPULAR.includes(t.name) || GROUPS[t.group].featured.includes(t.name) || (isCombined(t) && !!t.url); }
 
 function matches(tool, query) {
   const words = query.toLowerCase().split(/\s+/).filter(Boolean);
