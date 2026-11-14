@@ -45,7 +45,7 @@
   .nav a.home { color: #c7d2e0; text-decoration: none; font-size: 14px; font-weight: 500; padding: 8px 14px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; background: rgba(255,255,255,.04); transition: background .15s, border-color .15s; }
   .nav a.home:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.28); color: #fff; }
 
-  .hero-body { text-align: center; padding: 70px 0 84px; }
+  .hero-body { text-align: center; padding: 70px 0 64px; }
   .pill { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; color: #c7d2e0; padding: 7px 14px 7px 10px; border-radius: 999px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); }
   .pill b { display: inline-flex; gap: 4px; }
   .pill b i { width: 7px; height: 7px; border-radius: 50%; }
@@ -71,10 +71,6 @@
   .chips button { font: 500 13px Inter, Arial; color: #c7d2e0; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 6px 13px; cursor: pointer; transition: all .15s; }
   .chips button:hover { color: #fff; border-color: rgba(119,186,255,.6); background: rgba(119,186,255,.12); }
 
-  .stats { display: flex; justify-content: center; gap: 46px; margin-top: 54px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,.08); max-width: 680px; margin-left: auto; margin-right: auto; }
-  .stats div { text-align: center; }
-  .stats strong { display: block; font-size: 28px; font-weight: 700; letter-spacing: -.02em; }
-  .stats small { color: #7d8aa0; font-size: 13px; font-weight: 500; }
 
   /* Intro */
   .intro { padding: 72px 0 0; max-width: 720px; }
@@ -85,7 +81,7 @@
 
 
   /* Popular tools */
-  .popular { padding: 56px 0 0; }
+  .popular { background: #fff; padding: 40px 0 44px; border-bottom: 1px solid #e6eaf0; }
   .popular .eyebrow { margin-bottom: 14px; }
   .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .pcard { display: flex; align-items: center; gap: 16px; text-decoration: none; color: #0b1424; background: #fff; border: 1px solid #e3e8ef; border-radius: 14px; padding: 18px 20px; box-shadow: 0 1px 2px rgba(16,29,48,.04); transition: transform .15s, box-shadow .15s, border-color .15s; }
@@ -106,7 +102,7 @@
 
   footer.sv { text-align: center; color: #8a97ab; font-size: 13px; padding: 10px 0 50px; }
 
-  @media (max-width: 700px) { .stats { gap: 22px; } .stats strong { font-size: 22px; } .hero-body { padding: 40px 0 56px; } .searchbox kbd { display: none; } }
+  @media (max-width: 700px) { .hero-body { padding: 40px 0 56px; } .searchbox kbd { display: none; } }
 </style>
 </head>
 <body>
@@ -127,15 +123,16 @@
       </div>
       <div class="chips" id="chips"><span>Try:</span></div>
       <div id="count"></div>
-      <div class="stats" id="stats"></div>
     </div>
   </div>
 </header>
-<div class="wrap">
-  <section class="popular sv" id="popular">
+<section class="popular sv" id="popular">
+  <div class="wrap">
     <div class="eyebrow">Popular tools</div>
     <div class="pgrid" id="pgrid"></div>
-  </section>
+  </div>
+</section>
+<div class="wrap">
   <section class="intro sv" id="intro">
     <div class="eyebrow">Browse by field</div>
     <h2>Built for the work you actually do.</h2>
@@ -176,14 +173,6 @@
       '<span class="arr">→</span></a>';
   }).join('');
 
-  const live = TOOLS.filter(t => t.url).length;
-  const cats = new Set(TOOLS.map(t => t.group + t.category)).size;
-  document.getElementById('stats').innerHTML =
-    '<div><strong>' + TOOLS.length + '</strong><small>Tools</small></div>' +
-    '<div><strong>' + live + '</strong><small>Live now</small></div>' +
-    '<div><strong>' + cats + '</strong><small>Topics</small></div>' +
-    '<div><strong>3</strong><small>Fields</small></div>';
-
   ['Noise dose', 'Capture velocity', 'SPCC', 'Laser NHZ', 'TRIR'].forEach(q => {
     const b = document.createElement('button');
     b.textContent = q;
@@ -197,7 +186,6 @@
     document.getElementById('intro').hidden = !!q;
     document.getElementById('popular').hidden = !!q;
     document.getElementById('results').hidden = !q;
-    document.getElementById('stats').hidden = !!q;
     if (!q) { count.textContent = ''; return; }
     const found = rank(TOOLS.filter(t => matches(t, q)), q);
     document.getElementById('list').innerHTML = found.map(t => toolRow(t, true)).join('');
