@@ -106,6 +106,7 @@
   .tile p { font-size: 13.5px; line-height: 1.5; color: #5b6b7f; margin: 0 0 14px; }
   .tile span { margin-top: auto; font-size: 13px; font-weight: 600; color: var(--label); }
   .tile.soon { background: #fbfcfd; }
+  .feat { display: inline-block; vertical-align: 2px; margin-left: 6px; font: 700 10px Inter, Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase; padding: 3px 7px; border-radius: 999px; }
   .tile.soon span { color: #8a97ab; }
   .more { margin-top: 14px; font: 600 14px Inter, Arial; color: var(--label); background: none; border: 0; padding: 0; cursor: pointer; }
   #none { display: none; padding: 50px 0 0; color: #5b6b7f; font-size: 16px; }
@@ -189,7 +190,7 @@
 
   function tile(t) {
     return t.url
-      ? '<a class="tile" href="' + esc(t.url) + '"><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 110)) + '</p><span>Open →</span></a>'
+      ? '<a class="tile" href="' + esc(t.url) + '"><h3>' + esc(t.name) + featuredBadge(t) + '</h3><p>' + esc(clip(t.description, 110)) + '</p><span>Open →</span></a>'
       : '<div class="tile soon"><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 110)) + '</p><span>Coming soon</span></div>';
   }
 
@@ -204,10 +205,11 @@
     const q = search.value.trim();
     const searching = !!q;
     const found = tools.filter(t => matches(t, q) && (topic === 'All' || t.category === topic));
-    const showCats = cats.filter(c => found.some(t => t.category === c));
+    let showCats = cats.filter(c => found.some(t => t.category === c));
+    if (searching) { const order = rank(found, q).map(t => t.category); showCats = [...new Set(order)]; }
     document.getElementById('featured').hidden = searching || topic !== 'All' || !feat.length;
     document.getElementById('secs').innerHTML = showCats.map(c => {
-      const list = found.filter(t => t.category === c);
+      const list = rank(found.filter(t => t.category === c), q);
       const all = searching || topic !== 'All' || expanded.has(c);
       const shown = all ? list : list.slice(0, SHOW);
       return '<section class="sec"><div class="sechead"><div class="ic">' + icon(c, th.label) + '</div><h2>' + esc(c) + '</h2><em>' + list.length + ' tool' + (list.length === 1 ? '' : 's') + '</em></div>' +

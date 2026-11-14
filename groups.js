@@ -100,11 +100,32 @@ function icon(cat, color) { return '<svg viewBox="0 0 24 24" fill="none" stroke=
 
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
+// The "Popular tools" row on the main page. Swap these once Vercel Analytics shows what people actually use.
+const POPULAR = ["Noise Exposure Calculator", "Exposure Statistics Tool", "Environmental Compliance Checker"];
+
+function isFeatured(t) { return POPULAR.includes(t.name) || GROUPS[t.group].featured.includes(t.name); }
+
 function matches(tool, query) {
   const words = query.toLowerCase().split(/\s+/).filter(Boolean);
   const text = (tool.name + ' ' + tool.description + ' ' + tool.category + ' ' + tool.group + ' ' + tool.keywords).toLowerCase();
   return words.every(w => text.includes(w));
 }
+
+// Search order: featured tools first, then live tools (name matches before description-only matches), then "coming soon".
+function rank(list, query) {
+  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const score = t => {
+    const name = t.name.toLowerCase();
+    let s = 0;
+    if (isFeatured(t)) s += 8;
+    if (words.length && words.every(w => name.includes(w))) s += 2;
+    if (t.url) s += 3;
+    return s;
+  };
+  return list.map((t, i) => [t, i]).sort((a, b) => score(b[0]) - score(a[0]) || a[1] - b[1]).map(x => x[0]);
+}
+
+function featuredBadge(t) { return isFeatured(t) ? '<b class="feat" style="color:' + GROUPS[t.group].colors.label + ';background:' + GROUPS[t.group].theme.iconbg + '">★ Featured</b>' : ''; }
 
 function toolRow(t, showGroup) {
   const c = GROUPS[t.group].colors;
@@ -112,5 +133,5 @@ function toolRow(t, showGroup) {
   const btn = t.url
     ? '<a class="open" style="background:' + c.button + '" href="' + esc(t.url) + '">Open →</a>'
     : '<span class="soon">Coming soon</span>';
-  return '<div class="row" style="border-left-color:' + c.label + '"><div>' + label + '<h3>' + esc(t.name) + '</h3><p>' + esc(t.description) + '</p></div>' + btn + '</div>';
+  return '<div class="row" style="border-left-color:' + c.label + '"><div>' + label + '<h3>' + esc(t.name) + featuredBadge(t) + '</h3><p>' + esc(t.description) + '</p></div>' + btn + '</div>';
 }

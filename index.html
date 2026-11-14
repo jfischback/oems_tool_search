@@ -83,6 +83,23 @@
   .intro p { font: 400 17px/1.65 Inter, Arial, sans-serif; color: #5b6b7f; }
   .groups { padding-top: 34px; }
 
+
+  /* Popular tools */
+  .popular { padding: 56px 0 0; }
+  .popular .eyebrow { margin-bottom: 14px; }
+  .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .pcard { display: flex; align-items: center; gap: 16px; text-decoration: none; color: #0b1424; background: #fff; border: 1px solid #e3e8ef; border-radius: 14px; padding: 18px 20px; box-shadow: 0 1px 2px rgba(16,29,48,.04); transition: transform .15s, box-shadow .15s, border-color .15s; }
+  .pcard:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(16,29,48,.10); border-color: var(--acc); }
+  .pcard .ic { flex: 0 0 auto; width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+  .pcard .ic svg { width: 24px; height: 24px; }
+  .pcard div { min-width: 0; flex: 1; }
+  .pcard small { display: block; font: 700 11px Inter, Arial; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+  .pcard h3 { font: 700 16px/1.25 Inter, Arial, sans-serif; letter-spacing: -.01em; margin: 0; }
+  .pcard .arr { flex: 0 0 auto; font: 600 18px Inter, Arial; color: #9aa8bb; transition: transform .15s, color .15s; }
+  .pcard:hover .arr { transform: translateX(3px); color: var(--acc); }
+  .intro { padding-top: 56px; }
+  @media (max-width: 900px) { .pgrid { grid-template-columns: 1fr; } }
+
   /* Results */
   #results { padding-top: 30px; }
   #count { text-align: center; color: #7d8aa0; font: 500 13px Inter, Arial; margin-top: 14px; min-height: 18px; }
@@ -115,6 +132,10 @@
   </div>
 </header>
 <div class="wrap">
+  <section class="popular sv" id="popular">
+    <div class="eyebrow">Popular tools</div>
+    <div class="pgrid" id="pgrid"></div>
+  </section>
   <section class="intro sv" id="intro">
     <div class="eyebrow">Browse by field</div>
     <h2>Built for the work you actually do.</h2>
@@ -147,6 +168,14 @@
 
   document.getElementById('total').textContent = TOOLS.length;
 
+  document.getElementById('pgrid').innerHTML = POPULAR.map(n => TOOLS.find(t => t.name === n)).filter(t => t && t.url).map(t => {
+    const g = GROUPS[t.group];
+    return '<a class="pcard" style="--acc:' + g.colors.label + '" href="' + esc(t.url) + '">' +
+      '<span class="ic" style="background:' + g.theme.iconbg + '">' + icon(t.category, g.colors.label) + '</span>' +
+      '<div><small style="color:' + g.colors.label + '">' + esc(t.group === 'IH' ? 'Industrial Hygiene' : t.group) + '</small><h3>' + esc(t.name) + '</h3></div>' +
+      '<span class="arr">→</span></a>';
+  }).join('');
+
   const live = TOOLS.filter(t => t.url).length;
   const cats = new Set(TOOLS.map(t => t.group + t.category)).size;
   document.getElementById('stats').innerHTML =
@@ -166,10 +195,11 @@
     const q = search.value.trim();
     document.getElementById('groups').hidden = !!q;
     document.getElementById('intro').hidden = !!q;
+    document.getElementById('popular').hidden = !!q;
     document.getElementById('results').hidden = !q;
     document.getElementById('stats').hidden = !!q;
     if (!q) { count.textContent = ''; return; }
-    const found = TOOLS.filter(t => matches(t, q));
+    const found = rank(TOOLS.filter(t => matches(t, q)), q);
     document.getElementById('list').innerHTML = found.map(t => toolRow(t, true)).join('');
     document.getElementById('none').style.display = found.length ? 'none' : 'block';
     count.textContent = found.length + ' of ' + TOOLS.length + ' tools';
