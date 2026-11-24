@@ -358,3 +358,8 @@
   .guided + .bigsec { padding-top: 34px; }
   .feat-i { align-items: center; }
   .feats { gap: 10px; }
+
+/* 24 Nov 2026 (Jonathan): page titles are exactly two lines, white then colored. Neither line wraps;
+   topics.js shrinks the type to fit the space instead. */
+.fh h1 { white-space: nowrap; }
+.hero-in > div:first-child { min-width: 0; }

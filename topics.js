@@ -297,3 +297,16 @@ const NOISE_FLOW = {
   ],
   all: "hearing"   // program page that lists every noise tool
 };
+
+// 24 Nov 2026 (Jonathan): each page title stays two lines, one white and one colored, with no wrapping.
+// If a line is too long for the space, the title's type gets smaller until both lines fit.
+function fitTitle() {
+  const h = document.getElementById('title');
+  if (!h) return;
+  h.style.fontSize = '';
+  let fs = parseFloat(getComputedStyle(h).fontSize);
+  while (h.scrollWidth > h.clientWidth + 1 && fs > 16) { fs -= 1; h.style.fontSize = fs + 'px'; }
+}
+window.addEventListener('load', fitTitle);
+window.addEventListener('resize', fitTitle);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
