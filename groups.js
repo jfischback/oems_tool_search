@@ -34,15 +34,16 @@ const GROUPS = {
     featured: [],
     noun: "occupational health",
     colors: { bg: "#1c1433", tag: "#b39dff", line2: "#aaa3bd", text: "#ddd6ef", button: "#5b44a8", label: "#5b44a8", border: "#e2dcf2" },
-    art: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none">
-<defs><radialGradient id="ohGlow"><stop offset="0" stop-color="#b39dff" stop-opacity=".45"/><stop offset="1" stop-color="#b39dff" stop-opacity="0"/></radialGradient></defs>
+    art: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<defs><radialGradient id="ohGlow"><stop offset="0" stop-color="#b39dff" stop-opacity=".4"/><stop offset="1" stop-color="#b39dff" stop-opacity="0"/></radialGradient></defs>
 <line x1="20" y1="180" x2="300" y2="180" stroke="#5b44a8" stroke-opacity=".5"/>
-<circle cx="160" cy="100" r="70" fill="url(#ohGlow)"/>
-<path d="M118 92c0-26 19-44 42-44s42 18 42 44v18c0 20-19 36-42 36s-42-16-42-36z" stroke="#b39dff" stroke-width="2.5"/>
-<circle cx="138" cy="112" r="12" stroke="#b39dff" stroke-width="2.5"/><circle cx="182" cy="112" r="12" stroke="#b39dff" stroke-width="2.5"/>
-<path d="M118 92 L92 80 M202 92 L228 80" stroke="#5b44a8" stroke-width="2.5" stroke-linecap="round"/>
-<path d="M60 150 q8 -14 16 0 t16 0 t16 0" stroke="#aaa3bd" stroke-width="2" stroke-linecap="round"/>
-<path d="M212 150 q8 -14 16 0 t16 0 t16 0" stroke="#aaa3bd" stroke-width="2" stroke-linecap="round"/>
+<circle cx="190" cy="102" r="74" fill="url(#ohGlow)"/>
+<path d="M180 52 C 214 38, 248 62, 241 98 C 236 120, 217 125, 214 144 C 212 163, 192 170, 180 158" stroke="#b39dff" stroke-width="3"/>
+<path d="M192 76 C 211 69, 225 86, 215 100 C 208 109, 196 104, 201 92" stroke="#b39dff" stroke-width="2.6"/>
+<path d="M150 86 Q 140 102 150 118" stroke="#aaa3bd" stroke-width="2.4"/>
+<path d="M134 76 Q 118 102 134 128" stroke="#aaa3bd" stroke-width="2.4" stroke-opacity=".75"/>
+<path d="M118 66 Q 96 102 118 138" stroke="#aaa3bd" stroke-width="2.4" stroke-opacity=".5"/>
+<path d="M102 56 Q 74 102 102 148" stroke="#aaa3bd" stroke-width="2.4" stroke-opacity=".28"/>
 </svg>`
   },
   Environmental: {
