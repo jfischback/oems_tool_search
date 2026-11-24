@@ -57,12 +57,14 @@
     <h2>Featured tools</h2>
     <div class="fgrid" id="fgrid"></div>
   </section>
+  <a class="refbar" id="toolsbar" href="#topicsSec" hidden></a>
   <section class="flow" id="stepsSec" hidden>
     <div class="flow-panel">
-      <div class="flow-head"><h2><a class="flow-link" href="https://oemswebsite.vercel.app/exposure-assessments">Exposure Assessments <i>→</i></a></h2><p class="flow-dir">Every step of a chemical exposure assessment, from the walkthrough to proving the controls work.</p></div>
+      <div class="flow-head"><h2>The Exposure Assessment Process</h2><p class="flow-dir">Assess, plan, analyze and control: the steps of an exposure assessment, with the tools for each step.</p></div>
       <div class="flow-rail" id="srail"></div>
       <div class="flow-steps" id="sgrid"></div>
     </div>
+    <a class="refbar" id="refbar"></a>
     <div class="noise" id="noise" hidden>
       <div class="noise-top">
         <div class="noise-head"><h2>Noise Exposure Assessment</h2><p class="flow-dir">One guided tool: analyze the dosimeter results, notify the employee, then check hearing protection. Each step carries the results into the next.</p>
@@ -75,7 +77,6 @@
       <div class="progs-head"><h2>Programs</h2><p class="flow-dir">Everything for one program in one place.</p></div>
       <div class="pgrid2" id="pgrid2"></div>
     </div>
-    <a class="refbar" id="refbar"></a>
   </section>
   <section class="lsearch">
     <div class="sbox light">
@@ -93,7 +94,13 @@
 
   <p id="none">No tools match. <button id="clear">Clear search</button></p>
 </div>
-<footer>Built by OEMS · Occupational Exposure Management Systems</footer>
+<!-- 24 Nov 2026, Jonathan: the same footer as the main site -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-id"><a class="footer-brand" href="https://oemswebsite.vercel.app/"><strong>OEMS</strong> <span>Occupational Exposure Management Systems</span></a><p class="footer-slogan">We help companies turn data into decisions.</p></div>
+    <nav aria-label="Footer"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="index.html">Tools</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li></ul></nav>
+  </div>
+</footer>
 <script src="tools.js"></script>
 <script src="groups.js"></script>
 <script src="topics.js"></script>
@@ -121,12 +128,20 @@
 
   // Featured
   const feat = g.featured.map(n => tools.find(t => t.name === n)).filter(Boolean);
-  document.getElementById('fgrid').classList.toggle('one', feat.length === 1);
+  // 24 Nov 2026 (Jonathan): Occupational Health shows its two programs at the top instead of single tools.
+  const progCards = (g.programs || []).map(([name, cat]) => {
+    const list = tools.filter(t => t.category === cat);
+    const info = (TOPICS[key] || {})[cat] || {};
+    return '<a class="fcard" href="' + topicHref(key, cat) + '"><div class="ic">' + icon(cat, th.tag) + '</div><small>PROGRAM</small><h3>' + esc(name) + '</h3><p>' + esc(info.blurb || '') + '</p><div class="go">' + list.length + ' tools →</div></a>';
+  });
+  if (progCards.length) { document.querySelector('#featured h2').textContent = 'Programs'; }
+  document.getElementById('fgrid').classList.toggle('one', feat.length + progCards.length === 1);
   document.getElementById('fgrid').innerHTML = feat.map(t => {
     const inner = '<div class="ic">' + icon(t.category, th.tag) + '</div><small>' + esc(t.category.toUpperCase()) + '</small><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 120)) + '</p>';
     return t.url ? '<a class="fcard" href="' + esc(t.url) + '">' + inner + '<div class="go">Open tool →</div></a>'
                  : '<div class="fcard soon">' + inner + '<div class="go">Coming soon</div></div>';
-  }).join('');
+  }).join('') + progCards.join('');
+  if (!feat.length && !progCards.length) document.getElementById('featured').hidden = true;
 
   function clip(s, n) { return s.length > n ? s.slice(0, n - 3).trim() + '…' : s; }
 
@@ -149,7 +164,7 @@
     document.getElementById('srail').innerHTML = flow.map((st, i) => '<span><b>' + (i + 1) + '</b>' + esc(st.name) + '</span>').join('');
     document.getElementById('sgrid').innerHTML = flow.map((st, i) => {
       const x = info(st);
-      return '<a class="fstep" href="topic.html?g=' + g.slug + '&s=' + st.slug + '">' +
+      return '<a class="fstep" href="' + (st.href || ('topic.html?g=' + g.slug + '&s=' + st.slug)) + '">' +
         '<div class="ftop"><span class="sic">' + stepIcon(st.slug, th.label) + '</span></div>' +
         '<small class="kick">' + esc(st.kicker || '') + '</small>' +
         '<h3>' + esc(st.name) + '</h3><p>' + esc(st.blurb) + '</p>' +
@@ -219,11 +234,21 @@
       '<div class="foot"><em>' + countTxt + '</em><b>' + (single ? 'Open tool →' : 'View topic →') + '</b></div></a>';
   }).join('');
 
+  // 24 Nov 2026 (Jonathan): every field page has a Tools box under its top box, for anyone who wants a single tool.
+  if (!steps) {
+    const tb = document.getElementById('toolsbar');
+    tb.hidden = false;
+    tb.innerHTML = '<div class="rb-main"><span class="sic dark big">' + stepIcon('tools', th.tag) + '</span><div><small>Single tools</small><strong>Tools</strong>' +
+      '<p>Every ' + esc(g.noun) + ' tool, grouped by topic. ' + tools.length + ' tools.</p>' +
+      '<div class="rb-chips">' + cats.map(c => '<span>' + icon(c, th.tag) + esc(c) + ' <em>' + tools.filter(t => t.category === c).length + '</em></span>').join('') + '</div></div></div>' +
+      '<b>Browse all tools <i>→</i></b>';
+  }
+
   // Search results (all tools in this field, grouped by topic)
   function render() {
     const q = search.value.trim();
     const searching = !!q;
-    if (!steps) document.getElementById('featured').hidden = !feat.length;
+    if (!steps) document.getElementById('featured').hidden = !feat.length && !progCards.length;
     if (!steps) document.getElementById('topicsSec').hidden = searching;
     if (!searching) { document.getElementById('secs').innerHTML = ''; document.getElementById('none').style.display = 'none'; document.getElementById('count').textContent = ''; return; }
     const found = rank(tools.filter(t => matches(t, q)), q);

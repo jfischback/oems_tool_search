@@ -32,6 +32,8 @@ const GROUPS = {
     blurb: "Tools for respiratory protection and hearing conservation programs.",
     theme: { hero: "#0c0818", bg: "#1c1433", deep: "#5b44a8", tag: "#b39dff", line2: "#aaa3bd", label: "#5b44a8", glow: "rgba(179,157,255,.3)", iconbg: "#efeaff", fstart: "#2a1f47" },
     featured: [],
+    // 24 Nov 2026 (Jonathan): the two programs sit at the top of the page.
+    programs: [["Respiratory Protection", "Respiratory Protection"], ["Hearing Conservation", "Noise"]],
     noun: "occupational health",
     colors: { bg: "#1c1433", tag: "#b39dff", line2: "#aaa3bd", text: "#ddd6ef", button: "#5b44a8", label: "#5b44a8", border: "#e2dcf2" },
     art: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -79,7 +81,7 @@ const GROUPS = {
     title: ["Workplace safety.", "Made clear."],
     blurb: "Tools to support better decisions about injury rates, fall protection, and lifting.",
     theme: { hero: "#120708", bg: "#2a1012", deep: "#8f1d1d", tag: "#ff8a80", line2: "#b5a3a3", label: "#b3261e", glow: "rgba(255,138,128,.28)", iconbg: "#fdeceb", fstart: "#3a1719" },
-    featured: [],
+    featured: ["Injury and Illness Rates (TRIR, DART, LTCR)", "Recordability Determination Tool"], // 24 Nov 2026, Jonathan
     noun: "safety",
     colors: { bg: "#2a1012", tag: "#ff8a80", line2: "#b5a3a3", text: "#ecd9d8", button: "#8f1d1d", label: "#b3261e", border: "#ecd6d6" },
     art: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none">

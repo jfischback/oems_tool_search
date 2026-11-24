@@ -368,3 +368,4 @@
 .flow-link { color: inherit; text-decoration: none; }
 .flow-link i { font-style: normal; color: var(--label); font-size: .8em; margin-left: 4px; }
 .flow-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .refbar[hidden] { display: none; }

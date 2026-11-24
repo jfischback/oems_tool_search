@@ -12,7 +12,7 @@ const TOPICS = {
     "Noise": {
       blurb: "Calculate exposure and dose, compare hearing protection options, and share sampling results with employees.",
       subs: {
-        "Exposure and Hearing Conservation": ["Noise Exposure Assessment", "Noise Exposure Calculator", "Hearing Protection Picker", "Noise Sampling Notification Template", "Standard Threshold Shift (STS) with Age Correction"],
+        "Exposure and Hearing Conservation": ["Noise Exposure Assessment", "Noise Exposure Calculator", "Hearing Protection Selector", "Noise Sampling Notification Template", "Standard Threshold Shift (STS) with Age Correction"],
         "Sound Levels": ["Sound Pressure, Intensity and Power Level", "Decibel Addition Calculator", "Equivalent Continuous Sound Level (Leq)", "Sound Pressure Level Calculator", "Sound Intensity Level Calculator", "Sound Power Level Calculator"],
         "Distance, Barriers and Directivity": ["Sound Pressure Level from Sound Power Level (feet or meters)", "Sound Level Change with Distance", "Transmission Loss Calculator", "Directivity Index Calculator", "Sound Pressure Level from Sound Power Level (feet)", "Sound Pressure Level from Sound Power Level (meters)"],
         "Frequency": ["Octave Band Frequencies", "Frequency from Rotational Speed", "Frequency from Wavelength", "Octave Band Upper Frequency", "Band Center Frequency", "One-Third Octave Band Upper Frequency"]
@@ -151,7 +151,8 @@ function topicHref(group, cat) { return 'topic.html?g=' + GROUPS[group].slug + '
 // A tool listed by name in two steps (like Exposure Statistics Tool in Analyze and Control) shows in both.
 const STEPS = {
   IH: [
-    { slug: "assess", name: "Assess", kicker: "Exposure assessments", cta: "Start an assessment", includes: ["Manufacturing", "Non-manufacturing"],
+    // 24 Nov 2026 (Jonathan): Assess opens the main site's Exposure Assessments page.
+    { slug: "assess", name: "Assess", href: "https://oemswebsite.vercel.app/exposure-assessments", kicker: "Exposure assessments", cta: "Start an assessment", includes: ["Manufacturing", "Non-manufacturing"],
       features: [["Manufacturing Exposure Assessment", "Exposure Assessment"], ["Non-Manufacturing Exposure Assessment", "Exposure Assessment"]],
       blurb: "Run a chemical exposure assessment and find out who is exposed, to what, and how much.",
       sections: [
@@ -177,13 +178,14 @@ const STEPS = {
         { name: "Sampling Results", items: ["Exposure Statistics Tool"] }
       ] },
     { slug: "control", name: "Control", kicker: "Exposure controls", cta: "Choose controls", includes: ["Ventilation", "Confirm it's working"],
-      features: [["Ventilation Design and Testing", "Ventilation"]],
-      blurb: "Design ventilation that brings exposures down, then confirm it is working.",
+      // 24 Nov 2026 (Jonathan): Control keeps the tools that check whether a control works; the ventilation design math is in Tools.
+      features: [["Ventilation checks", "Ventilation"]],
+      blurb: "Check that ventilation and other controls are bringing exposures down.",
       sections: [
-        { name: "Ventilation", topic: "Ventilation" },
-        { name: "Confirm It's Working", items: ["Hood Pressure and Flow", "Exposure Statistics Tool"] }
+        { name: "Ventilation Checks", items: ["Capture Hood Airflow Calculator", "Hood Pressure and Flow", "Hood Static Pressure", "Hood Flow from SPh", "USEPA Method 204", "Air Changes per Hour"] },
+        { name: "Confirm It's Working", items: ["Exposure Statistics Tool"] }
       ] },
-    { slug: "tools", name: "Tools", blurb: "Every other IH calculator: noise, radiation, lasers, respiratory protection and unit conversions.", rest: true }
+    { slug: "tools", name: "Tools", blurb: "Every other IH calculator: ventilation design, noise, radiation, lasers and unit conversions.", rest: true }
   ]
 };
 
@@ -253,7 +255,7 @@ const PROGRAMS = {
       featured: ["Laser Hazard Evaluation", "Laser Eyewear Optical Density", "Laser NHZ, Direct Beam"],
       assess: ["Laser Hazard Evaluation", "Laser NHZ, Direct Beam", "Laser NHZ, Lens on Laser", "Laser NHZ, Diffuse Reflection", "Ds (TL Form)", "Laser Beam Diameter at Distance"],
       control: ["Laser Eyewear Optical Density"] },
-    { slug: "ppe", name: "PPE", topic: "PPE", tool: "PPE Picker", blurb: "Pick the personal protective equipment a job needs." },
+    { slug: "ppe", name: "PPE", topic: "PPE", tool: "PPE Selector", blurb: "Pick the personal protective equipment a job needs." },
     { slug: "heat", name: "Heat Illness Prevention", topic: "Heat", blurb: "Heat stress and heat illness prevention.", featured: [] }
   ]
 };
@@ -290,7 +292,7 @@ function bigCard(t, o, th) {
 const NOISE_FLOW = {
   guided: "Noise Exposure Assessment",
   tools: [
-    ["Hearing Protection Picker", "Check that hearing protection is enough"],
+    ["Hearing Protection Selector", "Check that hearing protection is enough"],
     ["Noise Sampling Notification Template", "Turn a result into a clear employee notice"],
     ["Sound Pressure, Intensity and Power Level", "Convert pressure, intensity or power to decibels"],
     ["Octave Band Frequencies", "Octave and one-third octave band frequencies"]
