@@ -21,7 +21,7 @@
 <title>OEMS Tools</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="fields.css">
 <link rel="stylesheet" href="oems-header.css">
 </head>
@@ -122,6 +122,10 @@
   const root = document.documentElement.style;
   Object.entries(th).forEach(([k, v]) => root.setProperty('--' + k, v));
   root.setProperty('--grid', th.tag + '12');
+  // 24 Nov 2026 (Jonathan): technical topic pages get the dark blue tool header, whatever the field.
+  const blue = GROUPS.IH.theme;
+  for (const k of ['hero', 'glow', 'tag', 'line2']) root.setProperty('--hero-' + k, blue[k]);
+  document.querySelector('header.fh').classList.add('fh-blue');
 
   document.title = 'OEMS ' + (step ? fieldName + ': ' + step.name : pageName + (program ? '' : ' Tools'));
   const fl = document.getElementById('fieldlink'); fl.textContent = fieldName; fl.href = 'library.html?g=' + g.slug;
@@ -129,7 +133,7 @@
   const mainTools = tools.filter(t => !isTucked(t));
   const live = mainTools.filter(t => t.url).length;
   document.getElementById('pill').textContent = (program && program.combined) ? tools.length + ' noise tools' : (step ? 'Step ' + (stepIdx + 1) + ' of ' + steps.length + ' · ' : '') + mainTools.length + ' tool' + (mainTools.length === 1 ? '' : 's') + (live < mainTools.length ? ' · ' + (mainTools.length - live) + ' coming soon' : '');
-  document.getElementById('title').innerHTML = esc(pageName) + '<span>' + esc(fieldName) + '</span>';
+  document.getElementById('title').textContent = pageName; // one-line title on technical pages (24 Nov 2026)
   document.getElementById('blurb').textContent = step ? step.blurb : (program ? program.blurb : (info.blurb || g.blurb));
   document.getElementById('bigic').innerHTML = step ? stepIcon(step.slug, th.tag) : icon(cat, th.tag);
   if (step) {

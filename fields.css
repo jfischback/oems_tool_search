@@ -369,3 +369,11 @@
 .flow-link i { font-style: normal; color: var(--label); font-size: .8em; margin-left: 4px; }
 .flow-link:hover { text-decoration: underline; text-underline-offset: 4px; }
   .refbar[hidden] { display: none; }
+
+/* 24 Nov 2026 (Jonathan): technical topic pages use the dark blue tool header */
+.fh.fh-blue { background: var(--hero-hero); }
+.fh.fh-blue::before { background-image: linear-gradient(#77baff12 1px, transparent 1px), linear-gradient(90deg, #77baff12 1px, transparent 1px); }
+.fh.fh-blue::after { background: radial-gradient(circle, var(--hero-glow) 0%, transparent 65%); }
+.fh.fh-blue .pill i { background: var(--hero-tag) !important; }
+.fh.fh-blue .bigic svg { stroke: var(--hero-tag); }
+.fh.fh-blue .bigic { box-shadow: 0 0 60px var(--hero-glow); }

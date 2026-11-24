@@ -21,7 +21,7 @@
 <title>OEMS Tools</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="fields.css">
 <link rel="stylesheet" href="oems-header.css">
 </head>
@@ -127,7 +127,7 @@
   search.placeholder = 'Search ' + g.noun + ' tools…';
 
   // Featured
-  const feat = g.featured.map(n => tools.find(t => t.name === n)).filter(Boolean);
+  const feat = g.featured.map(n => tools.find(t => t.name === n)).filter(t => t && t.url); // only live tools are featured (24 Nov 2026)
   // 24 Nov 2026 (Jonathan): Occupational Health shows its two programs at the top instead of single tools.
   const progCards = (g.programs || []).map(([name, cat]) => {
     const list = tools.filter(t => t.category === cat);
@@ -214,11 +214,11 @@
     }
   }
 
-  const featNames = new Set(g.featured);
+  const featNames = new Set(feat.map(t => t.name));
   const topicCats = cats.filter(c => tools.some(t => t.category === c && !featNames.has(t.name)));
-  if (!steps && feat.length) {
-    document.getElementById('teyebrow').textContent = 'More tools';
-    document.getElementById('ttitle').textContent = 'Other ' + (key === 'IH' ? 'IH' : g.noun) + ' tools';
+  if (!steps) {
+    document.getElementById('teyebrow').textContent = 'Single tools';
+    document.getElementById('ttitle').textContent = 'Tools';
   }
   if (!steps) document.getElementById('tgrid').innerHTML = topicCats.map(c => {
     const list = tools.filter(t => t.category === c);
@@ -235,7 +235,7 @@
   }).join('');
 
   // 24 Nov 2026 (Jonathan): every field page has a Tools box under its top box, for anyone who wants a single tool.
-  if (!steps) {
+  if (false) { // 24 Nov 2026 (Jonathan): the topic grid below is the Tools section on these pages
     const tb = document.getElementById('toolsbar');
     tb.hidden = false;
     tb.innerHTML = '<div class="rb-main"><span class="sic dark big">' + stepIcon('tools', th.tag) + '</span><div><small>Single tools</small><strong>Tools</strong>' +
