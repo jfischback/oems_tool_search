@@ -39,10 +39,10 @@ const GROUPS = {
 <circle cx="190" cy="102" r="74" fill="url(#ohGlow)"/>
 <path d="M180 52 C 214 38, 248 62, 241 98 C 236 120, 217 125, 214 144 C 212 163, 192 170, 180 158" stroke="#b39dff" stroke-width="3"/>
 <path d="M192 76 C 211 69, 225 86, 215 100 C 208 109, 196 104, 201 92" stroke="#b39dff" stroke-width="2.6"/>
-<path d="M150 86 Q 140 102 150 118" stroke="#aaa3bd" stroke-width="2.4"/>
-<path d="M134 76 Q 118 102 134 128" stroke="#aaa3bd" stroke-width="2.4" stroke-opacity=".75"/>
-<path d="M118 66 Q 96 102 118 138" stroke="#aaa3bd" stroke-width="2.4" stroke-opacity=".5"/>
-<path d="M102 56 Q 74 102 102 148" stroke="#aaa3bd" stroke-width="2.4" stroke-opacity=".28"/>
+<path d="M144 86 Q 154 102 144 118" stroke="#aaa3bd" stroke-width="2.4"/>
+<path d="M124 76 Q 140 102 124 128" stroke="#aaa3bd" stroke-width="2.4" stroke-opacity=".75"/>
+<path d="M104 66 Q 126 102 104 138" stroke="#aaa3bd" stroke-width="2.4" stroke-opacity=".5"/>
+<path d="M84 56 Q 112 102 84 148" stroke="#aaa3bd" stroke-width="2.4" stroke-opacity=".28"/>
 </svg>`
   },
   Environmental: {
