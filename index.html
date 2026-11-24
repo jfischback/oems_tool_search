@@ -50,7 +50,7 @@
   .pill b { display: inline-flex; gap: 4px; }
   .pill b i { width: 7px; height: 7px; border-radius: 50%; }
   .hero-x h1 { font-size: clamp(42px, 6vw, 76px); line-height: 1.02; letter-spacing: -.045em; font-weight: 800; margin: 26px auto 18px; max-width: 900px; }
-  .hero-x h1 em { font-style: normal; background: linear-gradient(90deg, #77baff 0%, #6fdc9c 50%, #ff8a80 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero-x h1 em { font-style: normal; background: linear-gradient(90deg, #77baff 0%, #b39dff 33%, #6fdc9c 60%, #ff8a80 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .lede { color: #9aa8bb; font-size: 19px; line-height: 1.6; max-width: 620px; margin: 0 auto; }
 
     background: linear-gradient(90deg, rgba(119,186,255,.7), rgba(111,220,156,.5), rgba(255,138,128,.5));
@@ -97,6 +97,8 @@
     .site-nav a { padding: 12px; font-size: 16px; }
     .sh-brand img { height: 34px; }
   }
+  /* Four fields (24 Nov 2026) */
+  .groups { grid-template-columns: repeat(4, 1fr) !important; } @media (max-width: 1100px) { .groups { grid-template-columns: repeat(2, 1fr) !important; } } @media (max-width: 640px) { .groups { grid-template-columns: 1fr !important; } }
 </style>
 </head>
 <body>
@@ -111,7 +113,7 @@
 <header class="hero-x sv">
   <div class="wrap">
     <div class="hero-body">
-      <div class="pill"><b><i style="background:#77baff"></i><i style="background:#6fdc9c"></i><i style="background:#ff8a80"></i></b>Industrial Hygiene · Environmental · Safety</div>
+      <div class="pill"><b><i style="background:#77baff"></i><i style="background:#b39dff"></i><i style="background:#6fdc9c"></i><i style="background:#ff8a80"></i></b>Industrial Hygiene · Occupational Health · Environmental · Safety</div>
       <h1>Practical tools.<br><em>For your field.</em></h1>
       <p class="lede">Exposure assessment, environmental compliance and workplace safety tools, built by an industrial hygienist for the people doing the work.</p>
     </div>

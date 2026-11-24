@@ -42,6 +42,11 @@ const TOPICS = {
     "PPE": { blurb: "Pick the personal protective equipment a job needs." },
     "Exposure Assessment": { blurb: "Evaluate workplace exposures and compare results against occupational exposure limits." }
   },
+  // Occupational Health (24 Nov 2026, Jonathan): respirator and hearing conservation tools moved here from IH.
+  OH: {
+    "Respiratory Protection": { blurb: "Support respirator selection and respiratory protection program decisions." },
+    "Noise": { blurb: "Check hearing protection, notify employees of noise results, and check for a standard threshold shift." }
+  },
   Environmental: {
     "Compliance": { blurb: "See which federal environmental programs apply to your site, all in one place." },
     "Air Emissions": { blurb: "Estimate emission rates from stack data, emission factors and mass balance, and check potential to emit." },
@@ -240,10 +245,6 @@ const PROGRAMS = {
   IH: [
     { slug: "hearing", name: "Hearing Conservation", topic: "Noise", hidden: true, combined: true, guided: "Noise Exposure Assessment",
       blurb: "Every noise tool: combined tools up top, single calculators below." },
-    { slug: "respiratory", name: "Respiratory Protection", topic: "Respiratory Protection", blurb: "Respirator selection, assigned protection factors and maximum use concentrations.",
-      featured: ["Respirator Selection Tool", "Maximum Use Concentration (MUC) Calculator", "Assigned Protection Factor Calculator"],
-      assess: [],
-      control: ["Respirator Protection Tool", "Respirator Selection Tool", "Maximum Use Concentration (MUC) Calculator", "Assigned Protection Factor Calculator"] },
     { slug: "radiation", name: "Radiation", topic: "Radiation", blurb: "Shielding, decay and dose, RF antenna hazards and UV exposure.",
       featured: ["Shielding Calculator HVL / TVL", "RF Antenna Hazard", "Radioactive Decay and Half-Life"],
       assess: ["RF Antenna Hazard", "Gamma Dose Rate from a Point Source", "Dose Equivalent", "Dose Summation (TEDE)", "DAC from ALI", "RF Spatial Average", "RF Exposure Time Above the EL", "UV Permissible Exposure Time", "Radioactive Decay and Half-Life"],

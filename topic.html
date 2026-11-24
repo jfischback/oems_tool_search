@@ -66,7 +66,7 @@
   const params = new URLSearchParams(location.search);
   const key = Object.keys(GROUPS).find(k => GROUPS[k].slug === params.get('g')) || 'IH';
   const g = GROUPS[key], th = g.theme;
-  const fieldName = key === 'IH' ? 'Industrial Hygiene' : key;
+  const fieldName = key === 'IH' ? 'Industrial Hygiene' : key === 'OH' ? 'Occupational Health' : key;
   const cats = [...new Set(TOOLS.filter(t => t.group === key).map(t => t.category))];
   const steps = (typeof STEPS !== 'undefined' && STEPS[key]) || [];
   const stepIdx = steps.findIndex(st => st.slug === params.get('s'));

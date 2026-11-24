@@ -1,4 +1,4 @@
-// The three tool groups. Colors and graphics match the top info card on each OEMS Squarespace page.
+// The four tool groups. Colors and graphics match the top info card on each OEMS Squarespace page.
 
 const GROUPS = {
   IH: {
@@ -23,6 +23,26 @@ const GROUPS = {
 <path d="M20 170 C 70 168, 95 150, 130 125 S 200 92, 240 90 S 285 88, 290 88" stroke="url(#oemsLine)" stroke-width="2.5" stroke-linecap="round"/>
 <circle cx="290" cy="88" r="16" fill="url(#oemsGlow)"/>
 <circle cx="290" cy="88" r="4.5" fill="#77baff"/>
+</svg>`
+  },
+  OH: {
+    slug: "oh",
+    tag: "OEMS · OCCUPATIONAL HEALTH TOOLS",
+    title: ["Occupational health.", "Made manageable."],
+    blurb: "Tools for respiratory protection and hearing conservation programs.",
+    theme: { hero: "#0c0818", bg: "#1c1433", deep: "#5b44a8", tag: "#b39dff", line2: "#aaa3bd", label: "#5b44a8", glow: "rgba(179,157,255,.3)", iconbg: "#efeaff", fstart: "#2a1f47" },
+    featured: [],
+    noun: "occupational health",
+    colors: { bg: "#1c1433", tag: "#b39dff", line2: "#aaa3bd", text: "#ddd6ef", button: "#5b44a8", label: "#5b44a8", border: "#e2dcf2" },
+    art: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+<defs><radialGradient id="ohGlow"><stop offset="0" stop-color="#b39dff" stop-opacity=".45"/><stop offset="1" stop-color="#b39dff" stop-opacity="0"/></radialGradient></defs>
+<line x1="20" y1="180" x2="300" y2="180" stroke="#5b44a8" stroke-opacity=".5"/>
+<circle cx="160" cy="100" r="70" fill="url(#ohGlow)"/>
+<path d="M118 92c0-26 19-44 42-44s42 18 42 44v18c0 20-19 36-42 36s-42-16-42-36z" stroke="#b39dff" stroke-width="2.5"/>
+<circle cx="138" cy="112" r="12" stroke="#b39dff" stroke-width="2.5"/><circle cx="182" cy="112" r="12" stroke="#b39dff" stroke-width="2.5"/>
+<path d="M118 92 L92 80 M202 92 L228 80" stroke="#5b44a8" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M60 150 q8 -14 16 0 t16 0 t16 0" stroke="#aaa3bd" stroke-width="2" stroke-linecap="round"/>
+<path d="M212 150 q8 -14 16 0 t16 0 t16 0" stroke="#aaa3bd" stroke-width="2" stroke-linecap="round"/>
 </svg>`
   },
   Environmental: {
