@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="description" content="Practical calculators for industrial hygiene, environmental compliance and workplace safety, built by OEMS.">
+<meta name="theme-color" content="#070d18">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OEMS Tools">
+<meta property="og:title" content="OEMS Tools">
+<meta property="og:description" content="Practical calculators for industrial hygiene, environmental compliance and workplace safety, built by OEMS.">
+<meta property="og:image" content="https://oemstoolsearch.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oemstoolsearch.vercel.app/og.png">
+<script defer src="/_vercel/insights/script.js"></script>
+<title>OEMS Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fields.css">
+</head>
+<body>
+<header class="fh" id="fh">
+  <div class="wrap">
+    <nav class="nav">
+      <div class="navl">
+        <a class="brand" href="index.html"><i></i>OEMS</a>
+        <div class="crumb"><a href="index.html">Tools</a> &nbsp;/&nbsp; <a href="library.html?g=ih" id="crumb"></a> &nbsp;/&nbsp; <b>Chemical Exposure Assessment</b></div>
+      </div>
+      <a class="home" href="https://www.oemsgroup.com">oemsgroup.com ↗</a>
+    </nav>
+    <div class="hero-in">
+      <div>
+        <div class="pill"><i></i><span id="pill"></span></div>
+        <h1 id="title"></h1>
+        <p class="lede" id="blurb"></p>
+      </div>
+      <div class="art" id="art" aria-hidden="true"></div>
+    </div>
+  </div>
+</header>
+<div class="wrap">
+  <section class="featured" id="featured">
+    <div class="eyebrow">Start here</div>
+    <h2>Featured tools</h2>
+    <div class="fgrid" id="fgrid"></div>
+  </section>
+  <section class="flow" id="stepsSec" hidden>
+    <div class="flow-panel">
+      <div class="flow-head"><h2>Chemical Exposure Assessment</h2><p class="flow-dir">Every step of a chemical exposure assessment, from the walkthrough to proving the controls work.</p></div>
+      <div class="flow-rail" id="srail"></div>
+      <div class="flow-steps" id="sgrid"></div>
+    </div>
+    <div class="noise" id="noise" hidden>
+      <div class="noise-top">
+        <div class="noise-head"><h2>Noise Exposure Assessment</h2><p class="flow-dir">One guided tool: analyze the dosimeter results, notify the employee, then check hearing protection. Each step carries the results into the next.</p>
+          <div class="nchain"><span><b>1</b>Analyze</span><i></i><span><b>2</b>Notify</span><i></i><span><b>3</b>Protect</span></div></div>
+        <a class="nstart" id="nstart"></a>
+      </div>
+      <div class="nsingle"><div class="nsl">Other noise tools</div><div class="nrow" id="ngrid"></div></div>
+    </div>
+    <div class="progs" id="progs" hidden>
+      <div class="progs-head"><h2>Programs</h2><p class="flow-dir">Everything for one program in one place.</p></div>
+      <div class="pgrid2" id="pgrid2"></div>
+    </div>
+  </section>
+  <section class="lsearch" hidden>
+    <div class="sbox light">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search" type="search" autocomplete="off">
+    </div>
+    <div id="count"></div>
+  </section>
+  <div id="secs"></div>
+  <section class="topics-sec" id="topicsSec">
+    <div class="eyebrow" id="teyebrow">Browse by topic</div>
+    <h2 id="ttitle">Topics</h2>
+    <div class="tgrid" id="tgrid"></div>
+  </section>
+
+  <p id="none">No tools match. <button id="clear">Clear search</button></p>
+</div>
+<footer>Built by OEMS · Occupational Exposure Management Systems</footer>
+<script src="tools.js"></script>
+<script src="groups.js"></script>
+<script src="topics.js"></script>
+<script>
+  const slug = 'ih'; // this page is the IH Chemical Exposure Assessment on its own
+  const key = Object.keys(GROUPS).find(k => GROUPS[k].slug === slug) || 'IH';
+  const g = GROUPS[key], th = g.theme;
+  const fieldName = key === 'IH' ? 'Industrial Hygiene' : key;
+  const tools = TOOLS.filter(t => t.group === key);
+  const cats = [...new Set(tools.map(t => t.category))];
+  const search = document.getElementById('search');
+
+  // Theme
+  const root = document.documentElement.style;
+  Object.entries(th).forEach(([k, v]) => root.setProperty('--' + k, v));
+  root.setProperty('--grid', th.tag + '12');
+
+  document.title = 'OEMS Chemical Exposure Assessment';
+  document.getElementById('crumb').textContent = fieldName;
+  document.getElementById('pill').textContent = tools.length + ' ' + g.noun + ' tools';
+  document.getElementById('title').innerHTML = esc(g.title[0]) + '<span>' + esc(g.title[1]) + '</span>';
+  document.getElementById('blurb').textContent = g.blurb;
+  document.getElementById('art').innerHTML = g.art;
+  search.placeholder = 'Search ' + g.noun + ' tools…';
+
+  // Featured
+  const feat = g.featured.map(n => tools.find(t => t.name === n)).filter(Boolean);
+  document.getElementById('fgrid').classList.toggle('one', feat.length === 1);
+  document.getElementById('fgrid').innerHTML = feat.map(t => {
+    const inner = '<div class="ic">' + icon(t.category, th.tag) + '</div><small>' + esc(t.category.toUpperCase()) + '</small><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 120)) + '</p>';
+    return t.url ? '<a class="fcard" href="' + esc(t.url) + '">' + inner + '<div class="go">Open tool →</div></a>'
+                 : '<div class="fcard soon">' + inner + '<div class="go">Coming soon</div></div>';
+  }).join('');
+
+  function clip(s, n) { return s.length > n ? s.slice(0, n - 3).trim() + '…' : s; }
+
+  function tile(t) {
+    return t.url
+      ? '<a class="tile" href="' + esc(t.url) + '"><h3>' + esc(t.name) + featuredBadge(t) + '</h3><p>' + esc(clip(t.description, 110)) + '</p><span>Open →</span></a>'
+      : '<div class="tile soon"><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 110)) + '</p><span>Coming soon</span></div>';
+  }
+
+  // Topic cards
+  // Workflow steps (Industrial Hygiene)
+  const steps = (typeof STEPS !== 'undefined' && STEPS[key]) || null;
+  if (steps) {
+    document.getElementById('stepsSec').hidden = false;
+    document.getElementById('featured').remove();
+    document.getElementById('topicsSec').remove();
+    document.getElementById('fh').classList.add('has-flow');
+    const info = st => { const secs = stepSections(key, st); const list = secs.flatMap(x => x.tools).filter(t => !isTucked(t)); return { secs, list, live: list.filter(t => t.url).length }; };
+    const flow = steps.filter(st => !st.rest), ref = steps.find(st => st.rest);
+    document.getElementById('srail').innerHTML = flow.map((st, i) => '<span><b>' + (i + 1) + '</b>' + esc(st.name) + '</span>').join('');
+    document.getElementById('sgrid').innerHTML = flow.map((st, i) => {
+      const x = info(st);
+      return '<a class="fstep" href="topic.html?g=' + g.slug + '&s=' + st.slug + '">' +
+        '<div class="ftop"><span class="sic">' + stepIcon(st.slug, th.label) + '</span></div>' +
+        '<small class="kick">' + esc(st.kicker || '') + '</small>' +
+        '<h3>' + esc(st.name) + '</h3><p>' + esc(st.blurb) + '</p>' +
+        (st.features ? '<div class="feats">' + st.features.map(([n, cat]) => '<div class="feat-i"><span class="fic">' + icon(cat, th.label) + '</span><strong>' + esc(n) + '</strong></div>').join('') + '</div>'
+          : '<ul class="inc">' + (st.includes || []).map(n => '<li>' + esc(n) + '</li>').join('') + '</ul>') +
+        '<div class="meta">' + x.list.length + ' tool' + (x.list.length === 1 ? '' : 's') + (x.live < x.list.length ? ' · ' + (x.list.length - x.live) + ' coming soon' : '') + '</div>' +
+        '<span class="btn">' + esc(st.cta || 'Open') + ' <i>→</i></span></a>';
+    }).join('');
+    if (false && typeof NOISE_FLOW !== 'undefined') {
+      document.getElementById('noise').hidden = false;
+      const gt = TOOLS.find(t => t.name === NOISE_FLOW.guided);
+      const ns = document.getElementById('nstart');
+      if (gt && gt.url) { ns.href = gt.url; ns.innerHTML = 'Start a noise exposure assessment <i>→</i>'; } else { ns.outerHTML = '<span class="nstart soon">Coming soon</span>'; }
+      const nAll = TOOLS.filter(t => t.group === key && t.category === 'Noise').length;
+      document.getElementById('ngrid').innerHTML = NOISE_FLOW.tools.map(([n, line]) => [TOOLS.find(t => t.name === n), line]).filter(x => x[0]).map(([t, line]) => {
+          const inner = '<span class="fic">' + icon(t.category, th.label) + '</span><strong>' + esc(t.name) + '</strong><small>' + esc(line) + '</small>';
+          return t.url ? '<a class="ncard" href="' + esc(t.url) + '">' + inner + '<b>Open →</b></a>' : '<div class="ncard soon">' + inner + '<b>Coming soon</b></div>';
+        }).join('') +
+        '<a class="nall" href="topic.html?g=' + g.slug + '&p=' + NOISE_FLOW.all + '"><strong>See all ' + nAll + ' noise tools</strong><i>→</i></a>';
+    }
+    const progs = (typeof PROGRAMS !== 'undefined' && PROGRAMS[key]) || [];
+    if (false) {
+      document.getElementById('progs').hidden = false;
+      document.getElementById('pgrid2').innerHTML = progs.filter(pr => !pr.hidden).map(pr => {
+        const all = TOOLS.filter(t => t.group === key && t.category === pr.topic && !isTucked(t));
+        if (pr.tool) {
+          const t = TOOLS.find(x => x.name === pr.tool);
+          if (t && t.url) return '<a class="prog" href="' + esc(t.url) + '"><span class="sic">' + icon(pr.topic, th.label) + '</span><h3>' + esc(pr.name) + '</h3><p>' + esc(pr.blurb) + '</p><div class="pfoot"><em>1 tool</em><b>Open →</b></div></a>';
+          return '<div class="prog soon"><span class="sic">' + icon(pr.topic, th.label) + '</span><h3>' + esc(pr.name) + '</h3><p>' + esc(pr.blurb) + '</p><div class="pfoot"><em></em><b class="soonpill">Coming soon</b></div></div>';
+        }
+        if (!all.length) return '<div class="prog soon"><span class="sic">' + icon(pr.topic, th.label) + '</span>' +
+          '<h3>' + esc(pr.name) + '</h3><p>' + esc(pr.blurb) + '</p><div class="pfoot"><em></em><b class="soonpill">Coming soon</b></div></div>';
+        return '<a class="prog" href="topic.html?g=' + g.slug + '&p=' + pr.slug + '"><span class="sic">' + icon(pr.topic, th.label) + '</span>' +
+          '<h3>' + esc(pr.name) + '</h3><p>' + esc(pr.blurb) + '</p><div class="pfoot"><em>' + all.length + ' tools</em><b>Open →</b></div></a>';
+      }).join('');
+    }
+    if (false) {
+      const x = info(ref);
+      const rb = document.getElementById('refbar');
+      rb.href = 'topic.html?g=' + g.slug + '&s=' + ref.slug;
+      const parts = {};
+      x.secs.forEach(s => { const k = s.eyebrow || s.name; parts[k] = (parts[k] || 0) + s.tools.filter(t => !isTucked(t)).length; });
+      rb.innerHTML = '<div class="rb-main"><span class="sic dark big">' + stepIcon(ref.slug, th.tag) + '</span><div><small>Reference library</small><strong>' + esc(ref.name) + '</strong>' +
+        '<p>Calculators for the math behind the work. ' + x.list.length + ' tools you can use at any step.</p>' +
+        '<div class="rb-chips">' + Object.entries(parts).map(([k, n]) => '<span>' + icon(k, th.tag) + esc(k) + ' <em>' + n + '</em></span>').join('') + '</div></div></div>' +
+        '<b>Browse all tools <i>→</i></b>';
+    }
+  }
+
+  const featNames = new Set(g.featured);
+  const topicCats = cats.filter(c => tools.some(t => t.category === c && !featNames.has(t.name)));
+  if (!steps && feat.length) {
+    document.getElementById('teyebrow').textContent = 'More tools';
+    document.getElementById('ttitle').textContent = 'Other ' + (key === 'IH' ? 'IH' : g.noun) + ' tools';
+  }
+  if (!steps) document.getElementById('tgrid').innerHTML = topicCats.map(c => {
+    const list = tools.filter(t => t.category === c);
+    const info = (TOPICS[key] || {})[c] || {};
+    const subs = info.subs ? Object.keys(info.subs) : [];
+    const single = list.length === 1 && list[0].url;
+    const href = single ? list[0].url : topicHref(key, c);
+    const live = list.filter(t => t.url).length;
+    const countTxt = list.length + ' tool' + (list.length === 1 ? '' : 's') + (live < list.length ? (live ? ' · ' + (list.length - live) + ' coming soon' : ' · coming soon') : '');
+    return '<a class="tcard" href="' + esc(href) + '"><div class="top"><span class="ic">' + icon(c, th.label) + '</span><h3>' + esc(c) + '</h3></div>' +
+      (info.blurb ? '<p>' + esc(info.blurb) + '</p>' : '') +
+      (subs.length ? '<div class="subs">' + subs.map(x => '<span>' + esc(x) + '</span>').join('') + '</div>' : '') +
+      '<div class="foot"><em>' + countTxt + '</em><b>' + (single ? 'Open tool →' : 'View topic →') + '</b></div></a>';
+  }).join('');
+
+  // Search results (all tools in this field, grouped by topic)
+  function render() {
+    const q = search.value.trim();
+    const searching = !!q;
+    if (!steps) document.getElementById('featured').hidden = !feat.length;
+    if (!steps) document.getElementById('topicsSec').hidden = searching;
+    if (!searching) { document.getElementById('secs').innerHTML = ''; document.getElementById('none').style.display = 'none'; document.getElementById('count').textContent = ''; return; }
+    const found = rank(tools.filter(t => matches(t, q)), q);
+    const showCats = [...new Set(found.map(t => t.category))];
+    document.getElementById('secs').innerHTML = showCats.map(c => {
+      const list = found.filter(t => t.category === c);
+      return '<section class="sec"><div class="sechead"><div class="ic">' + icon(c, th.label) + '</div><h2>' + esc(c) + '</h2><em>' + list.length + ' tool' + (list.length === 1 ? '' : 's') + '</em></div>' +
+        '<div class="grid">' + list.map(tile).join('') + '</div></section>';
+    }).join('');
+    document.getElementById('none').style.display = found.length ? 'none' : 'block';
+    document.getElementById('count').textContent = found.length + ' of ' + tools.length + ' tools';
+  }
+
+  search.addEventListener('input', render);
+  document.getElementById('clear').addEventListener('click', () => { search.value = ''; render(); search.focus(); });
+  render();
+</script>
+</body>
+</html>
