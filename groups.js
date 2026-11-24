@@ -36,7 +36,6 @@ const GROUPS = {
     colors: { bg: "#1c1433", tag: "#b39dff", line2: "#aaa3bd", text: "#ddd6ef", button: "#5b44a8", label: "#5b44a8", border: "#e2dcf2" },
     art: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round">
 <defs><radialGradient id="ohGlow"><stop offset="0" stop-color="#b39dff" stop-opacity=".4"/><stop offset="1" stop-color="#b39dff" stop-opacity="0"/></radialGradient></defs>
-<line x1="20" y1="180" x2="300" y2="180" stroke="#5b44a8" stroke-opacity=".5"/>
 <circle cx="190" cy="102" r="74" fill="url(#ohGlow)"/>
 <path d="M180 52 C 214 38, 248 62, 241 98 C 236 120, 217 125, 214 144 C 212 163, 192 170, 180 158" stroke="#b39dff" stroke-width="3"/>
 <path d="M192 76 C 211 69, 225 86, 215 100 C 208 109, 196 104, 201 92" stroke="#b39dff" stroke-width="2.6"/>
