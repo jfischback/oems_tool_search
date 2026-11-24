@@ -73,15 +73,43 @@
   footer.sv { text-align: center; color: #8a97ab; font-size: 13px; padding: 10px 0 50px; }
 
   @media (max-width: 700px) { .hero-body { padding: 40px 0 56px; } }
+
+  /* White OEMS header, same as the main site (24 Nov 2026) */
+  .site-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.96); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid #e3e8ef; font-family: Inter, system-ui, sans-serif; }
+  .site-header .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; position: relative; }
+  .sh-brand img { height: 40px; width: auto; display: block; }
+  .site-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 2px; margin: 0; padding: 0; }
+  .site-nav a { display: block; padding: 8px 11px; border-radius: 8px; color: #0b1b30; text-decoration: none; font-size: 14.4px; font-weight: 500; white-space: nowrap; }
+  .site-nav a:hover { background: #f3f4f7; color: #0055cc; }
+  .site-nav a[aria-current="page"] { color: #0055cc; background: #eaf1fe; }
+  .nav-toggle { display: none; background: none; border: 1px solid #e3e8ef; border-radius: 10px; width: 44px; height: 44px; cursor: pointer; position: relative; }
+  .nav-toggle .nb, .nav-toggle .nb::before, .nav-toggle .nb::after { position: absolute; left: 12px; width: 18px; height: 2px; background: #0b1b30; content: ''; transition: transform .2s; }
+  .nav-toggle .nb { top: 21px; } .nav-toggle .nb::before { left: 0; top: -6px; } .nav-toggle .nb::after { left: 0; top: 6px; }
+  .nav-toggle[aria-expanded="true"] .nb { background: transparent; }
+  .nav-toggle[aria-expanded="true"] .nb::before { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .nb::after { transform: translateY(-6px) rotate(-45deg); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  @media (max-width: 1100px) {
+    .nav-toggle { display: block; }
+    .site-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 1px solid #e3e8ef; box-shadow: 0 10px 30px rgba(11,27,48,.08); }
+    .site-nav.open { display: block; }
+    .site-nav ul { flex-direction: column; padding: 8px 16px 16px; }
+    .site-nav a { padding: 12px; font-size: 16px; }
+    .sh-brand img { height: 34px; }
+  }
 </style>
 </head>
 <body>
+<!-- 24 Nov 2026, Jonathan: the main site's white OEMS header, so Tools feels like part of the site -->
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="sh-brand" href="https://oemswebsite.vercel.app/" aria-label="OEMS home"><img src="oems-logo.webp" alt="OEMS — Occupational Exposure Management Systems" width="1109" height="417"></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Menu</span><span class="nb" aria-hidden="true"></span></button>
+    <nav id="site-nav" class="site-nav" aria-label="Main"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="index.html" aria-current="page">Tools</a></li><li><a href="https://oemswebsite.vercel.app/industrial-hygiene-tools">Industrial Hygiene Tools</a></li><li><a href="https://oemswebsite.vercel.app/environmental-tools">Environmental Tools</a></li><li><a href="https://oemswebsite.vercel.app/safety-tools">Safety Tools</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/our-founder">Our Founder</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li></ul></nav>
+  </div>
+</header>
 <header class="hero-x sv">
   <div class="wrap">
-    <nav class="nav">
-      <a class="brand" href="index.html"><i></i>OEMS <span>Tools</span></a>
-      <a class="home" href="https://www.oemsgroup.com">oemsgroup.com ↗</a>
-    </nav>
     <div class="hero-body">
       <div class="pill"><b><i style="background:#77baff"></i><i style="background:#6fdc9c"></i><i style="background:#ff8a80"></i></b>Industrial Hygiene · Environmental · Safety</div>
       <h1>Practical tools.<br><em>For your field.</em></h1>
@@ -115,6 +143,10 @@
 
   document.getElementById('total').textContent = TOOLS.length;
 
+</script>
+<script>
+  (function () { var t = document.querySelector('.nav-toggle'), n = document.getElementById('site-nav');
+    t.addEventListener('click', function () { var o = t.getAttribute('aria-expanded') === 'true'; t.setAttribute('aria-expanded', String(!o)); n.classList.toggle('open', !o); }); })();
 </script>
 </body>
 </html>
