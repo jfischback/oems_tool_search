@@ -363,3 +363,8 @@
    topics.js shrinks the type to fit the space instead. */
 .fh h1 { white-space: nowrap; }
 .hero-in > div:first-child { min-width: 0; }
+
+/* 24 Nov 2026 (Jonathan): the Chemical Exposure Assessment heading opens the main site's Chemical Exposure Assessments page. */
+.flow-link { color: inherit; text-decoration: none; }
+.flow-link i { font-style: normal; color: var(--label); font-size: .8em; margin-left: 4px; }
+.flow-link:hover { text-decoration: underline; text-underline-offset: 4px; }
