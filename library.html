@@ -23,16 +23,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="fields.css">
+<link rel="stylesheet" href="oems-header.css">
 </head>
 <body>
+<!-- 24 Nov 2026, Jonathan: the main site's white OEMS header, so Tools feels like part of the site -->
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="sh-brand" href="https://oemswebsite.vercel.app/" aria-label="OEMS home"><img src="oems-logo.webp" alt="OEMS — Occupational Exposure Management Systems" width="1109" height="417"></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Menu</span><span class="nb" aria-hidden="true"></span></button>
+    <nav id="site-nav" class="site-nav" aria-label="Main"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="index.html" aria-current="page">Tools</a></li><li><a href="https://oemswebsite.vercel.app/industrial-hygiene-tools">Industrial Hygiene Tools</a></li><li><a href="https://oemswebsite.vercel.app/environmental-tools">Environmental Tools</a></li><li><a href="https://oemswebsite.vercel.app/safety-tools">Safety Tools</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/our-founder">Our Founder</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li></ul></nav>
+  </div>
+</header>
 <header class="fh" id="fh">
   <div class="wrap">
     <nav class="nav">
       <div class="navl">
-        <a class="brand" href="index.html"><i></i>OEMS</a>
         <div class="crumb"><a href="index.html">Tools</a> &nbsp;/&nbsp; <b id="crumb"></b></div>
       </div>
-      <a class="home" href="https://www.oemsgroup.com">oemsgroup.com ↗</a>
     </nav>
     <div class="hero-in">
       <div>
@@ -234,5 +241,6 @@
   document.getElementById('clear').addEventListener('click', () => { search.value = ''; render(); search.focus(); });
   render();
 </script>
+<script src="oems-header.js"></script>
 </body>
 </html>
