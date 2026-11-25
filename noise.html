@@ -75,7 +75,7 @@
   </section>
   <!-- 25 Nov 2026 (Jonathan): no Reference Library bar here; the Support Tools card covers it. -->
 </div>
-<!-- 25 Nov 2026 (Jonathan, approved mockup): Noise hazard page, same four cards as Chemical. -->
+<!-- 25 Nov 2026 (Jonathan, approved mockup): Noise hazard page, same four cards as Chemical. 25 Nov 2026 (Jonathan): only chemical assessments are paid; this one is free. -->
 <!-- 24 Nov 2026, Jonathan: the same footer as the main site -->
 <footer class="site-footer">
   <div class="wrap footer-inner">
@@ -87,7 +87,7 @@
 <script>
   document.getElementById('art').innerHTML = IH_ART.noise;
   const C = [
-    { art: 'noise', name: 'Exposure Assessment', tag: ['paid', 'Paid tool'], text: 'A noise exposure assessment.', soon: true },
+    { art: 'noise', name: 'Exposure Assessment', tag: ['free', 'Free tool'], text: 'Analyze dosimeter results, notify the employee, then check hearing protection.', cta: 'Start an assessment', href: 'https://noise.oemsgroup.com/noise_exposure_and_notification' },
     { art: 'prog', name: 'Programs and Procedures', tag: ['paid', 'Paid download'], text: 'Written programs and procedures for noise.', cta: 'Request a quote', href: 'https://oemswebsite.vercel.app/contact' },
     { art: 'tmpl', name: 'Templates and Field Sheets', tag: ['free', 'Free download'], text: 'Forms and data sheets for site visits and sampling.', soon: true },
     { svg: '<svg viewBox="0 0 320 230" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><defs><radialGradient id="clG"><stop offset="0" stop-color="#77baff" stop-opacity=".35"/><stop offset="1" stop-color="#77baff" stop-opacity="0"/></radialGradient></defs><circle cx="160" cy="115" r="105" fill="url(#clG)"/><rect x="110" y="40" width="100" height="150" rx="12" stroke="#77baff" stroke-width="4"/><rect x="126" y="56" width="68" height="30" rx="5" stroke="#77baff" stroke-width="3"/><g stroke="#77baff" stroke-width="3"><rect x="126" y="102" width="16" height="16" rx="3"/><rect x="152" y="102" width="16" height="16" rx="3"/><rect x="178" y="102" width="16" height="16" rx="3"/><rect x="126" y="128" width="16" height="16" rx="3"/><rect x="152" y="128" width="16" height="16" rx="3"/><rect x="178" y="128" width="16" height="42" rx="3"/><rect x="126" y="154" width="42" height="16" rx="3"/></g></svg>', name: 'Support Tools', tag: ['free', 'Free tools'], text: 'Calculators that support noise work.', cta: 'See free tools', href: 'topic.html?g=ih&p=hearing' },
