@@ -121,7 +121,7 @@
   <div class="wrap header-inner">
     <a class="sh-brand" href="https://oemswebsite.vercel.app/" aria-label="OEMS home"><img src="oems-logo.webp" alt="OEMS — Occupational Exposure Management Systems" width="1109" height="417"></a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Menu</span><span class="nb" aria-hidden="true"></span></button>
-    <nav id="site-nav" class="site-nav" aria-label="Main"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="index.html" aria-current="page">Tools</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li></ul></nav>
+    <nav id="site-nav" class="site-nav" aria-label="Main"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li><li class="nav-pill-li"><a class="nav-pill" href="index.html">Free Tools</a></li></ul></nav><!-- Free Tools pill: exception to two-button rule, approved by Jonathan 25 Nov 2026 -->
   </div>
 </header>
 <header class="hero-x sv">
@@ -187,7 +187,7 @@
         const dot = '<span class="hr-dot" style="background:' + GROUPS[t.group].colors.tag + '"></span>';
         const main = '<span class="hr-main"><b>' + esc(t.name) + '</b><small>' + esc(t.description) + '</small></span>';
         return t.url ? '<a href="' + esc(t.url) + '" role="option">' + dot + main + '<span class="hr-tag">' + esc(FIELD[t.group]) + '</span></a>'
-                     : '<div class="hr-soon">' + dot + main + '<span class="hr-tag">Coming Soon</span></div>';
+                     : '<div class="hr-soon">' + dot + main + '<span class="hr-tag soon">Coming Soon</span></div>';
       }).join('') + (found.length > top.length ? '<div class="hr-all">' + found.length + ' tools match. Keep typing to narrow it down.</div>' : '')
         : '<div class="hr-none">No tools match “' + esc(v) + '”.</div>';
       box.hidden = false; q.setAttribute('aria-expanded', 'true'); sel = -1;

@@ -14,7 +14,7 @@ const TOPICS = {
       subs: {
         "Exposure and Hearing Conservation": ["Noise Exposure Assessment", "Noise Exposure Calculator", "Hearing Protection Selector", "Noise Sampling Notification Template", "Standard Threshold Shift (STS) with Age Correction"],
         "Sound Levels": ["Sound Pressure, Intensity and Power Level", "Decibel Addition Calculator", "Equivalent Continuous Sound Level (Leq)", "Sound Pressure Level Calculator", "Sound Intensity Level Calculator", "Sound Power Level Calculator"],
-        "Distance, Barriers and Directivity": ["Community Noise Exposure", "Sound Pressure Level from Sound Power Level (feet or meters)", "Sound Level Change with Distance", "Transmission Loss Calculator", "Directivity Index Calculator", "Sound Pressure Level from Sound Power Level (feet)", "Sound Pressure Level from Sound Power Level (meters)"],
+        "Distance, Barriers and Directivity": ["Community Noise Exposure", "Sound Pressure Level from Sound Power Level (Feet or Meters)", "Sound Level Change with Distance", "Transmission Loss Calculator", "Directivity Index Calculator", "Sound Pressure Level from Sound Power Level (Feet)", "Sound Pressure Level from Sound Power Level (Meters)"],
         "Frequency": ["Octave Band Frequencies", "Frequency from Rotational Speed", "Frequency from Wavelength", "Octave Band Upper Frequency", "Band Center Frequency", "One-Third Octave Band Upper Frequency"]
       }
     },
@@ -67,8 +67,8 @@ const COVERED_BY = {
   "Sound Pressure Level Calculator": "Sound Pressure, Intensity and Power Level",
   "Sound Intensity Level Calculator": "Sound Pressure, Intensity and Power Level",
   "Sound Power Level Calculator": "Sound Pressure, Intensity and Power Level",
-  "Sound Pressure Level from Sound Power Level (feet)": "Sound Pressure Level from Sound Power Level (feet or meters)",
-  "Sound Pressure Level from Sound Power Level (meters)": "Sound Pressure Level from Sound Power Level (feet or meters)",
+  "Sound Pressure Level from Sound Power Level (Feet)": "Sound Pressure Level from Sound Power Level (Feet or Meters)",
+  "Sound Pressure Level from Sound Power Level (Meters)": "Sound Pressure Level from Sound Power Level (Feet or Meters)",
   "Octave Band Upper Frequency": "Octave Band Frequencies",
   "Band Center Frequency": "Octave Band Frequencies",
   "One-Third Octave Band Upper Frequency": "Octave Band Frequencies",
@@ -178,7 +178,7 @@ const STEPS = {
       ] },
     { slug: "control", name: "Control", kicker: "Exposure controls", cta: "Choose controls", includes: ["Ventilation", "Confirm it's working"],
       // 24 Nov 2026 (Jonathan): Control keeps the tools that check whether a control works; the ventilation design math is in Tools.
-      features: [["Ventilation checks", "Ventilation"]],
+      features: [["Ventilation Checks", "Ventilation"]],
       blurb: "Check that ventilation and other controls are bringing exposures down.",
       sections: [
         { name: "Ventilation Checks", items: ["Capture Hood Airflow Calculator", "Hood Pressure and Flow", "Hood Static Pressure", "Hood Flow from SPh", "USEPA Method 204", "Air Changes per Hour"] },

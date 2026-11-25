@@ -31,7 +31,7 @@
   <div class="wrap header-inner">
     <a class="sh-brand" href="https://oemswebsite.vercel.app/" aria-label="OEMS home"><img src="oems-logo.webp" alt="OEMS — Occupational Exposure Management Systems" width="1109" height="417"></a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Menu</span><span class="nb" aria-hidden="true"></span></button>
-    <nav id="site-nav" class="site-nav" aria-label="Main"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="index.html" aria-current="page">Tools</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li></ul></nav>
+    <nav id="site-nav" class="site-nav" aria-label="Main"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li><li class="nav-pill-li"><a class="nav-pill" href="index.html">Free Tools</a></li></ul></nav><!-- Free Tools pill: exception to two-button rule, approved by Jonathan 25 Nov 2026 -->
   </div>
 </header>
 <header class="fh" id="fh">
@@ -173,7 +173,7 @@
           const inner = '<span class="fic">' + icon(t.category, th.label) + '</span><strong>' + esc(t.name) + '</strong><small>' + esc(line) + '</small>';
           return t.url ? '<a class="ncard" href="' + esc(t.url) + '">' + inner + '<b>Open →</b></a>' : '<div class="ncard soon">' + inner + '<b>Coming soon</b></div>';
         }).join('') +
-        '<a class="nall" href="topic.html?g=' + g.slug + '&p=' + NOISE_FLOW.all + '"><strong>See all ' + nAll + ' noise tools</strong><i>→</i></a>';
+        '<a class="nall" href="topic.html?g=' + g.slug + '&p=' + NOISE_FLOW.all + '"><strong>See All ' + nAll + ' Noise Tools</strong><i>→</i></a>';
     }
     const progs = (typeof PROGRAMS !== 'undefined' && PROGRAMS[key]) || [];
     if (false) {

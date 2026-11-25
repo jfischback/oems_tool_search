@@ -1,6 +1,6 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #14243a; background: #f5f7fa; }
+body { margin: 0; font-family: Inter, system-ui, sans-serif; color: #14243a; background: #f5f7fa; }
 .wrap { padding: 0 8%; max-width: 1300px; margin: 0 auto; }
 
 /* Search header */
@@ -52,7 +52,8 @@ main h2 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; mar
 .row p { margin: 0; color: #536579; font-size: 14px; line-height: 1.45; }
 .open { flex: 0 0 auto; color: #fff; text-decoration: none; font-weight: bold; font-size: 14px; padding: 10px 16px; border-radius: 4px; }
 .open:hover { filter: brightness(1.25); }
-.soon { flex: 0 0 auto; color: #7a8796; background: #eef1f5; font-size: 13px; font-weight: bold; padding: 10px 14px; border-radius: 4px; }
+/* Coming soon pill: the main site's .soon, copied exactly (25 Nov 2026, Jonathan) */
+.soon { flex: 0 0 auto; align-self: flex-start; font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #64748b; background: #eef2f7; border-radius: 999px; padding: 5px 12px; }
 #none { display: none; color: #536579; }
 #none button { background: none; border: 0; color: #1761a8; font-size: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
 

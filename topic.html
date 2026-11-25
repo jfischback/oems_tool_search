@@ -31,7 +31,7 @@
   <div class="wrap header-inner">
     <a class="sh-brand" href="https://oemswebsite.vercel.app/" aria-label="OEMS home"><img src="oems-logo.webp" alt="OEMS — Occupational Exposure Management Systems" width="1109" height="417"></a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Menu</span><span class="nb" aria-hidden="true"></span></button>
-    <nav id="site-nav" class="site-nav" aria-label="Main"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="index.html" aria-current="page">Tools</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li></ul></nav>
+    <nav id="site-nav" class="site-nav" aria-label="Main"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li><li class="nav-pill-li"><a class="nav-pill" href="index.html">Free Tools</a></li></ul></nav><!-- Free Tools pill: exception to two-button rule, approved by Jonathan 25 Nov 2026 -->
   </div>
 </header>
 <header class="fh">
@@ -160,7 +160,7 @@
       : '<div class="tile soon"><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 110)) + '</p><span>Coming soon</span></div>';
   }
   function irow(t) {
-    if (!t.url) return '<div class="irow"><strong>' + esc(t.name) + '</strong><small></small><span style="color:#8a97ab">Coming soon</span></div>';
+    if (!t.url) return '<div class="irow"><strong>' + esc(t.name) + '</strong><small></small><span class="soonpill">Coming soon</span></div>';
     const sm = COVERED_BY[t.name] ? 'Also in ' + COVERED_BY[t.name] : (t.description.length > 70 ? t.description.slice(0, 67) + '…' : t.description);
     return '<a class="irow" href="' + esc(t.url) + '"><strong>' + esc(t.name) + '</strong><small>' + esc(sm) + '</small><span>Open →</span></a>';
   }
@@ -196,9 +196,9 @@
   const comboLive = !!(TOOLS.find(x => x.name === 'Respirator Protection Tool') || {}).url;
   const FEATURE = {
     'Respiratory Protection': comboLive
-      ? { name: 'Respirator Protection Tool', tag: 'All in One', steps: ['Respirator selection', 'APF check', 'Maximum use concentration'],
+      ? { name: 'Respirator Protection Tool', tag: 'All in One', steps: ['Respirator Selection', 'APF Check', 'Maximum Use Concentration'],
           enter: 'Concentration, exposure limit and IDLH', get: 'Minimum APF needed, the OSHA 1910.134 Table 1 classes that meet it, and the MUC for each' }
-      : { name: 'Respirator Selection Tool', tag: 'Start Here', steps: ['Hazard ratio', 'Respirator classes', 'Maximum use concentration'],
+      : { name: 'Respirator Selection Tool', tag: 'Start Here', steps: ['Hazard Ratio', 'Respirator Classes', 'Maximum Use Concentration'],
           enter: 'Concentration, exposure limit and IDLH', get: 'Minimum APF needed, the OSHA 1910.134 Table 1 classes that meet it, and the MUC for each' },
     'Noise': { name: 'Noise Exposure Assessment', tag: 'All in One', steps: ['Analyze', 'Notify', 'Protect'],
       enter: 'Dosimeter results', get: '8-hour TWA, dose, the employee notice and a hearing protection check' },

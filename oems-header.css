@@ -3,9 +3,12 @@
 .site-header .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; position: relative; }
 .sh-brand img { height: 40px; width: auto; display: block; }
 .site-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 2px; margin: 0; padding: 0; }
-.site-nav a { display: block; padding: 8px 11px; border-radius: 8px; color: #0b1b30; text-decoration: none; font-size: 14.4px; font-weight: 500; white-space: nowrap; }
+.site-nav a { display: block; padding: 8px 11px; border-radius: 8px; color: #0b1b30; text-decoration: none; font-size: 14.4px; font-weight: 500; white-space: nowrap; line-height: 1.6; }
 .site-nav a:hover { background: #f3f4f7; color: #0055cc; }
 .site-nav a[aria-current="page"] { color: #0055cc; background: #eaf1fe; }
+/* "Free Tools" pill, copied from the main site (styles.css). Exception to two-button rule, approved by Jonathan 25 Nov 2026. */
+.site-nav a.nav-pill { background: #e8f1ff; color: #0055cc; border: 1px solid #b9d3ff; border-radius: 999px; padding: 8px 18px; font-weight: 700; margin-left: 8px; }
+.site-nav a.nav-pill:hover { background: #d8e7ff; color: #0055cc; }
 .nav-toggle { display: none; background: none; border: 1px solid #e3e8ef; border-radius: 10px; width: 44px; height: 44px; cursor: pointer; position: relative; }
 .nav-toggle .nb, .nav-toggle .nb::before, .nav-toggle .nb::after { position: absolute; left: 12px; width: 18px; height: 2px; background: #0b1b30; content: ''; transition: transform .2s; }
 .nav-toggle .nb { top: 21px; } .nav-toggle .nb::before { left: 0; top: -6px; } .nav-toggle .nb::after { left: 0; top: 6px; }
@@ -21,13 +24,14 @@
   .site-nav a { padding: 12px; font-size: 16px; }
   .sh-brand img { height: 34px; }
 }
+@media (max-width: 860px) { .site-nav a.nav-pill { display: inline-block; margin: 8px 0 0; } }
 
 /* Shared footer, the same as the main site (24 Nov 2026) */
 .site-footer { background: #07111f; color: #a9b4c4; padding: 36px 0; margin-top: 40px; font-family: Inter, system-ui, sans-serif; text-align: left; }
 .site-footer .footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
 .footer-id { display: flex; flex-direction: column; gap: 4px; }
 .footer-brand { color: #fff; text-decoration: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
-.footer-brand strong { font-size: 1.25rem; letter-spacing: .02em; }
+.footer-brand strong { font-family: Manrope, Inter, system-ui, sans-serif; font-size: 1.25rem; letter-spacing: .02em; }
 .footer-brand span { color: #a9b4c4; font-size: .9rem; }
 .footer-slogan { margin: 0; color: #8a97ab; font-size: .88rem; }
 .site-footer ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0; padding: 0; }
@@ -60,14 +64,18 @@ h1, h2, h3, .refbar strong, .gcard h2 { font-family: Manrope, Inter, system-ui, 
 .rb-chips svg { stroke: var(--label); }
 .rb-chips em { color: #7b8798 !important; }
 /* Buttons: one solid blue pill for the main action; arrow links inside cards. */
-.refbar > b { background: var(--label) !important; color: #fff !important; border-radius: 999px !important; }
+/* 25 Nov 2026 (Jonathan): the main action is the main site's solid blue pill button (#1761a8), whatever the field color. */
+.refbar > b, .nstart:not(.soon), .ftc-btn:not(.soon) { display: inline-flex !important; align-items: center !important; gap: 6px !important; background: #1761a8 !important; color: #fff !important; border: 0 !important; border-radius: 999px !important; padding: 12px 20px !important; font: 600 .95rem/1.2 Inter, system-ui, sans-serif !important; box-shadow: none !important; filter: none !important; }
+.refbar:hover > b, .nstart:not(.soon):hover, .ftc-btn:not(.soon):hover { background: #124f8a !important; }
 .fstep .btn { background: none !important; color: var(--label) !important; padding: 0 !important; justify-content: flex-start !important; box-shadow: none !important; }
-.nstart { border-radius: 999px !important; }
+/* 25 Nov 2026 (Jonathan): every other button is a blue text link with an arrow. */
+.bbtn:not(.soon) { display: inline-flex !important; justify-content: flex-start !important; align-self: flex-start; justify-self: start; background: none !important; color: #1761a8 !important; padding: 0 !important; border-radius: 0 !important; box-shadow: none !important; filter: none !important; }
+.bbtn:not(.soon):hover { text-decoration: underline; }
 /* Softly rounded cards. */
 .gcard, .tile, .tcard, .fcard, .scard, .fstep, .prog, .ncard, .bcard, .refbar, .stepnav a { border-radius: 14px !important; }
-/* One "Coming soon" pill. */
-.fcard.soon .go, .tile.soon > span:last-child, .soonpill, .bbtn.soon, .ncard.soon > b, .nstart.soon, .bcard .bbtn.soon {
-  display: inline-block !important; align-self: flex-start !important; font: 700 11px/1.2 Inter, system-ui, sans-serif !important; letter-spacing: .1em !important; text-transform: uppercase !important;
-  color: #7b8798 !important; background: #f0f2f5 !important; border: 0 !important; padding: 5px 10px !important; border-radius: 999px !important; box-shadow: none !important; }
+/* One "Coming soon" pill: the main site's .soon (styles.css), copied exactly (25 Nov 2026, Jonathan). */
+.fcard.soon .go, .tile.soon > span:last-child, .soonpill, .bbtn.soon, .ncard.soon > b, .nstart.soon, .bcard .bbtn.soon, .ftc-btn.soon, .hres .hr-tag.soon {
+  display: inline-block !important; align-self: flex-start !important; justify-self: start !important; flex: 0 0 auto !important; font: 700 .78rem/1.6 Inter, system-ui, sans-serif !important; letter-spacing: .04em !important; text-transform: uppercase !important;
+  color: #64748b !important; background: #eef2f7 !important; border: 0 !important; padding: 5px 12px !important; border-radius: 999px !important; box-shadow: none !important; }
 .nall { background: #fff !important; color: var(--label) !important; border: 1px solid #e3e8ef !important; box-shadow: none !important; border-radius: 14px !important; }
 .nall strong, .nall i { color: var(--label) !important; }
