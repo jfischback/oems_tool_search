@@ -102,7 +102,7 @@ const GROUPS = {
 const ICONS = {
   "Noise": '<path d="M2 12h2l2-5 3 10 3-14 3 14 3-10 2 5h2"/>',
   "Ventilation": '<path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16a3 3 0 1 1-3 3"/><path d="M3 16h7"/>',
-  "Respiratory Protection": '<path d="M5 9c0-3 3-5 7-5s7 2 7 5v3c0 4-3 7-7 7s-7-3-7-7z"/><circle cx="9" cy="14" r="1.5"/><circle cx="15" cy="14" r="1.5"/><path d="M5 10H3M19 10h2"/>',
+  "Respiratory Protection": '<path d="M12 4v8M12 12l-3-2M12 12l3-2"/><path d="M9 8.5C6 8 4 11 4 15c0 3 1.5 5 4 5 1.3 0 1.8-1 1.8-2.5V10"/><path d="M15 8.5c3-.5 5 2.5 5 6.5 0 3-1.5 5-4 5-1.3 0-1.8-1-1.8-2.5V10"/>', // lungs (24 Nov 2026, Jonathan: no more mask)
   "Radiation": '<circle cx="12" cy="12" r="2"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M4.9 4.9a10 10 0 0 0 0 14.2M19.1 4.9a10 10 0 0 1 0 14.2"/>',
   "Lasers": '<circle cx="4" cy="12" r="2"/><path d="M6 12h12"/><path d="M20 9v6M17.5 10l5 4M17.5 14l5-4"/>',
   "Conversions": '<path d="M4 8h14l-3-3M20 16H6l3 3"/>',
@@ -160,3 +160,18 @@ function toolRow(t, showGroup) {
     : '<span class="soon">Coming soon</span>';
   return '<div class="row" style="border-left-color:' + c.label + '"><div>' + label + '<h3>' + esc(t.name) + featuredBadge(t) + '</h3><p>' + esc(t.description) + '</p></div>' + btn + '</div>';
 }
+
+// 24 Nov 2026 (Jonathan): pictures for the Occupational Health topic pages.
+const TOPIC_ART = {
+  "Respiratory Protection": `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<defs><radialGradient id="lgGlow"><stop offset="0" stop-color="#b39dff" stop-opacity=".4"/><stop offset="1" stop-color="#b39dff" stop-opacity="0"/></radialGradient>
+<linearGradient id="lgFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b39dff" stop-opacity=".22"/><stop offset="1" stop-color="#b39dff" stop-opacity=".02"/></linearGradient></defs>
+<circle cx="160" cy="105" r="88" fill="url(#lgGlow)"/>
+<path d="M160 22v58" stroke="#aaa3bd" stroke-width="3"/>
+<path d="M160 80c-8 6-16 10-24 12M160 80c8 6 16 10 24 12" stroke="#aaa3bd" stroke-width="3"/>
+<path d="M136 92c-6 10-8 22-6 34M124 96c-8 6-14 16-16 26M184 92c6 10 8 22 6 34M196 96c8 6 14 16 16 26" stroke="#aaa3bd" stroke-width="2" stroke-opacity=".7"/>
+<path d="M146 64c-10-12-34-8-48 14-14 22-20 58-14 82 4 16 20 20 34 14 16-7 28-18 28-36V80" fill="url(#lgFill)" stroke="#b39dff" stroke-width="3"/>
+<path d="M174 64c10-12 34-8 48 14 14 22 20 58 14 82-4 16-20 20-34 14-16-7-28-18-28-36V80" fill="url(#lgFill)" stroke="#b39dff" stroke-width="3"/>
+</svg>`,
+  "Noise": GROUPS.OH.art,
+};

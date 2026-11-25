@@ -125,7 +125,7 @@
   // 24 Nov 2026 (Jonathan): technical topic pages get the dark blue tool header, whatever the field.
   const blue = GROUPS.IH.theme;
   for (const k of ['hero', 'glow', 'tag', 'line2']) root.setProperty('--hero-' + k, blue[k]);
-  document.querySelector('header.fh').classList.add('fh-blue');
+  if (key !== 'OH') document.querySelector('header.fh').classList.add('fh-blue'); // OH keeps its purple (24 Nov 2026, Jonathan)
 
   document.title = 'OEMS ' + (step ? fieldName + ': ' + step.name : pageName + (program ? '' : ' Tools'));
   const fl = document.getElementById('fieldlink'); fl.textContent = fieldName; fl.href = 'library.html?g=' + g.slug;
@@ -136,6 +136,7 @@
   document.getElementById('title').textContent = pageName; // one-line title on technical pages (24 Nov 2026)
   document.getElementById('blurb').textContent = step ? step.blurb : (program ? program.blurb : (info.blurb || g.blurb));
   document.getElementById('bigic').innerHTML = step ? stepIcon(step.slug, th.tag) : icon(cat, th.tag);
+  if (key === 'OH' && !step && TOPIC_ART[cat]) { const bi = document.getElementById('bigic'); bi.classList.add('bigart'); bi.innerHTML = TOPIC_ART[cat]; }
   if (step) {
     const flow = steps.filter(st => !st.rest);
     const sp = document.getElementById('stepper'); sp.hidden = false;
@@ -188,7 +189,35 @@
     document.getElementById('bigtitle').textContent = 'Start here';
     document.getElementById('bgrid').innerHTML = program.featured.map(n => bigCard(TOOLS.find(t => t.name === n), { cta: 'Open tool' }, th)).join('');
   }
-  const hasBig = cardsOnly || !!program;
+  // 24 Nov 2026 (Jonathan): Occupational Health topic pages lead with one featured tool as a wide card,
+  // then the other live tools as big cards. Respiratory features the combined Respirator Protection Tool once it
+  // has a web address; until then, the Respirator Selection Tool.
+  const ohFeature = key === 'OH' && !step && !program;
+  const comboLive = !!(TOOLS.find(x => x.name === 'Respirator Protection Tool') || {}).url;
+  const FEATURE = {
+    'Respiratory Protection': comboLive
+      ? { name: 'Respirator Protection Tool', tag: 'All in One', steps: ['Respirator selection', 'APF check', 'Maximum use concentration'],
+          enter: 'Concentration, exposure limit and IDLH', get: 'Minimum APF needed, the OSHA 1910.134 Table 1 classes that meet it, and the MUC for each' }
+      : { name: 'Respirator Selection Tool', tag: 'Start Here', steps: ['Hazard ratio', 'Respirator classes', 'Maximum use concentration'],
+          enter: 'Concentration, exposure limit and IDLH', get: 'Minimum APF needed, the OSHA 1910.134 Table 1 classes that meet it, and the MUC for each' },
+    'Noise': { name: 'Noise Exposure Assessment', tag: 'All in One', steps: ['Analyze', 'Notify', 'Protect'],
+      enter: 'Dosimeter results', get: '8-hour TWA, dose, the employee notice and a hearing protection check' },
+  };
+  const ft = ohFeature && FEATURE[cat];
+  if (ohFeature) {
+    const live = tools.filter(x => x.url && !(ft && x.name === ft.name));
+    document.getElementById('bigeye').textContent = ft ? 'Or use one at a time' : 'Featured';
+    document.getElementById('bigtitle').textContent = ft ? 'Single Tools' : 'Start Here';
+    document.getElementById('bgrid').classList.toggle('two', live.length === 2);
+    document.getElementById('bgrid').innerHTML = live.map(x => bigCard(x, { cta: 'Open Tool' }, th)).join('');
+  }
+  if (ft) {
+    const tool = TOOLS.find(x => x.name === ft.name);
+    const steps = ft.steps.map((s, i) => '<span class="ftc-step"><b>' + (i + 1) + '</b>' + esc(s) + '</span>').join('<i class="ftc-line"></i>');
+    const btn = tool && tool.url ? '<a class="ftc-btn" href="' + esc(tool.url) + '">Open ' + esc(ft.name) + ' <i>→</i></a>' : '<span class="ftc-btn soon">Coming Soon</span>';
+    document.getElementById('bigsec').insertAdjacentHTML('beforebegin', '<section class="ftc"><div class="ftc-art" aria-hidden="true">' + (TOPIC_ART[cat] || '') + '</div><div class="ftc-body"><small>Featured Tool · ' + esc(ft.tag) + '</small><h2>' + esc(ft.name) + '</h2><p>' + esc(tool ? tool.description : '') + '</p><div class="ftc-steps">' + steps + '</div><dl class="ftc-io"><div><dt>You Enter</dt><dd>' + esc(ft.enter) + '</dd></div><div><dt>You Get</dt><dd>' + esc(ft.get) + '</dd></div></dl>' + btn + '</div></section>');
+  }
+  const hasBig = cardsOnly || !!program || ohFeature;
 
   function render() {
     const q = search.value.trim();
@@ -217,7 +246,7 @@
       return;
     }
     document.getElementById('secs').innerHTML = (program ? '<div class="allhead"><div class="eyebrow">Everything in this program</div><h2>All tools</h2></div>' : '') + groups.map(([name, list, eyebrow]) => {
-      const main = rank(list.filter(t => !isTucked(t)), '');
+      const main = rank(list.filter(t => !isTucked(t) && !(ohFeature && t.url) && !(ohFeature && t.name === 'Respirator Protection Tool')), ''); // nothing listed twice; the combined respirator tool shows once it is live
       if (!main.length) return '';
       return name ? section(name, main, eyebrow) : '<section class="sec"><div class="grid">' + main.map(tile).join('') + '</div></section>';
     }).join('');
