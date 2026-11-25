@@ -4,8 +4,8 @@
 .sh-brand img { height: 40px; width: auto; display: block; }
 .site-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 2px; margin: 0; padding: 0; }
 .site-nav a { display: block; padding: 8px 11px; border-radius: 8px; color: #0b1b30; text-decoration: none; font-size: 14.4px; font-weight: 500; white-space: nowrap; line-height: 1.6; }
-.site-nav a:hover { background: #f3f4f7; color: #0055cc; }
-.site-nav a[aria-current="page"] { color: #0055cc; background: #eaf1fe; }
+.site-nav a:hover { background: #f3f4f7; color: #1761a8; }
+.site-nav a[aria-current="page"] { color: #1761a8; background: #eaf1fe; }
 /* "Free Tools" pill, copied from the main site (styles.css). Exception to two-button rule, approved by Jonathan 25 Nov 2026. */
 .site-nav a.nav-pill { background: #e8f1ff; color: #0055cc; border: 1px solid #b9d3ff; border-radius: 999px; padding: 8px 18px; font-weight: 700; margin-left: 8px; }
 .site-nav a.nav-pill:hover { background: #d8e7ff; color: #0055cc; }
