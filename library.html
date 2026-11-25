@@ -252,26 +252,26 @@
       const toolsCount = ref ? info(ref).list.length : tools.length;
       const link = (n, href, soon) => '<div class="feat-i"><span class="fic">' + ico('<path d="M5 12h14M13 6l6 6-6 6"/>') + '</span><div>' + (href && !soon ? '<a class="ih-sub" href="' + href + '"><strong>' + esc(n) + '</strong></a>' : '<strong>' + esc(n) + '</strong>') + (soon ? '<span class="soon">Coming Soon</span>' : '') + '</div></div>';
       const prog = (PROGRAMS.IH || []).filter(p => !p.hidden);
+      // 25 Nov 2026 (Jonathan, approved mockup): Industrial Hygiene organized by hazard. One Exposure Assessments card holds the hazards;
+      // Design Reviews is its own card. Open links go to each hazard's current page until its own hub page is built.
       const CARDS = [
-        { icon: stepIcon('assess', th.label), art: 'ea', kick: 'Exposure assessments', name: 'Exposure Assessments', blurb: 'Run a chemical exposure assessment and find out who is exposed, to what, and how much.',
-          feats: [link('Manufacturing Exposure Assessment', '', true), link('Non-Manufacturing Exposure Assessment', 'https://oemswebsite.vercel.app/chemical-exposure-assessment')],
-          href: 'https://oemswebsite.vercel.app/exposure-assessments', cta: 'View Exposure Assessments' },
-        // 25 Nov 2026 (Jonathan): Programs card removed from Industrial Hygiene (programs belong to Occupational Health).
-        // Radiation and Lasers stay reachable through the Reference Library; the old card is on ih-saved.html.
-        { icon: ico('<path d="M9 3h6M10 3v6L5 18a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7.5 14h9"/>'), art: 'dr', kick: 'Scale-up', name: 'Design Reviews', blurb: 'Compare an R&D process with its planned manufacturing design and find the exposure gaps before scale-up.', soon: true },
-        { icon: ico(DOC), art: 'tmpl', kick: 'Field forms', name: 'Templates and Field Sheets', blurb: 'Pump calibration logs and air sampling field data sheets to take into the field.', soon: true },
+        { art: 'ea', href: 'https://oemswebsite.vercel.app/chemical-exposure-assessment', name: 'Chemical', blurb: 'Chemicals, solvents, smoke, particulate and welding fume.', cta: 'Open Chemical' },
+        { art: 'noise', href: 'topic.html?g=ih&p=hearing', name: 'Noise', blurb: 'Noise exposure, hearing protection and employee notification.', cta: 'Open Noise' },
+        { art: 'laser', href: 'topic.html?g=ih&p=lasers', name: 'Lasers', blurb: 'Laser hazard evaluation, hazard zones and laser eyewear.', cta: 'Open Lasers' },
+        { art: 'rad', href: 'topic.html?g=ih&p=radiation', name: 'Radiation', blurb: 'Shielding, decay and dose, RF and UV.', cta: 'Open Radiation' },
+        { art: 'heat', name: 'Heat', blurb: 'Heat stress and heat illness prevention.', soon: true },
+        { art: 'leg', name: 'Legionella', blurb: 'Water management programs and Legionella risk.', soon: true },
       ];
       const sg = document.getElementById('sgrid');
-      sg.classList.add('ih5', 'ih3'); // 25 Nov 2026 (Jonathan): three cards in a row; Tools moved to the Reference Library bar
+      sg.classList.add('hzlist');
+      sg.insertAdjacentHTML('afterend', '<div class="drgroup"><div class="grp-head"><small class="kick">Service</small><h3>Design Reviews</h3><p>A separate service for R&D processes moving into manufacturing.</p></div><div class="fstep ih-nolink drwide"><div class="ih-art" aria-hidden="true">' + IH_ART.dr + '</div><div><h3>Design Reviews</h3><p>Compare an R&D process with its planned manufacturing design and find the exposure gaps before scale-up.</p><span class="soon ih-soonpill">Coming Soon</span></div></div></div>');
       refHref = ref ? 'topic.html?g=' + g.slug + '&s=' + ref.slug : null;
       refCount = toolsCount;
-      sg.innerHTML = CARDS.map(c => {
-        const body = (typeof IH_ART !== 'undefined' && IH_ART[c.art] ? '<div class="ih-art" aria-hidden="true">' + IH_ART[c.art] + '</div>' : '<div class="ftop"><span class="sic">' + c.icon + '</span></div>') + '<small class="kick">' + esc(c.kick) + '</small><h3>' + esc(c.name) + '</h3><p>' + esc(c.blurb) + '</p>' +
-          (c.feats && c.feats.length ? '<div class="feats">' + c.feats.join('') + '</div>' : '');
-        if (c.soon) return '<div class="fstep ih-soon">' + body + '<span class="soon ih-soonpill">Coming Soon</span></div>';
-        if (!c.href) return '<div class="fstep ih-nolink">' + body + '</div>';
-        return '<div class="fstep ih-nolink">' + body + '<a class="ih-go" href="' + c.href + '">' + esc(c.cta) + ' <i>→</i></a></div>';
-      }).join('');
+      sg.innerHTML = '<div class="grp-head"><small class="kick">Exposure assessments</small><h3>Hazards</h3><p>Pick a hazard to see its assessment, programs, field sheets and tools.</p></div>' + CARDS.map(c => '<div class="hz">' +
+        '<div class="hz-art" aria-hidden="true">' + IH_ART[c.art] + '</div>' +
+        '<div class="hz-main"><h3>' + esc(c.name) + '</h3><p>' + esc(c.blurb) + '</p>' +
+        '<div class="hz-chips"><span>Exposure Assessment</span><span>Programs and Procedures</span><span>Templates and Field Sheets</span><span>Tools</span></div></div>' +
+        (c.soon ? '<span class="soon">Coming Soon</span>' : '<a class="hz-go" href="' + c.href + '">' + esc(c.cta) + ' <i>→</i></a>') + '</div>').join('');
     }
   }
 
