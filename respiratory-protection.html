@@ -78,7 +78,7 @@
   </section>
   <!-- 25 Nov 2026 (Jonathan): no Reference Library bar here; the Support Tools card covers it. -->
 </div>
-<!-- 25 Nov 2026 (Jonathan, approved mockup): Occupational Health program page: written program (quote through Contact) and free tools. -->
+<!-- 25 Nov 2026 (Jonathan, approved mockup): Occupational Health program page: written program (quote through Contact) and free tools. 25 Nov 2026 (Jonathan): the whole Free Tools card opens the tools page. -->
 <!-- 24 Nov 2026, Jonathan: the same footer as the main site -->
 <footer class="site-footer">
   <div class="wrap footer-inner">
@@ -91,7 +91,7 @@
   document.getElementById('art').innerHTML = IH_ART.rp;
   const C = [
     { art: 'prog', name: 'Written Program', tag: ['paid', 'Paid download'], text: 'Your respiratory protection program and its supporting documents.', cta: 'Request a quote', href: 'https://oemswebsite.vercel.app/contact' },
-    { art: 'rp', name: 'Free Tools', tag: ['free', 'Free tools'], text: 'Calculators for respirator selection.', links: [['Respirator Selection Tool', 'https://respiratorselection.oemsgroup.com/'], ['Maximum Use Concentration (MUC)', 'https://muccalculator.oemsgroup.com/'], ['Assigned Protection Factor', 'https://apfcalculator.oemsgroup.com/']] },
+    { art: 'rp', name: 'Free Tools', tag: ['free', 'Free tools'], text: 'Calculators for respirator selection.', cta: 'See free tools', href: 'topic.html?g=oh&t=respiratory-protection' },
   ];
   document.getElementById('cards').innerHTML = C.map(c => (c.soon || c.links ? '<div class="hc">' : '<a class="hc" href="' + c.href + '">') + '<div class="hz-art" aria-hidden="true">' + (c.svg || IH_ART[c.art]) + '</div><div>' +
     (c.tag ? '<span class="tagp ' + c.tag[0] + '">' + c.tag[1] + '</span>' : '') + '<h3>' + c.name + '</h3><p>' + c.text + '</p>' +
