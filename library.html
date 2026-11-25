@@ -231,6 +231,37 @@
         '<div class="rb-chips">' + Object.entries(parts).map(([k, n]) => '<span>' + icon(k, th.tag) + esc(k) + ' <em>' + n + '</em></span>').join('') + '</div></div></div>' +
         '<b>Browse all tools <i>→</i></b>';
     }
+    // 25 Nov 2026 (Jonathan): the Industrial Hygiene page is a landing page with five cards. The old layout (four steps,
+    // Tools box, noise section, program cards) is saved, hidden, at ih-saved.html?g=ih.
+    if (key === 'IH') {
+      ['srail', 'refbar', 'noise', 'progs'].forEach(id => { const el = document.getElementById(id); if (el) el.hidden = true; });
+      document.querySelector('#stepsSec .flow-head').innerHTML = '<h2>Industrial Hygiene</h2><p class="flow-dir">Everything OEMS offers for industrial hygiene, in one place.</p>';
+      const DOC = '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/>';
+      const ico = p => '<svg viewBox="0 0 24 24" fill="none" stroke="' + th.label + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>';
+      const toolsCount = ref ? info(ref).list.length : tools.length;
+      const link = (n, href, soon) => '<div class="feat-i"><span class="fic">' + ico('<path d="M5 12h14M13 6l6 6-6 6"/>') + '</span><div>' + (href && !soon ? '<a class="ih-sub" href="' + href + '"><strong>' + esc(n) + '</strong></a>' : '<strong>' + esc(n) + '</strong>') + (soon ? '<span class="soon">Coming Soon</span>' : '') + '</div></div>';
+      const prog = (PROGRAMS.IH || []).filter(p => !p.hidden);
+      const CARDS = [
+        { icon: stepIcon('assess', th.label), kick: 'Exposure assessments', name: 'Exposure Assessments', blurb: 'Run a chemical exposure assessment and find out who is exposed, to what, and how much.',
+          feats: [link('Manufacturing Exposure Assessment', '', true), link('Non-Manufacturing Exposure Assessment', 'https://oemswebsite.vercel.app/chemical-exposure-assessment')],
+          href: 'https://oemswebsite.vercel.app/exposure-assessments', cta: 'View Exposure Assessments' },
+        { icon: stepIcon('tools', th.label), kick: 'Reference library', name: 'Tools', blurb: 'Calculators for the math behind the work. ' + toolsCount + ' tools you can use at any step.',
+          feats: [], href: ref ? 'topic.html?g=' + g.slug + '&s=' + ref.slug : '#topicsSec', cta: 'Browse All Tools' },
+        { icon: ico(DOC), kick: 'Programs', name: 'Programs', blurb: 'Everything for one program in one place.',
+          feats: prog.map(p => { const live = p.tool ? !!(TOOLS.find(x => x.name === p.tool) || {}).url : TOOLS.some(t => t.group === key && t.category === p.topic); return link(p.name, 'topic.html?g=' + g.slug + '&p=' + p.slug, !live); }) },
+        { icon: ico('<path d="M9 3h6M10 3v6L5 18a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7.5 14h9"/>'), kick: 'Scale-up', name: 'Design Reviews', blurb: 'Compare an R&D process with its planned manufacturing design and find the exposure gaps before scale-up.', soon: true },
+        { icon: ico(DOC), kick: 'Field forms', name: 'Templates and Field Sheets', blurb: 'Pump calibration logs and air sampling field data sheets to take into the field.', soon: true },
+      ];
+      const sg = document.getElementById('sgrid');
+      sg.classList.add('ih5');
+      sg.innerHTML = CARDS.map(c => {
+        const body = '<div class="ftop"><span class="sic">' + c.icon + '</span></div><small class="kick">' + esc(c.kick) + '</small><h3>' + esc(c.name) + '</h3><p>' + esc(c.blurb) + '</p>' +
+          (c.feats && c.feats.length ? '<div class="feats">' + c.feats.join('') + '</div>' : '');
+        if (c.soon) return '<div class="fstep ih-soon">' + body + '<span class="soon ih-soonpill">Coming Soon</span></div>';
+        if (!c.href) return '<div class="fstep ih-nolink">' + body + '</div>';
+        return '<div class="fstep ih-nolink">' + body + '<a class="ih-go" href="' + c.href + '">' + esc(c.cta) + ' <i>→</i></a></div>';
+      }).join('');
+    }
   }
 
   const featNames = new Set(feat.map(t => t.name));
