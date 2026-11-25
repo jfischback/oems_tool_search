@@ -244,8 +244,10 @@
         singles.map(([name, list]) => name ? section(name, list) : '<section class="sec"><div class="grid">' + list.map(tile).join('') + '</div></section>').join('');
       return;
     }
-    document.getElementById('secs').innerHTML = (program ? '<div class="allhead"><div class="eyebrow">Everything in this program</div><h2>All tools</h2></div>' : '') + groups.map(([name, list, eyebrow]) => {
-      const main = rank(list.filter(t => !isTucked(t) && !(ohFeature && t.url) && !(ohFeature && t.name === 'Respirator Protection Tool')), ''); // nothing listed twice; the combined respirator tool shows once it is live
+    // 25 Nov 2026 (Jonathan): like Noise, featured tools up top, then Single Tools below with nothing repeated.
+    const feat = (program && program.featured) || [];
+    document.getElementById('secs').innerHTML = (program ? '<div class="allhead"><div class="eyebrow">Or use one at a time</div><h2>Single Tools</h2></div>' : '') + groups.map(([name, list, eyebrow]) => {
+      const main = rank(list.filter(t => !isTucked(t) && !feat.includes(t.name) && !(ohFeature && t.url) && !(ohFeature && t.name === 'Respirator Protection Tool')), ''); // nothing listed twice; the combined respirator tool shows once it is live
       if (!main.length) return '';
       return name ? section(name, main, eyebrow) : '<section class="sec"><div class="grid">' + main.map(tile).join('') + '</div></section>';
     }).join('');
