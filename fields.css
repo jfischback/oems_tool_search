@@ -523,3 +523,16 @@
   @media (max-width: 900px) { .hztiles { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px) { .hztiles { grid-template-columns: 1fr; } body.ihopen .flow-steps.hzlist, body.ihopen .drgroup { padding: 16px; } }
   body.ihopen .flow-steps.hzlist { box-shadow: 0 30px 80px rgba(7,13,24,.28), 0 2px 6px rgba(7,13,24,.06); border-radius: 24px; }
+  /* 25 Nov 2026 (Jonathan): small all-tools row inside General Tools. */
+  body.noref .refslim { display: none !important; }
+  .allrow { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; background: #eef4fc; border: 1.5px solid #d6e4f5; border-radius: 14px; padding: 12px 18px; transition: border-color .15s, box-shadow .15s; }
+  .allrow:hover { border-color: #9fc2ea; box-shadow: 0 8px 20px rgba(23,97,168,.1); }
+  .allrow .sic { flex: 0 0 38px; height: 38px; border-radius: 10px; background: #fff; display: grid; place-items: center; }
+  .allrow .sic svg { width: 20px; height: 20px; }
+  .allrow > span:nth-child(2) { flex: 1; min-width: 0; }
+  .allrow strong { display: block; font-size: 16px; font-weight: 800; color: #0f1b2d; }
+  .allrow em { display: block; font-style: normal; font-size: 13.5px; color: #3b4a5e; }
+  .allrow b { color: #1761a8; font-size: 15px; white-space: nowrap; }
+  .allrow b i { font-style: normal; display: inline-block; transition: transform .15s; }
+  .allrow:hover b i { transform: translateX(4px); }
+  @media (max-width: 560px) { .allrow { flex-wrap: wrap; } .allrow b { flex-basis: 100%; padding-left: 52px; } }
