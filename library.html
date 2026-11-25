@@ -149,7 +149,8 @@
     const info = (TOPICS[key] || {})[cat] || {};
     // 25 Nov 2026 (Jonathan): the Services page pictures on the two Occupational Health programs (lungs, audiogram).
     const pic = typeof IH_ART !== 'undefined' && IH_ART[{ 'Respiratory Protection': 'rp', 'Hearing Conservation': 'hc' }[name]];
-    return '<a class="fcard" href="' + topicHref(key, cat) + '">' + (pic ? '<div class="ih-art oh-art" aria-hidden="true">' + pic + '</div>' : '<div class="ic">' + icon(cat, th.tag) + '</div>') + '<small>PROGRAM</small><h3>' + esc(name) + '</h3><p>' + esc(info.blurb || '') + '</p><div class="go">' + list.length + ' tools →</div></a>';
+    const page = { 'Respiratory Protection': 'respiratory-protection.html', 'Hearing Conservation': 'hearing-conservation.html' }[name]; // 25 Nov 2026 (Jonathan): program pages
+    return '<a class="fcard" href="' + (page || topicHref(key, cat)) + '">' + (pic ? '<div class="ih-art oh-art" aria-hidden="true">' + pic + '</div>' : '<div class="ic">' + icon(cat, th.tag) + '</div>') + '<small>PROGRAM</small><h3>' + esc(name) + '</h3><p>' + esc(info.blurb || '') + '</p><div class="go">' + list.length + ' tools →</div></a>';
   });
   // 24 Nov 2026 (Jonathan): Occupational Health looks like Industrial Hygiene: its programs sit in a white panel over the header.
   if (progCards.length) {

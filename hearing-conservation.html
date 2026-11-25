@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="description" content="Practical calculators for industrial hygiene, environmental compliance and workplace safety, built by OEMS.">
+<meta name="theme-color" content="#070d18">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OEMS Tools">
+<meta property="og:title" content="OEMS Tools">
+<meta property="og:description" content="Practical calculators for industrial hygiene, environmental compliance and workplace safety, built by OEMS.">
+<meta property="og:image" content="https://oemstoolsearch.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oemstoolsearch.vercel.app/og.png">
+<script defer src="/_vercel/insights/script.js"></script>
+<title>OEMS Hearing Conservation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fields.css">
+<link rel="stylesheet" href="oems-header.css">
+<style>
+  :root { --hero: #0c0818; --bg: #1c1433; --deep: #5b44a8; --tag: #b39dff; --line2: #aaa3bd; --label: #5b44a8; --glow: rgba(179,157,255,.3); --iconbg: #efeaff; --fstart: #2a1f47; --grid: #b39dff12; }
+  .kick { color: #5b44a8 !important; } .hc-list li { color: #5b44a8; background: #efeaff; } .hc .hz-art { background: radial-gradient(240px 160px at 50% 45%, rgba(179,157,255,.22), transparent 70%), #1a1230; }
+  .hzp { margin-top: -96px; position: relative; z-index: 3; background: #fff; border-radius: 24px; border: 1px solid #e6eaf0; box-shadow: 0 30px 80px rgba(7,13,24,.28), 0 2px 6px rgba(7,13,24,.06); padding: 28px; }
+  .hzp { margin-bottom: 64px; }
+  .fh h1 { font-size: clamp(38px, 4.4vw, 60px); }
+  @media (max-width: 600px) { .fh h1 { font-size: 34px; overflow-wrap: anywhere; } }
+  .hzp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .hc { display: grid; grid-template-columns: 150px 1fr; gap: 20px; align-items: center; text-decoration: none; color: inherit; background: #f6f8fb; border: 1.5px solid #e3e8ef; border-radius: 16px; padding: 14px; transition: transform .15s, box-shadow .15s, border-color .15s; }
+  a.hc:hover { transform: translateY(-2px); border-color: #bcd3ee; box-shadow: 0 12px 28px rgba(23,97,168,.12); }
+  .hc .hz-art { aspect-ratio: 16/11; }
+  .hc h3 { font-size: 21px; font-weight: 800; letter-spacing: -.03em; margin: 0 0 4px; color: #0f1b2d; }
+  .hc p { margin: 0 0 10px; font-size: 14.5px; color: #3b4a5e; line-height: 1.5; }
+  .hc b { color: #1761a8; font-size: 15px; }
+  .hc .tagp { display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; border-radius: 999px; padding: 3px 10px; margin-bottom: 8px; }
+  .tagp.free { color: #0f7a45; background: #e5f6ec; }
+  .tagp.paid { color: #8a5a00; background: #fff3d6; }
+  .hc-list { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .hc-list a { color: inherit; text-decoration: none; }
+  .hc-list li { font-size: 12.5px; font-weight: 600; color: #1761a8; background: #eaf1fe; border-radius: 999px; padding: 4px 10px; }
+  .soonp { display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #64748b; background: #e8edf3; border-radius: 999px; padding: 5px 12px; }
+  @media (max-width: 900px) { .hzp-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .hzp { margin-top: -70px; padding: 18px 14px; } .hc { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<!-- 24 Nov 2026, Jonathan: the main site's white OEMS header, so Tools feels like part of the site -->
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="sh-brand" href="https://oemswebsite.vercel.app/" aria-label="OEMS home"><img src="oems-logo.webp" alt="OEMS — Occupational Exposure Management Systems" width="1109" height="417"></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Menu</span><span class="nb" aria-hidden="true"></span></button>
+    <nav id="site-nav" class="site-nav" aria-label="Main"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li><li class="nav-pill-li"><a class="nav-pill" href="index.html">Free Tools</a></li></ul></nav><!-- Free Tools pill: exception to two-button rule, approved by Jonathan 25 Nov 2026 -->
+  </div>
+</header>
+<header class="fh has-flow" id="fh">
+  <div class="wrap">
+    <nav class="nav"><div class="navl"><div class="crumb"><a href="index.html">Tools</a> &nbsp;/&nbsp; <a href="library.html?g=oh">Occupational Health</a> &nbsp;/&nbsp; <b>Hearing Conservation</b></div></div></nav>
+    <div class="hero-in">
+      <div>
+        <div class="pill"><i></i><span>Occupational health program</span></div>
+        <h1>Hearing Conservation.</h1>
+        <p class="lede">Hearing protection, employee notification and your written hearing conservation program.</p>
+      </div>
+      <div class="art" id="art" aria-hidden="true"></div>
+    </div>
+  </div>
+</header>
+<div class="wrap">
+  <section class="hzp">
+    <div class="grp-head"><small class="kick">Hearing Conservation</small><h3>What do you need?</h3><p>Pick where to start.</p></div>
+    <div class="hzp-grid" id="cards"></div>
+  </section>
+  <!-- 25 Nov 2026 (Jonathan): no Reference Library bar here; the Support Tools card covers it. -->
+</div>
+<!-- 25 Nov 2026 (Jonathan, approved mockup): Occupational Health program page: written program (quote through Contact) and free tools. -->
+<!-- 24 Nov 2026, Jonathan: the same footer as the main site -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-id"><a class="footer-brand" href="https://oemswebsite.vercel.app/"><strong>OEMS</strong> <span>Occupational Exposure Management Systems</span></a><p class="footer-slogan">We help companies turn data into decisions.</p></div>
+    <nav aria-label="Footer"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="index.html">Tools</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li></ul></nav>
+  </div>
+</footer>
+<script src="ih-art.js"></script>
+<script>
+  document.getElementById('art').innerHTML = IH_ART.hc;
+  const C = [
+    { art: 'prog', name: 'Written Program', tag: ['paid', 'Paid download'], text: 'Your hearing conservation program and its supporting documents.', cta: 'Request a quote', href: 'https://oemswebsite.vercel.app/contact' },
+    { art: 'hc', name: 'Free Tools', tag: ['free', 'Free tools'], text: 'Calculators for hearing protection and follow-up.', links: [['Hearing Protection Selector', 'https://noisereductioncalculator.oemsgroup.com/'], ['Noise Sampling Notification Template', 'https://noiseexposurenotificationtool.oemsgroup.com/'], ['Standard Threshold Shift (STS)', 'https://noise.oemsgroup.com/sts_age_correction_calculator']] },
+  ];
+  document.getElementById('cards').innerHTML = C.map(c => (c.soon || c.links ? '<div class="hc">' : '<a class="hc" href="' + c.href + '">') + '<div class="hz-art" aria-hidden="true">' + (c.svg || IH_ART[c.art]) + '</div><div>' +
+    (c.tag ? '<span class="tagp ' + c.tag[0] + '">' + c.tag[1] + '</span>' : '') + '<h3>' + c.name + '</h3><p>' + c.text + '</p>' +
+    (c.list ? '<ul class="hc-list">' + c.list.map(i => '<li>' + i + '</li>').join('') + '</ul>' : '') + (c.links ? '<ul class="hc-list">' + c.links.map(([n, h]) => '<li><a href="' + h + '">' + n + ' →</a></li>').join('') + '</ul>' : '') + (c.soon ? '<span class="soonp">Coming Soon</span></div></div>' : c.links ? '</div></div>' : '<b>' + c.cta + ' →</b></div></a>')).join('');
+</script>
+<script src="oems-header.js"></script>
+</body>
+</html>
