@@ -256,8 +256,8 @@
       // 25 Nov 2026 (Jonathan, approved mockup): Industrial Hygiene organized by hazard. One Exposure Assessments card holds the hazards;
       // Design Reviews is its own card. Open links go to each hazard's current page until its own hub page is built.
       const CARDS = [
-        { art: 'ea', href: 'https://oemswebsite.vercel.app/chemical-exposure-assessment', name: 'Chemical', blurb: 'The largest hazard area. Assessments for manufacturing and non-manufacturing work, covering:', cta: 'Open Chemical', big: true,
-          incl: ['Manufacturing exposure assessment', 'Non-manufacturing exposure assessment', 'Routine and non-routine exposure assessments', 'Smoke', 'Particulate and dust', 'Welding fume', 'Templates', 'Tools'] },
+        { art: 'ea', href: 'https://oemswebsite.vercel.app/chemical-exposure-assessment', name: 'Chemical', blurb: 'Go here for a chemical, smoke, particulate or welding assessment.', cta: 'Open Chemical', big: true,
+          groups: [['Routine and non-routine assessments', ['Chemical', 'Smoke', 'Particulate', 'Welding']], ['Each assessment comes with', ['Programs and procedures', 'Templates and field sheets', 'Tools']]] },
         { art: 'noise', href: 'topic.html?g=ih&p=hearing', name: 'Noise', blurb: 'Noise exposure, hearing protection and employee notification.', cta: 'Open Noise' },
         { art: 'laser', href: 'topic.html?g=ih&p=lasers', name: 'Lasers', blurb: 'Laser hazard evaluation, hazard zones and laser eyewear.', cta: 'Open Lasers' },
         { art: 'rad', href: 'topic.html?g=ih&p=radiation', name: 'Radiation', blurb: 'Shielding, decay and dose, RF and UV.', cta: 'Open Radiation' },
@@ -272,8 +272,8 @@
       sg.innerHTML = '<div class="grp-head"><small class="kick">Industrial Hygiene Programs</small><h3>Programs by Hazard</h3><p>Pick a hazard to see its assessment, programs, field sheets and tools.</p></div>' + CARDS.map(c => '<div class="hz' + (c.big ? ' hz-big' : '') + '">' +
         '<div class="hz-art" aria-hidden="true">' + IH_ART[c.art] + '</div>' +
         '<div class="hz-main"><h3>' + esc(c.name) + '</h3><p>' + esc(c.blurb) + '</p>' +
-        (c.incl ? '<ul class="hz-incl">' + c.incl.map(i => '<li>' + esc(i) + '</li>').join('') + '</ul>' : '') +
-        '<div class="hz-chips"><span>Exposure Assessment</span><span>Programs and Procedures</span><span>Templates and Field Sheets</span><span>Tools</span></div></div>' +
+        (c.groups ? '<div class="hz-groups">' + c.groups.map(([h, items]) => '<div><small>' + esc(h) + '</small><ul class="hz-incl">' + items.map(i => '<li>' + esc(i) + '</li>').join('') + '</ul></div>').join('') + '</div>' : '') +
+        (c.groups ? '' : '<div class="hz-chips"><span>Exposure Assessment</span><span>Programs and Procedures</span><span>Templates and Field Sheets</span><span>Tools</span></div>') + '</div>' +
         (c.soon ? '<span class="soon">Coming Soon</span>' : '<a class="hz-go" href="' + c.href + '">' + esc(c.cta) + ' <i>→</i></a>') + '</div>').join('');
     }
   }

@@ -470,6 +470,11 @@
   .hz-big .hz-chips span { font-size: 14px; padding: 5px 12px; }
   .hz-big .hz-go { grid-column: 2; justify-self: start; font-size: 17px; }
   .hz-incl { list-style: none; margin: 0 0 16px; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; }
+  .hz-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 28px; margin-bottom: 18px; }
+  .hz-groups > div { background: #f6f9fd; border: 1px solid #e3ecf7; border-radius: 12px; padding: 14px 16px; }
+  .hz-groups small { display: block; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #1761a8; margin-bottom: 10px; }
+  .hz-groups .hz-incl { grid-template-columns: 1fr; margin: 0; gap: 8px; }
+  @media (max-width: 1000px) { .hz-groups { grid-template-columns: 1fr; } }
   .hz-incl li { position: relative; padding-left: 26px; font-size: 16px; font-weight: 600; color: #13243d; }
   .hz-incl li::before { content: ""; position: absolute; left: 0; top: 3px; width: 17px; height: 17px; border-radius: 50%; background: #eaf1fe url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231761a8' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/10px no-repeat; }
   @media (max-width: 1000px) { .hz.hz-big { grid-template-columns: 1fr; } .hz-big .hz-art { grid-row: auto; } .hz-big .hz-go { grid-column: 1; } .hz-incl { grid-template-columns: 1fr 1fr; } }
