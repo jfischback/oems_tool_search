@@ -183,7 +183,7 @@
         '<div class="ftop"><span class="sic">' + stepIcon(st.slug, th.label) + '</span></div>' +
         '<small class="kick">' + esc(st.kicker || '') + '</small>' +
         '<h3>' + esc(st.name) + '</h3><p>' + esc(st.blurb) + '</p>' +
-        (st.features ? '<div class="feats">' + st.features.map(([n, cat, soon]) => '<div class="feat-i"><span class="fic">' + icon(cat, th.label) + '</span><strong>' + esc(n) + '</strong>' + (soon ? ' <span class="soon">Coming Soon</span>' : '') + '</div>').join('') + '</div>'
+        (st.features ? '<div class="feats">' + st.features.map(([n, cat, soon]) => '<div class="feat-i"><span class="fic">' + icon(cat, th.label) + '</span><div><strong>' + esc(n) + '</strong>' + (soon ? '<span class="soon">Coming Soon</span>' : '') + '</div></div>').join('') + '</div>'
           : '<ul class="inc">' + (st.includes || []).map(n => '<li>' + esc(n) + '</li>').join('') + '</ul>') +
         '<div class="meta">' + x.list.length + ' tool' + (x.list.length === 1 ? '' : 's') + (x.live < x.list.length ? ' · ' + (x.list.length - x.live) + ' coming soon' : '') + '</div>' +
         '<span class="btn">' + esc(st.cta || 'Open') + ' <i>→</i></span></a>';
