@@ -462,6 +462,18 @@
   .hz-main p { margin: 0 0 10px; font-size: 14px; color: #3b4a5e; }
   .hz-chips { display: flex; flex-wrap: wrap; gap: 6px; }
   .hz-chips span { font-size: 12.5px; font-weight: 600; color: #1761a8; background: #eaf1fe; border-radius: 999px; padding: 4px 10px; }
+  /* 25 Nov 2026 (Jonathan, approved mockup): Chemical is the biggest hazard area, so its card is bigger and lists what's in it. */
+  .hz.hz-big { grid-template-columns: 340px 1fr; align-items: start; gap: 12px 30px; padding: 24px 28px 24px 24px; border-color: #c9dcf3; box-shadow: 0 8px 24px rgba(23,97,168,.08); }
+  .hz-big .hz-art { grid-row: span 2; }
+  .hz-big .hz-main h3 { font-size: 32px; margin-bottom: 6px; }
+  .hz-big .hz-main p { font-size: 17px; margin-bottom: 14px; }
+  .hz-big .hz-chips span { font-size: 14px; padding: 5px 12px; }
+  .hz-big .hz-go { grid-column: 2; justify-self: start; font-size: 17px; }
+  .hz-incl { list-style: none; margin: 0 0 16px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 24px; }
+  .hz-incl li { position: relative; padding-left: 26px; font-size: 16px; font-weight: 600; color: #13243d; }
+  .hz-incl li::before { content: ""; position: absolute; left: 0; top: 3px; width: 17px; height: 17px; border-radius: 50%; background: #eaf1fe url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231761a8' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/10px no-repeat; }
+  @media (max-width: 1000px) { .hz.hz-big { grid-template-columns: 1fr; } .hz-big .hz-art { grid-row: auto; } .hz-big .hz-go { grid-column: 1; } .hz-incl { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) { .hz.hz-big { padding: 12px; } .hz-big .hz-main h3 { font-size: 26px; } .hz-incl { grid-template-columns: 1fr; } }
   .hz-go { color: #1761a8; font-weight: 700; text-decoration: none; white-space: nowrap; }
   .hz .soon { justify-self: end; }
   @media (max-width: 700px) { .hz { grid-template-columns: 1fr; } }
