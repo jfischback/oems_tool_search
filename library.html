@@ -277,7 +277,7 @@
       sg.insertAdjacentHTML('afterend', '<div class="drgroup cagroup"><div class="grp-head"><small class="kick">Free tools</small><h3>General Tools</h3><p>Non-specific tools that work for multiple hazards.</p></div>' +
         '<div class="hz"><div class="hz-art" aria-hidden="true">' + VENT_ART + '</div><div class="hz-main"><h3>Ventilation</h3><p>Check whether your ventilation is working, and design hoods, ducts and fans.</p></div><a class="hz-go" href="topic.html?g=ih&t=ventilation">Open Ventilation <i>→</i></a></div>' +
         '<div class="hz"><div class="hz-art" aria-hidden="true">' + STAT_ART + '</div><div class="hz-main"><h3>Exposure Analysis</h3><p>Make sense of your sample results.</p><ul class="ca-tl">' + tl('Exposure Statistics Tool', 'https://oemsexposurestats.vercel.app/') + tl('ppm to mg/m³ (and back)', 'https://conversions.oemsgroup.com/ppm-and-mg-m3/') + tl('Sampling Plan Builder', '', true) + '</ul></div></div>' +
-        (ref ? '<a class="allrow" href="topic.html?g=' + g.slug + '&s=' + ref.slug + '"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="#1761a8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg></span><span><strong>Free industrial hygiene tools</strong><em>Every calculator in one place.</em></span><b>Browse all <i>→</i></b></a>' : '') +
+        (ref ? '<a class="allrow" href="topic.html?g=' + g.slug + '&s=' + ref.slug + '"><span class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="#1761a8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg></span><span><strong>Free Industrial Hygiene Tools</strong><em>Every calculator in one place.</em></span><b>Browse all <i>→</i></b></a>' : '') +
         '</div>');
       // 25 Nov 2026 (Jonathan): the Reference Library link sits in General Tools instead of a bar at the bottom.
       document.body.classList.add('noref');
@@ -327,7 +327,7 @@
   const rs = document.getElementById('refslim');
   if (refHref) {
     rs.href = refHref;
-    rs.innerHTML = '<span class="sic dark">' + stepIcon('tools', th.tag) + '</span><div><small>Reference library</small><strong>Free ' + esc(g.noun) + ' tools</strong><p>Calculators for the math behind the work. ' + refCount + ' tools you can use at any step.</p></div><b>Browse the Reference Library <i>→</i></b>';
+    rs.innerHTML = '<span class="sic dark">' + stepIcon('tools', th.tag) + '</span><div><small>Reference library</small><strong>Free ' + esc(fieldName) + ' Tools</strong><p>Calculators for the math behind the work. ' + refCount + ' tools you can use at any step.</p></div><b>Browse the Reference Library <i>→</i></b>';
   }
   if (REF) { document.getElementById('teyebrow').textContent = 'Reference library'; document.getElementById('ttitle').textContent = 'Free ' + fieldName + ' Tools'; }
 

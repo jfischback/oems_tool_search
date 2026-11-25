@@ -172,6 +172,7 @@
       '</a>';
   }).join('');
 
+  if (window.matchMedia('(max-width: 600px)').matches) document.getElementById('hq').placeholder = 'Search all tools…'; // 25 Nov 2026: fits on a phone
   document.getElementById('total').textContent = TOOLS.filter(t => !hiddenUntilLive(t)).length;
 
 </script>
