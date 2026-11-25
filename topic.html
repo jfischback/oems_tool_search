@@ -238,11 +238,10 @@
     if (program && program.combined) {
       document.getElementById('secs').innerHTML = '';
       const singles = groups.map(([name, list]) => [name, list.filter(x => !(isCombined(x) && x.url) && x.name !== program.guided)]).filter(x => x[1].length);
-      const n = singles.reduce((a, x) => a + x[1].length, 0);
-      const wasOpen = ind.open; ind.hidden = false;
-      ind.innerHTML = '<summary><div><h2>Single calculators</h2><p>' + n + ' one-job calculators, grouped by topic.</p></div><span class="chev"><span class="o">Show ↓</span><span class="c">Hide ↑</span></span></summary>' +
-        '<div class="ilist">' + singles.map(([name, list]) => (name ? '<h4>' + esc(name) + '</h4>' : '') + list.map(irow).join('')).join('') + '</div>';
-      ind.open = wasOpen;
+      // 25 Nov 2026 (Jonathan): the single calculators show below the featured combined tools, not folded away.
+      ind.hidden = true;
+      document.getElementById('secs').innerHTML = '<div class="allhead"><div class="eyebrow">Or use one at a time</div><h2>Single Tools</h2></div>' +
+        singles.map(([name, list]) => name ? section(name, list) : '<section class="sec"><div class="grid">' + list.map(tile).join('') + '</div></section>').join('');
       return;
     }
     document.getElementById('secs').innerHTML = (program ? '<div class="allhead"><div class="eyebrow">Everything in this program</div><h2>All tools</h2></div>' : '') + groups.map(([name, list, eyebrow]) => {
