@@ -1,0 +1,46 @@
+// 25 Nov 2026 (Jonathan): a picture on every featured tool card.
+const TOOL_ART = (() => {
+  const C = '#77baff', D = '#2c5f99', G = '#9da2aa';
+  const wrap = (id, body) => '<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><defs><radialGradient id="' + id + '"><stop offset="0" stop-color="' + C + '" stop-opacity=".35"/><stop offset="1" stop-color="' + C + '" stop-opacity="0"/></radialGradient></defs><circle cx="160" cy="100" r="95" fill="url(#' + id + ')"/>' + body + '</svg>';
+  const t = (x, y, s, a) => '<text x="' + x + '" y="' + y + '" fill="' + G + '" font-family="Inter, Arial" font-size="10" letter-spacing="1.5"' + (a ? ' text-anchor="' + a + '"' : '') + '>' + s + '</text>';
+  return {
+    // Noise
+    'Sound Pressure Level from Sound Power Level (Feet or Meters)': wrap('a1',
+      '<rect x="40" y="80" width="36" height="44" rx="6" stroke="' + C + '" stroke-width="3"/><circle cx="58" cy="102" r="9" stroke="' + C + '" stroke-width="2.5"/>' +
+      '<path d="M92 82c10 12 10 28 0 40M108 72c16 18 16 42 0 60M124 62c22 24 22 52 0 76" stroke="' + C + '" stroke-width="3"/>' +
+      '<path d="M84 160h180" stroke="' + D + '" stroke-width="1.5" stroke-dasharray="5 6"/><path d="M84 154v12M264 154v12" stroke="' + D + '" stroke-width="1.5"/>' + t(174, 182, 'DISTANCE', 'middle') +
+      '<circle cx="258" cy="102" r="14" stroke="' + C + '" stroke-width="3"/><path d="M258 116v22" stroke="' + C + '" stroke-width="3"/>' + t(258, 74, 'Lp', 'middle')),
+    'Sound Pressure, Intensity and Power Level': wrap('a2',
+      '<path d="M50 150h220" stroke="' + D + '" stroke-width="1.5"/>' +
+      '<g stroke="' + C + '" stroke-width="3"><rect x="80" y="100" width="34" height="50" rx="4"/><rect x="143" y="70" width="34" height="80" rx="4"/><rect x="206" y="40" width="34" height="110" rx="4"/></g>' +
+      t(97, 170, 'Lp', 'middle') + t(160, 170, 'LI', 'middle') + t(223, 170, 'LW', 'middle') + t(270, 34, 'dB', 'end')),
+    'Octave Band Frequencies': wrap('a3',
+      '<path d="M40 150h240" stroke="' + D + '" stroke-width="1.5"/>' +
+      '<g stroke="' + C + '" stroke-width="2.5">' + [60, 90, 70, 110, 95, 80, 55, 40].map((h, i) => '<rect x="' + (52 + i * 28) + '" y="' + (150 - h) + '" width="20" height="' + h + '" rx="3"/>').join('') + '</g>' +
+      ['63', '125', '250', '500', '1k', '2k', '4k', '8k'].map((f, i) => t(62 + i * 28, 168, f, 'middle')).join('') + t(160, 188, 'HZ', 'middle')),
+    // Lasers
+    'Laser Hazard Evaluation': wrap('b1',
+      '<rect x="40" y="88" width="60" height="28" rx="6" stroke="' + C + '" stroke-width="3"/><path d="M100 102h120" stroke="' + C + '" stroke-width="4"/>' +
+      '<path d="M100 102l170-40M100 102l170 40" stroke="' + D + '" stroke-width="1.5" stroke-dasharray="5 6"/>' +
+      '<path d="M220 70a40 40 0 0 1 0 64" stroke="' + C + '" stroke-width="2.5"/>' + t(250, 106, 'NHZ', 'start') + t(70, 140, 'MPE', 'middle')),
+    'Laser Eyewear Optical Density': wrap('b2',
+      '<path d="M60 92c0-14 10-22 26-22h44c10 0 14 8 30 8s20-8 30-8h44c16 0 26 8 26 22v14c0 22-16 34-40 34s-40-14-48-30h-24c-8 16-24 30-48 30s-40-12-40-34z" stroke="' + C + '" stroke-width="3"/>' +
+      '<path d="M20 104h40" stroke="' + C + '" stroke-width="4"/><path d="M20 104h28" stroke="#ff7a7a" stroke-width="4"/>' + t(160, 172, 'OD 7+', 'middle')),
+    'Laser NHZ, Direct Beam': wrap('b3',
+      '<rect x="36" y="92" width="50" height="24" rx="5" stroke="' + C + '" stroke-width="3"/>' +
+      '<path d="M86 104L280 80M86 104L280 128" stroke="' + C + '" stroke-width="2.5"/><path d="M86 104h194" stroke="' + C + '" stroke-width="1.5" stroke-dasharray="4 5"/>' +
+      '<path d="M86 150h150" stroke="' + D + '" stroke-width="1.5"/><path d="M86 144v12M236 144v12" stroke="' + D + '" stroke-width="1.5"/>' + t(161, 172, 'NOHD', 'middle')),
+    // Radiation
+    'Shielding Calculator HVL / TVL': wrap('c1',
+      '<circle cx="60" cy="100" r="12" stroke="' + C + '" stroke-width="3"/><path d="M72 100h70" stroke="' + C + '" stroke-width="4"/>' +
+      '<g stroke="' + C + '" stroke-width="2.5"><rect x="142" y="50" width="16" height="100" rx="2"/><rect x="164" y="50" width="16" height="100" rx="2"/><rect x="186" y="50" width="16" height="100" rx="2"/></g>' +
+      '<path d="M202 100h70" stroke="' + C + '" stroke-width="1.5" stroke-dasharray="4 5"/>' + t(172, 172, 'HVL · TVL', 'middle')),
+    'RF Antenna Hazard': wrap('c2',
+      '<path d="M110 170l50-110 50 110M128 130h64M140 104h40" stroke="' + C + '" stroke-width="3"/><circle cx="160" cy="56" r="6" stroke="' + C + '" stroke-width="3"/>' +
+      '<path d="M180 40a30 30 0 0 1 0 32M196 28a50 50 0 0 1 0 56M140 40a30 30 0 0 0 0 32M124 28a50 50 0 0 0 0 56" stroke="' + C + '" stroke-width="2.5"/>' + t(270, 180, 'mW/cm²', 'end')),
+    'Radioactive Decay and Half-Life': wrap('c3',
+      '<path d="M60 40v120h210" stroke="' + D + '" stroke-width="1.5"/>' +
+      '<path d="M62 50C100 110 140 140 260 154" stroke="' + C + '" stroke-width="3"/>' +
+      '<path d="M100 98v62M140 128v32" stroke="' + G + '" stroke-width="1.5" stroke-dasharray="4 5"/>' + t(100, 178, 'T½', 'middle') + t(140, 178, '2T½', 'middle')),
+  };
+})();

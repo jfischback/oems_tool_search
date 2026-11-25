@@ -286,7 +286,7 @@ function bigCard(t, o, th) {
   const also = o.also ? TOOLS.find(x => x.name === o.also) : null;
   const btn = t.url ? '<a class="bbtn" href="' + esc(t.url) + '">' + esc(o.cta || 'Start') + ' <i>→</i></a>' : '<span class="bbtn soon">Coming soon</span>';
   return '<div class="bcard' + (t.url ? '' : ' is-soon') + '">' +
-    '<span class="sic">' + icon(o.topic || t.category, th.label) + '</span>' +
+    (typeof TOOL_ART !== 'undefined' && TOOL_ART[t.name] ? '<div class="bpic" aria-hidden="true">' + TOOL_ART[t.name] + '</div>' : '<span class="sic">' + icon(o.topic || t.category, th.label) + '</span>') +
     '<small class="kick">' + esc(kick) + '</small><h3>' + esc(title) + '</h3>' +
     (o.title && o.title !== t.name ? '<div class="bsub">' + esc(t.name) + '</div>' : '') +
     '<p>' + esc(o.desc || t.description) + '</p>' + (outs ? '<ul class="inc">' + outs + '</ul>' : '') +

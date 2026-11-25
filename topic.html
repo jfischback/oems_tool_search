@@ -75,6 +75,7 @@
 <script src="tools.js"></script>
 <script src="groups.js"></script>
 <script src="topics.js"></script>
+<script src="tool-art.js"></script>
 <script>
   const params = new URLSearchParams(location.search);
   const key = Object.keys(GROUPS).find(k => GROUPS[k].slug === params.get('g')) || 'IH';
@@ -180,13 +181,13 @@
   } else if (program && program.combined) {
     const gt = TOOLS.find(x => x.name === program.guided);
     if (gt && gt.url) { const gl = document.getElementById('guided'); gl.hidden = false; gl.href = gt.url; gl.innerHTML = '<span>Doing a full noise exposure assessment?</span><b>Start the Guided Assessment <i>→</i></b>'; }
-    document.getElementById('bigeye').textContent = 'Featured';
-    document.getElementById('bigtitle').textContent = 'Combined tools';
+    document.getElementById('bigeye').textContent = '';
+    document.getElementById('bigtitle').textContent = 'Featured Tools';
     const combos = TOOLS.filter(x => x.group === key && x.category === cat && isCombined(x) && x.url && x.name !== program.guided);
     document.getElementById('bgrid').innerHTML = combos.map(x => bigCard(x, { cta: 'Open tool' }, th)).join('');
   } else if (program) {
-    document.getElementById('bigeye').textContent = 'Featured';
-    document.getElementById('bigtitle').textContent = 'Start here';
+    document.getElementById('bigeye').textContent = '';
+    document.getElementById('bigtitle').textContent = 'Featured Tools';
     document.getElementById('bgrid').innerHTML = program.featured.map(n => bigCard(TOOLS.find(t => t.name === n), { cta: 'Open tool' }, th)).join('');
   }
   // 24 Nov 2026 (Jonathan): Occupational Health topic pages lead with one featured tool as a wide card,
@@ -206,7 +207,7 @@
   const ft = ohFeature && FEATURE[cat];
   if (ohFeature) {
     const live = tools.filter(x => x.url && !(ft && x.name === ft.name));
-    document.getElementById('bigeye').textContent = ft ? 'Or use one at a time' : 'Featured';
+    document.getElementById('bigeye').textContent = ft ? '' : 'Featured';
     document.getElementById('bigtitle').textContent = ft ? 'Single Tools' : 'Start Here';
     document.getElementById('bgrid').classList.toggle('two', live.length === 2);
     document.getElementById('bgrid').innerHTML = live.map(x => bigCard(x, { cta: 'Open Tool' }, th)).join('');
@@ -215,7 +216,7 @@
     const tool = TOOLS.find(x => x.name === ft.name);
     const steps = ft.steps.map((s, i) => '<span class="ftc-step"><b>' + (i + 1) + '</b>' + esc(s) + '</span>').join('<i class="ftc-line"></i>');
     const btn = tool && tool.url ? '<a class="ftc-btn" href="' + esc(tool.url) + '">Open ' + esc(ft.name) + ' <i>→</i></a>' : '<span class="ftc-btn soon">Coming Soon</span>';
-    document.getElementById('bigsec').insertAdjacentHTML('beforebegin', '<section class="ftc"><div class="ftc-art" aria-hidden="true">' + (FEATURE_ART[ft.name] || TOPIC_ART[cat] || '') + '</div><div class="ftc-body"><small>Featured Tool · ' + esc(ft.tag) + '</small><h2>' + esc(ft.name) + '</h2><p>' + esc(tool ? tool.description : '') + '</p><div class="ftc-steps">' + steps + '</div><dl class="ftc-io"><div><dt>You Enter</dt><dd>' + esc(ft.enter) + '</dd></div><div><dt>You Get</dt><dd>' + esc(ft.get) + '</dd></div></dl>' + btn + '</div></section>');
+    document.getElementById('bigsec').insertAdjacentHTML('beforebegin', '<div class="fthead"><h2>Featured Tools</h2></div><section class="ftc"><div class="ftc-art" aria-hidden="true">' + (FEATURE_ART[ft.name] || TOPIC_ART[cat] || '') + '</div><div class="ftc-body"><h2>' + esc(ft.name) + '</h2><p>' + esc(tool ? tool.description : '') + '</p><div class="ftc-steps">' + steps + '</div><dl class="ftc-io"><div><dt>You Enter</dt><dd>' + esc(ft.enter) + '</dd></div><div><dt>You Get</dt><dd>' + esc(ft.get) + '</dd></div></dl>' + btn + '</div></section>');
   }
   const hasBig = cardsOnly || !!program || ohFeature;
 
@@ -240,27 +241,24 @@
       const singles = groups.map(([name, list]) => [name, list.filter(x => !(isCombined(x) && x.url) && x.name !== program.guided)]).filter(x => x[1].length);
       // 25 Nov 2026 (Jonathan): the single calculators show below the featured combined tools, not folded away.
       ind.hidden = true;
-      document.getElementById('secs').innerHTML = '<div class="allhead"><div class="eyebrow">Or use one at a time</div><h2>Single Tools</h2></div>' +
+      document.getElementById('secs').innerHTML = '<div class="allhead"><h2>Single Tools</h2></div>' +
         singles.map(([name, list]) => name ? section(name, list) : '<section class="sec"><div class="grid">' + list.map(tile).join('') + '</div></section>').join('');
       return;
     }
     // 25 Nov 2026 (Jonathan): like Noise, featured tools up top, then Single Tools below with nothing repeated.
     const feat = (program && program.featured) || [];
-    document.getElementById('secs').innerHTML = (program ? '<div class="allhead"><div class="eyebrow">Or use one at a time</div><h2>Single Tools</h2></div>' : '') + groups.map(([name, list, eyebrow]) => {
+    document.getElementById('secs').innerHTML = (program ? '<div class="allhead"><h2>Single Tools</h2></div>' : '') + groups.map(([name, list, eyebrow]) => {
       const main = rank(list.filter(t => !isTucked(t) && !feat.includes(t.name) && !(ohFeature && t.url) && !(ohFeature && t.name === 'Respirator Protection Tool')), ''); // nothing listed twice; the combined respirator tool shows once it is live
       if (!main.length) return '';
       return name ? section(name, main, eyebrow) : '<section class="sec"><div class="grid">' + main.map(tile).join('') + '</div></section>';
     }).join('');
+    // 25 Nov 2026 (Jonathan): the single-equation calculators are listed out under Single Tools, grouped by the bigger tool they belong to.
     const tucked = tools.filter(isTucked);
-    ind.hidden = !tucked.length;
+    ind.hidden = true;
     if (tucked.length) {
-      const wasOpen = ind.open;
-      ind.innerHTML = '<summary><div><h2>Individual calculators</h2><p>' + tucked.length + ' single-equation calculators. Each one is also part of a bigger tool above.</p></div><span class="chev"><span class="o">Show ↓</span><span class="c">Hide ↑</span></span></summary>' +
-        '<div class="ilist">' + groups.map(([name, list, eyebrow]) => {
-          const t2 = list.filter(isTucked);
-          return t2.length ? (name ? '<h4>' + esc((eyebrow ? eyebrow + ' · ' : '') + name) + '</h4>' : '') + t2.map(irow).join('') : '';
-        }).join('') + '</div>';
-      ind.open = wasOpen;
+      const byParent = {};
+      tucked.forEach(t => { (byParent[COVERED_BY[t.name]] = byParent[COVERED_BY[t.name]] || []).push(t); });
+      document.getElementById('secs').insertAdjacentHTML('beforeend', Object.keys(byParent).map(par => section('Part of ' + par, byParent[par])).join(''));
     }
   }
 
