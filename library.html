@@ -156,7 +156,8 @@
     const fs = document.getElementById('featured');
     fs.classList.add('flow', 'oh-flow');
     fs.querySelector('.eyebrow').remove();
-    fs.querySelector('h2').outerHTML = '<div class="flow-head"><h2>Occupational Health</h2><p class="flow-dir">Everything OEMS offers for occupational health, in one place.</p></div>'; // 25 Nov 2026 (Jonathan): same wording as the Industrial Hygiene page
+    // 25 Nov 2026 (Jonathan): heading matches the Industrial Hygiene Hazards card: small label, then Programs.
+    fs.querySelector('h2').outerHTML = '<div class="grp-head"><small class="kick">Occupational Health</small><h3>Programs</h3><p>Pick a program to see everything for it.</p></div>';
     document.getElementById('fh').classList.add('has-flow');
   } else if (!REF && !(typeof STEPS !== 'undefined' && STEPS[key]) && feat.length) {
     // 24 Nov 2026 (Jonathan): Environmental and Safety match Industrial Hygiene and Occupational Health: featured tools in a white panel over the header.

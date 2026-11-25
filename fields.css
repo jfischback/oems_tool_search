@@ -536,3 +536,5 @@
   .allrow b i { font-style: normal; display: inline-block; transition: transform .15s; }
   .allrow:hover b i { transform: translateX(4px); }
   @media (max-width: 560px) { .allrow { flex-wrap: wrap; } .allrow b { flex-basis: 100%; padding-left: 52px; } }
+  .oh-flow .grp-head { margin-bottom: 18px; } /* 25 Nov 2026: space under the OH Programs heading */
+  .oh-flow .grp-head p { margin-bottom: 18px; }
