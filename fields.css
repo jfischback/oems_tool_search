@@ -478,3 +478,5 @@
   .grp-head h3 { font-size: 26px; font-weight: 800; letter-spacing: -.03em; margin: 2px 0 4px; }
   .grp-head p { margin: 0 0 8px; font-size: 14.5px; color: #3b4a5e; }
   @media (max-width: 700px) { .flow-steps.hzlist, .drgroup { padding: 14px; } .hz { padding: 12px; gap: 12px; } .hz > * { min-width: 0; } .drwide { grid-template-columns: 1fr !important; } }
+  /* 25 Nov 2026 (Jonathan): green dot on the Industrial Hygiene page label, matching the homepage */
+  .fh.fh-ih .pill i { background: #3ecf8e; box-shadow: 0 0 8px #3ecf8e; }

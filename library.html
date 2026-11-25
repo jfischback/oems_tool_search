@@ -137,6 +137,7 @@
   document.getElementById('title').innerHTML = esc(g.title[0]) + '<span>' + esc(g.title[1]) + '</span>';
   document.getElementById('blurb').textContent = g.blurb;
   document.getElementById('art').innerHTML = g.art;
+  if (key === 'IH') document.getElementById('fh').classList.add('fh-ih'); // 25 Nov 2026 (Jonathan): green dot
   search.placeholder = 'Search ' + g.noun + ' tools…';
 
   // Featured
