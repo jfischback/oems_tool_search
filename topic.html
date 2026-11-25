@@ -215,7 +215,7 @@
     const tool = TOOLS.find(x => x.name === ft.name);
     const steps = ft.steps.map((s, i) => '<span class="ftc-step"><b>' + (i + 1) + '</b>' + esc(s) + '</span>').join('<i class="ftc-line"></i>');
     const btn = tool && tool.url ? '<a class="ftc-btn" href="' + esc(tool.url) + '">Open ' + esc(ft.name) + ' <i>→</i></a>' : '<span class="ftc-btn soon">Coming Soon</span>';
-    document.getElementById('bigsec').insertAdjacentHTML('beforebegin', '<section class="ftc"><div class="ftc-art" aria-hidden="true">' + (TOPIC_ART[cat] || '') + '</div><div class="ftc-body"><small>Featured Tool · ' + esc(ft.tag) + '</small><h2>' + esc(ft.name) + '</h2><p>' + esc(tool ? tool.description : '') + '</p><div class="ftc-steps">' + steps + '</div><dl class="ftc-io"><div><dt>You Enter</dt><dd>' + esc(ft.enter) + '</dd></div><div><dt>You Get</dt><dd>' + esc(ft.get) + '</dd></div></dl>' + btn + '</div></section>');
+    document.getElementById('bigsec').insertAdjacentHTML('beforebegin', '<section class="ftc"><div class="ftc-art" aria-hidden="true">' + (FEATURE_ART[ft.name] || TOPIC_ART[cat] || '') + '</div><div class="ftc-body"><small>Featured Tool · ' + esc(ft.tag) + '</small><h2>' + esc(ft.name) + '</h2><p>' + esc(tool ? tool.description : '') + '</p><div class="ftc-steps">' + steps + '</div><dl class="ftc-io"><div><dt>You Enter</dt><dd>' + esc(ft.enter) + '</dd></div><div><dt>You Get</dt><dd>' + esc(ft.get) + '</dd></div></dl>' + btn + '</div></section>');
   }
   const hasBig = cardsOnly || !!program || ohFeature;
 

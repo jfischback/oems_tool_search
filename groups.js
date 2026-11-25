@@ -175,3 +175,50 @@ const TOPIC_ART = {
 </svg>`,
   "Noise": GROUPS.OH.art,
 };
+
+// 24 Nov 2026 (Jonathan): pictures for the featured tool cards: a full-face respirator and a sound level meter.
+const FEATURE_ART = {
+  "Respirator Selection Tool": `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<defs><radialGradient id="rsGlow"><stop offset="0" stop-color="#b39dff" stop-opacity=".38"/><stop offset="1" stop-color="#b39dff" stop-opacity="0"/></radialGradient>
+<linearGradient id="rsVis" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b39dff" stop-opacity=".28"/><stop offset="1" stop-color="#b39dff" stop-opacity=".04"/></linearGradient></defs>
+<circle cx="160" cy="100" r="90" fill="url(#rsGlow)"/>
+<path d="M122 52c-14-14-26-18-36-14M198 52c14-14 26-18 36-14M114 96c-16-2-28 2-34 8M206 96c16-2 28 2 34 8" stroke="#aaa3bd" stroke-width="2.5"/>
+<path d="M160 26c-30 0-46 20-46 50 0 30 12 60 46 92 34-32 46-62 46-92 0-30-16-50-46-50z" stroke="#b39dff" stroke-width="3"/>
+<path d="M160 38c-22 0-34 14-34 36 0 14 4 24 10 30h48c6-6 10-16 10-30 0-22-12-36-34-36z" fill="url(#rsVis)" stroke="#b39dff" stroke-width="2.2"/>
+<path d="M140 118c4 18 10 28 20 36 10-8 16-18 20-36" stroke="#b39dff" stroke-width="2.2"/>
+<circle cx="160" cy="134" r="7" stroke="#aaa3bd" stroke-width="2"/>
+<rect x="88" y="116" width="28" height="36" rx="8" transform="rotate(-22 102 134)" stroke="#b39dff" stroke-width="2.6" fill="#1c1433"/>
+<rect x="204" y="116" width="28" height="36" rx="8" transform="rotate(22 218 134)" stroke="#b39dff" stroke-width="2.6" fill="#1c1433"/>
+<path d="M95 126l14 0M95 134l14 0M95 142l14 0" transform="rotate(-22 102 134)" stroke="#5b44a8" stroke-width="2"/>
+<path d="M211 126l14 0M211 134l14 0M211 142l14 0" transform="rotate(22 218 134)" stroke="#5b44a8" stroke-width="2"/>
+</svg>`,
+  "Respirator Protection Tool": `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<defs><radialGradient id="rsGlow"><stop offset="0" stop-color="#b39dff" stop-opacity=".38"/><stop offset="1" stop-color="#b39dff" stop-opacity="0"/></radialGradient>
+<linearGradient id="rsVis" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b39dff" stop-opacity=".28"/><stop offset="1" stop-color="#b39dff" stop-opacity=".04"/></linearGradient></defs>
+<circle cx="160" cy="100" r="90" fill="url(#rsGlow)"/>
+<path d="M122 52c-14-14-26-18-36-14M198 52c14-14 26-18 36-14M114 96c-16-2-28 2-34 8M206 96c16-2 28 2 34 8" stroke="#aaa3bd" stroke-width="2.5"/>
+<path d="M160 26c-30 0-46 20-46 50 0 30 12 60 46 92 34-32 46-62 46-92 0-30-16-50-46-50z" stroke="#b39dff" stroke-width="3"/>
+<path d="M160 38c-22 0-34 14-34 36 0 14 4 24 10 30h48c6-6 10-16 10-30 0-22-12-36-34-36z" fill="url(#rsVis)" stroke="#b39dff" stroke-width="2.2"/>
+<path d="M140 118c4 18 10 28 20 36 10-8 16-18 20-36" stroke="#b39dff" stroke-width="2.2"/>
+<circle cx="160" cy="134" r="7" stroke="#aaa3bd" stroke-width="2"/>
+<rect x="88" y="116" width="28" height="36" rx="8" transform="rotate(-22 102 134)" stroke="#b39dff" stroke-width="2.6" fill="#1c1433"/>
+<rect x="204" y="116" width="28" height="36" rx="8" transform="rotate(22 218 134)" stroke="#b39dff" stroke-width="2.6" fill="#1c1433"/>
+<path d="M95 126l14 0M95 134l14 0M95 142l14 0" transform="rotate(-22 102 134)" stroke="#5b44a8" stroke-width="2"/>
+<path d="M211 126l14 0M211 134l14 0M211 142l14 0" transform="rotate(22 218 134)" stroke="#5b44a8" stroke-width="2"/>
+</svg>`,
+  "Noise Exposure Assessment": `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<defs><radialGradient id="slGlow"><stop offset="0" stop-color="#b39dff" stop-opacity=".38"/><stop offset="1" stop-color="#b39dff" stop-opacity="0"/></radialGradient></defs>
+<circle cx="160" cy="100" r="90" fill="url(#slGlow)"/>
+<path d="M104 24q8 6 0 12" stroke="#aaa3bd" stroke-width="2.2" stroke-opacity=".45"/><path d="M114 19q12 11 0 22" stroke="#aaa3bd" stroke-width="2.2" stroke-opacity=".7"/><path d="M124 13q16 17 0 34" stroke="#aaa3bd" stroke-width="2.2"/>
+<circle cx="160" cy="30" r="15" stroke="#b39dff" stroke-width="2.6" fill="#1c1433"/>
+<path d="M150 24q10 -6 20 0M148 32q12 -6 24 0" stroke="#5b44a8" stroke-width="1.6"/>
+<path d="M155 45v14h10V45" stroke="#aaa3bd" stroke-width="2.4"/>
+<path d="M146 59h28l10 18v100a10 10 0 0 1-10 10h-28a10 10 0 0 1-10-10V77z" stroke="#b39dff" stroke-width="3" fill="#1c1433"/>
+<rect x="144" y="82" width="32" height="34" rx="4" stroke="#aaa3bd" stroke-width="2" fill="#120d22"/>
+<text x="160" y="98" fill="#d9ccff" font-family="Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle">85.2</text>
+<text x="160" y="110" fill="#aaa3bd" font-family="Arial, sans-serif" font-size="7" text-anchor="middle">dBA</text>
+<circle cx="150" cy="132" r="4" stroke="#5b44a8" stroke-width="2"/><circle cx="170" cy="132" r="4" stroke="#5b44a8" stroke-width="2"/>
+<circle cx="160" cy="148" r="5" stroke="#b39dff" stroke-width="2"/>
+<path d="M150 166h20M150 174h20" stroke="#5b44a8" stroke-width="2"/>
+</svg>`,
+};
