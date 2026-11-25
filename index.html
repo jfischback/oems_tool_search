@@ -77,6 +77,19 @@
 
   /* Four fields (24 Nov 2026) */
   .groups { grid-template-columns: repeat(4, 1fr) !important; } @media (max-width: 1100px) { .groups { grid-template-columns: repeat(2, 1fr) !important; } } @media (max-width: 640px) { .groups { grid-template-columns: 1fr !important; } }
+
+  /* 24 Nov 2026 (Jonathan): Industrial Hygiene and Occupational Health featured large; Environmental and Safety smaller underneath. */
+  .groups { grid-template-columns: 1fr 1fr !important; gap: 22px !important; }
+  .gcard:nth-child(-n+2) { padding: 34px 32px; }
+  .gcard:nth-child(-n+2) h2 { font-size: 34px; }
+  .gcard:nth-child(n+3) { display: grid !important; grid-template-columns: 1fr auto; grid-template-areas: "tag go" "h2 go" "p go"; column-gap: 20px; align-items: center; padding: 22px 26px; }
+  .gcard:nth-child(n+3) .art { display: none; }
+  .gcard:nth-child(n+3) .tag { grid-area: tag; }
+  .gcard:nth-child(n+3) h2 { grid-area: h2; font-size: 21px; margin: 8px 0 6px; }
+  .gcard:nth-child(n+3) h2 span + span { display: none; }
+  .gcard:nth-child(n+3) p { grid-area: p; margin: 0; font-size: 14px; }
+  .gcard:nth-child(n+3) .go { grid-area: go; flex-direction: column; align-items: flex-end; gap: 4px; margin: 0; padding: 0; border: 0; }
+  @media (max-width: 760px) { .groups { grid-template-columns: 1fr !important; } }
 </style>
 </head>
 <body>
