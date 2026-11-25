@@ -268,7 +268,7 @@
       sg.insertAdjacentHTML('afterend', '<div class="drgroup"><div class="grp-head"><small class="kick">Service</small><h3>Design Reviews</h3><p>A separate service for R&D processes moving into manufacturing.</p></div><div class="fstep ih-nolink drwide"><div class="ih-art" aria-hidden="true">' + IH_ART.dr + '</div><div><h3>Design Reviews</h3><p>Compare an R&D process with its planned manufacturing design and find the exposure gaps before scale-up.</p><span class="soon ih-soonpill">Coming Soon</span></div></div></div>');
       refHref = ref ? 'topic.html?g=' + g.slug + '&s=' + ref.slug : null;
       refCount = toolsCount;
-      sg.innerHTML = '<div class="grp-head"><small class="kick">Exposure assessments</small><h3>Hazards</h3><p>Pick a hazard to see its assessment, programs, field sheets and tools.</p></div>' + CARDS.map(c => '<div class="hz">' +
+      sg.innerHTML = '<div class="grp-head"><small class="kick">Industrial Hygiene Programs</small><h3>Programs by Hazard</h3><p>Pick a hazard to see its assessment, programs, field sheets and tools.</p></div>' + CARDS.map(c => '<div class="hz">' +
         '<div class="hz-art" aria-hidden="true">' + IH_ART[c.art] + '</div>' +
         '<div class="hz-main"><h3>' + esc(c.name) + '</h3><p>' + esc(c.blurb) + '</p>' +
         '<div class="hz-chips"><span>Exposure Assessment</span><span>Programs and Procedures</span><span>Templates and Field Sheets</span><span>Tools</span></div></div>' +
