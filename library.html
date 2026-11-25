@@ -147,7 +147,7 @@
     const fs = document.getElementById('featured');
     fs.classList.add('flow', 'oh-flow');
     fs.querySelector('.eyebrow').remove();
-    fs.querySelector('h2').outerHTML = '<div class="flow-head"><h2>Featured Tools</h2><p class="flow-dir">Start here: the ' + esc(g.noun) + ' tools that do the most.</p></div>';
+    fs.querySelector('h2').outerHTML = '<div class="flow-head"><h2>Featured Tools</h2></div>';
     document.getElementById('fh').classList.add('has-flow');
   }
   document.getElementById('fgrid').classList.toggle('one', feat.length + progCards.length === 1);
