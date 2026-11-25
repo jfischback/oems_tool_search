@@ -503,3 +503,23 @@
   .ca-tl li { font-size: 14px; font-weight: 600; color: #13243d; background: #eaf1fe; border-radius: 999px; padding: 5px 12px; display: flex; align-items: center; gap: 8px; }
   .ca-tl a { color: #1761a8; text-decoration: none; }
   .ca-tl .soon { font-size: 10.5px; padding: 2px 8px; }
+  /* 25 Nov 2026 (Jonathan, approved mockup): Industrial Hygiene page as three cards: Hazards tiles, General Tools, Design Reviews. */
+  body.ihopen .flow-panel { background: none; border: 0; box-shadow: none; padding: 0; }
+  body.ihopen .flow-head { display: none; }
+  body.ihopen .flow-steps.hzlist, body.ihopen .drgroup { background: #fff; border: 1px solid #e3e8ef; box-shadow: 0 10px 30px rgba(16,29,48,.06); padding: 28px; }
+  body.ihopen .drgroup .hz, body.ihopen .drgroup .fstep { background: #f6f8fb; }
+  .hztiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 10px; }
+  .hzt { display: flex; flex-direction: column; text-decoration: none; color: inherit; background: #f6f8fb; border: 1.5px solid #e3e8ef; border-radius: 16px; padding: 12px; transition: transform .15s, box-shadow .15s, border-color .15s; }
+  a.hzt:hover { transform: translateY(-2px); border-color: #bcd3ee; box-shadow: 0 12px 28px rgba(23,97,168,.12); }
+  .hzt .hz-art { aspect-ratio: 16/9; }
+  .hzt-body { padding: 14px 6px 6px; display: flex; flex-direction: column; flex: 1; }
+  .hzt h3 { font-size: 22px; font-weight: 800; letter-spacing: -.03em; margin: 0 0 4px; color: #0f1b2d; }
+  .hzt p { margin: 0 0 14px; font-size: 14.5px; color: #3b4a5e; flex: 1; }
+  .hzt b { color: #1761a8; font-size: 15px; }
+  .hzt b i { font-style: normal; display: inline-block; transition: transform .15s; }
+  a.hzt:hover b i { transform: translateX(4px); }
+  .hzt .soon { align-self: flex-start; font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #64748b; background: #e8edf3; border-radius: 999px; padding: 5px 12px; }
+  .soon-t { opacity: .85; }
+  @media (max-width: 900px) { .hztiles { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .hztiles { grid-template-columns: 1fr; } body.ihopen .flow-steps.hzlist, body.ihopen .drgroup { padding: 16px; } }
+  body.ihopen .flow-steps.hzlist { box-shadow: 0 30px 80px rgba(7,13,24,.28), 0 2px 6px rgba(7,13,24,.06); border-radius: 24px; }
