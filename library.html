@@ -107,6 +107,7 @@
 <script src="tools.js"></script>
 <script src="groups.js"></script>
 <script src="topics.js"></script>
+<script src="ih-art.js"></script>
 <script>
   const slug = new URLSearchParams(location.search).get('g');
   const key = Object.keys(GROUPS).find(k => GROUPS[k].slug === slug) || 'IH';
@@ -145,7 +146,9 @@
   const progCards = (REF ? [] : (g.programs || [])).map(([name, cat]) => {
     const list = tools.filter(t => t.category === cat && !hiddenUntilLive(t)); // counts match the tools shown (25 Nov 2026)
     const info = (TOPICS[key] || {})[cat] || {};
-    return '<a class="fcard" href="' + topicHref(key, cat) + '"><div class="ic">' + icon(cat, th.tag) + '</div><small>PROGRAM</small><h3>' + esc(name) + '</h3><p>' + esc(info.blurb || '') + '</p><div class="go">' + list.length + ' tools →</div></a>';
+    // 25 Nov 2026 (Jonathan): the Services page pictures on the two Occupational Health programs (lungs, audiogram).
+    const pic = typeof IH_ART !== 'undefined' && IH_ART[{ 'Respiratory Protection': 'rp', 'Hearing Conservation': 'hc' }[name]];
+    return '<a class="fcard" href="' + topicHref(key, cat) + '">' + (pic ? '<div class="ih-art oh-art" aria-hidden="true">' + pic + '</div>' : '<div class="ic">' + icon(cat, th.tag) + '</div>') + '<small>PROGRAM</small><h3>' + esc(name) + '</h3><p>' + esc(info.blurb || '') + '</p><div class="go">' + list.length + ' tools →</div></a>';
   });
   // 24 Nov 2026 (Jonathan): Occupational Health looks like Industrial Hygiene: its programs sit in a white panel over the header.
   if (progCards.length) {
@@ -250,20 +253,20 @@
       const link = (n, href, soon) => '<div class="feat-i"><span class="fic">' + ico('<path d="M5 12h14M13 6l6 6-6 6"/>') + '</span><div>' + (href && !soon ? '<a class="ih-sub" href="' + href + '"><strong>' + esc(n) + '</strong></a>' : '<strong>' + esc(n) + '</strong>') + (soon ? '<span class="soon">Coming Soon</span>' : '') + '</div></div>';
       const prog = (PROGRAMS.IH || []).filter(p => !p.hidden);
       const CARDS = [
-        { icon: stepIcon('assess', th.label), kick: 'Exposure assessments', name: 'Exposure Assessments', blurb: 'Run a chemical exposure assessment and find out who is exposed, to what, and how much.',
+        { icon: stepIcon('assess', th.label), art: 'ea', kick: 'Exposure assessments', name: 'Exposure Assessments', blurb: 'Run a chemical exposure assessment and find out who is exposed, to what, and how much.',
           feats: [link('Manufacturing Exposure Assessment', '', true), link('Non-Manufacturing Exposure Assessment', 'https://oemswebsite.vercel.app/chemical-exposure-assessment')],
           href: 'https://oemswebsite.vercel.app/exposure-assessments', cta: 'View Exposure Assessments' },
-        { icon: ico(DOC), kick: 'Programs', name: 'Programs', blurb: 'Everything for one program in one place.',
+        { icon: ico(DOC), art: 'prog', kick: 'Programs', name: 'Programs', blurb: 'Everything for one program in one place.',
           feats: prog.map(p => { const live = p.tool ? !!(TOOLS.find(x => x.name === p.tool) || {}).url : TOOLS.some(t => t.group === key && t.category === p.topic); return link(p.name, 'topic.html?g=' + g.slug + '&p=' + p.slug, !live); }) },
-        { icon: ico('<path d="M9 3h6M10 3v6L5 18a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7.5 14h9"/>'), kick: 'Scale-up', name: 'Design Reviews', blurb: 'Compare an R&D process with its planned manufacturing design and find the exposure gaps before scale-up.', soon: true },
-        { icon: ico(DOC), kick: 'Field forms', name: 'Templates and Field Sheets', blurb: 'Pump calibration logs and air sampling field data sheets to take into the field.', soon: true },
+        { icon: ico('<path d="M9 3h6M10 3v6L5 18a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7.5 14h9"/>'), art: 'dr', kick: 'Scale-up', name: 'Design Reviews', blurb: 'Compare an R&D process with its planned manufacturing design and find the exposure gaps before scale-up.', soon: true },
+        { icon: ico(DOC), art: 'tmpl', kick: 'Field forms', name: 'Templates and Field Sheets', blurb: 'Pump calibration logs and air sampling field data sheets to take into the field.', soon: true },
       ];
       const sg = document.getElementById('sgrid');
       sg.classList.add('ih5', 'ih4'); // 25 Nov 2026 (Jonathan): four cards, two by two; Tools moved to the Reference Library bar
       refHref = ref ? 'topic.html?g=' + g.slug + '&s=' + ref.slug : null;
       refCount = toolsCount;
       sg.innerHTML = CARDS.map(c => {
-        const body = '<div class="ftop"><span class="sic">' + c.icon + '</span></div><small class="kick">' + esc(c.kick) + '</small><h3>' + esc(c.name) + '</h3><p>' + esc(c.blurb) + '</p>' +
+        const body = (typeof IH_ART !== 'undefined' && IH_ART[c.art] ? '<div class="ih-art" aria-hidden="true">' + IH_ART[c.art] + '</div>' : '<div class="ftop"><span class="sic">' + c.icon + '</span></div>') + '<small class="kick">' + esc(c.kick) + '</small><h3>' + esc(c.name) + '</h3><p>' + esc(c.blurb) + '</p>' +
           (c.feats && c.feats.length ? '<div class="feats">' + c.feats.join('') + '</div>' : '');
         if (c.soon) return '<div class="fstep ih-soon">' + body + '<span class="soon ih-soonpill">Coming Soon</span></div>';
         if (!c.href) return '<div class="fstep ih-nolink">' + body + '</div>';
