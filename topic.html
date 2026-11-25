@@ -63,7 +63,7 @@
   <div id="secs"></div>
   <details class="indiv" id="indiv"></details>
   <nav class="stepnav" id="stepnav"></nav>
-  <p id="none">No tools match. <button id="clear">Clear search</button></p>
+  <p id="none">No tools match. <button id="clear">Clear Search →</button></p>
 </div>
 <!-- 24 Nov 2026, Jonathan: the same footer as the main site -->
 <footer class="site-footer">
@@ -130,7 +130,7 @@
   document.title = 'OEMS ' + (step ? fieldName + ': ' + step.name : pageName + (program ? '' : ' Tools'));
   const fl = document.getElementById('fieldlink'); fl.textContent = fieldName; fl.href = 'library.html?g=' + g.slug;
   document.getElementById('crumb').textContent = pageName;
-  const mainTools = tools.filter(t => !isTucked(t));
+  const mainTools = tools.filter(t => !isTucked(t) && !(!step && !program && hiddenUntilLive(t))); // counts match the tools shown (25 Nov 2026)
   const live = mainTools.filter(t => t.url).length;
   document.getElementById('pill').textContent = (program && program.combined) ? tools.length + ' noise tools' : (step ? 'Step ' + (stepIdx + 1) + ' of ' + steps.length + ' · ' : '') + mainTools.length + ' tool' + (mainTools.length === 1 ? '' : 's') + (live < mainTools.length ? ' · ' + (mainTools.length - live) + ' coming soon' : '');
   document.getElementById('title').textContent = pageName; // one-line title on technical pages (24 Nov 2026)
@@ -144,7 +144,7 @@
       '<em></em><a class="' + (step.rest ? 'on ref' : 'ref') + '" href="topic.html?g=' + g.slug + '&s=tools">Tools</a>';
     document.getElementById('pillwrap').hidden = true;
   }
-  search.placeholder = 'Search ' + pageName.toLowerCase() + ' tools…';
+  search.placeholder = 'Search ' + pageName.toLowerCase().replace(/ tools$/, '') + ' tools…';
 
   // Previous / next step
   if (step) {
@@ -179,7 +179,7 @@
     document.getElementById('bgrid').innerHTML = step.cards.map(cd => bigCard(cd.tool ? TOOLS.find(t => t.name === cd.tool) : null, Object.assign({ cta: 'Start assessment' }, cd), th)).join('');
   } else if (program && program.combined) {
     const gt = TOOLS.find(x => x.name === program.guided);
-    if (gt && gt.url) { const gl = document.getElementById('guided'); gl.hidden = false; gl.href = gt.url; gl.innerHTML = '<span>Doing a full noise exposure assessment?</span><b>Start the guided assessment <i>→</i></b>'; }
+    if (gt && gt.url) { const gl = document.getElementById('guided'); gl.hidden = false; gl.href = gt.url; gl.innerHTML = '<span>Doing a full noise exposure assessment?</span><b>Start the Guided Assessment <i>→</i></b>'; }
     document.getElementById('bigeye').textContent = 'Featured';
     document.getElementById('bigtitle').textContent = 'Combined tools';
     const combos = TOOLS.filter(x => x.group === key && x.category === cat && isCombined(x) && x.url && x.name !== program.guided);

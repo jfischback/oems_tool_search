@@ -41,7 +41,7 @@
 /* Site-wide rules (24 Nov 2026, Jonathan) */
 /* Same width and fonts as the main site: Manrope headings, Inter text. */
 .wrap { max-width: 1180px !important; padding: 0 24px !important; margin: 0 auto; box-sizing: border-box; width: 100%; }
-h1, h2, h3, .refbar strong, .gcard h2 { font-family: Manrope, Inter, system-ui, sans-serif !important; }
+h1, h2, h3, h4, .refbar strong, .gcard h2 { font-family: Manrope, Inter, system-ui, sans-serif !important; }
 /* White cards everywhere except the four field cards on the Tools page. */
 .fcard, .scard { background: #fff !important; color: #0b1424 !important; border: 1px solid #e3e8ef !important; box-shadow: 0 1px 2px rgba(11,27,48,.04) !important; }
 .fcard::after, .scard::after { display: none !important; }
@@ -51,7 +51,7 @@ h1, h2, h3, .refbar strong, .gcard h2 { font-family: Manrope, Inter, system-ui, 
 .fcard small { color: var(--label) !important; }
 .fcard h3 { color: #0b1424 !important; }
 .fcard p { color: #4b5a6e !important; }
-.fcard .go { color: var(--label) !important; }
+.fcard .go { color: #1761a8 !important; } /* 25 Nov 2026 (Jonathan, R4): site blue */
 .refbar { background: #fff !important; color: #0b1424 !important; border: 1px solid #e3e8ef !important; box-shadow: 0 1px 2px rgba(11,27,48,.04) !important; }
 .refbar::before, .refbar::after { display: none !important; }
 .refbar:hover { box-shadow: 0 10px 24px rgba(11,27,48,.10) !important; }
@@ -79,3 +79,8 @@ h1, h2, h3, .refbar strong, .gcard h2 { font-family: Manrope, Inter, system-ui, 
   color: #64748b !important; background: #eef2f7 !important; border: 0 !important; padding: 5px 12px !important; border-radius: 999px !important; box-shadow: none !important; }
 .nall { background: #fff !important; color: var(--label) !important; border: 1px solid #e3e8ef !important; box-shadow: none !important; border-radius: 14px !important; }
 .nall strong, .nall i { color: var(--label) !important; }
+/* 25 Nov 2026 (Jonathan, R4): every text link is the site blue (#1761a8) with an arrow, whatever the field color.
+   Coming Soon pills and Featured badges are not links and keep their own colors. */
+.tile > span:last-child, .irow > span:last-child, details.indiv summary .chev, .tcard .foot b, .pfoot b, .ncard b, .balso, .guided b, .stepnav small { color: #1761a8; }
+#none button { color: #1761a8 !important; text-decoration: none !important; font-weight: 600; }
+#none button:hover { text-decoration: underline !important; }

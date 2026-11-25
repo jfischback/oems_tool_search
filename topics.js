@@ -139,6 +139,10 @@ function isTucked(t) {
   return !!(p && p.url);
 }
 
+// 25 Nov 2026: the Occupational Health respiratory page leaves out the combined Respirator Protection Tool until it is live,
+// so the tool counts for that page leave it out too (counts match the tools shown).
+function hiddenUntilLive(t) { return t.group === 'OH' && t.name === 'Respirator Protection Tool' && !t.url; }
+
 function topicSlug(cat) { return cat.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
 function topicHref(group, cat) { return 'topic.html?g=' + GROUPS[group].slug + '&t=' + topicSlug(cat); }
 
@@ -148,30 +152,31 @@ function topicHref(group, cat) { return 'topic.html?g=' + GROUPS[group].slug + '
 // sub:    [topic, sub-group] from TOPICS above.
 // rest:   everything not placed in another step.
 // A tool listed by name in two steps (like Exposure Statistics Tool in Analyze and Control) shows in both.
+// 25 Nov 2026 (Jonathan): a third "soon" entry on a step feature shows the gray Coming Soon pill (tool not live yet).
 const STEPS = {
   IH: [
     // 24 Nov 2026 (Jonathan): Assess opens the main site's Exposure Assessments page.
     { slug: "assess", name: "Assess", href: "https://oemswebsite.vercel.app/exposure-assessments", kicker: "Exposure assessments", cta: "Start an assessment", includes: ["Manufacturing", "Non-manufacturing"],
-      features: [["Manufacturing Exposure Assessment", "Exposure Assessment"], ["Non-Manufacturing Exposure Assessment", "Exposure Assessment"]],
+      features: [["Manufacturing Exposure Assessment", "Exposure Assessment", "soon"], ["Non-Manufacturing Exposure Assessment", "Exposure Assessment"]],
       blurb: "Run a chemical exposure assessment and find out who is exposed, to what, and how much.",
       sections: [
-        { name: "Chemical Exposure Assessment", items: ["Manufacturing Exposure Assessment", "Non-Manufacturing Exposure Assessment"] },
+        { name: "Chemical Exposure Assessments", items: ["Manufacturing Exposure Assessment", "Non-Manufacturing Exposure Assessment"] },
       ],
       // The Assess page shows these as big "pick your assessment" cards
       cards: [
-        { title: "Chemical Exposure Assessment", topic: "Exposure Assessment", kicker: "Exposure assessment",
+        { title: "Chemical Exposure Assessments", topic: "Exposure Assessment", kicker: "Exposure assessment",
           desc: "Assess airborne chemical exposures for a work setting. Pick the type of site.",
           options: [["Manufacturing", "Manufacturing Exposure Assessment"], ["Non-manufacturing", "Non-Manufacturing Exposure Assessment"]] }
       ] },
     { slug: "plan", name: "Plan", kicker: "Sampling plans", cta: "Plan sampling", includes: ["Sampling plans", "Exposure modeling"],
-      features: [["Sampling Plan Builder", "Exposure Assessment"], ["Room Concentration Models", "Ventilation"]],
+      features: [["Sampling Plan Builder", "Exposure Assessment", "soon"], ["Room Concentration Models", "Ventilation", "soon"]],
       blurb: "Build a sampling plan and model expected exposures before you go to the field.",
       sections: [
         { name: "Sampling", items: ["Sampling Plan Builder"] },
         { name: "Exposure Modeling", items: ["Room Concentration", "Hummel Generation Rate", "Steady-State Concentration", "Concentration Buildup from Zero", "Concentration Buildup or Decay with Generation", "Purge"] }
       ] },
     { slug: "analyze", name: "Analyze", kicker: "Sampling results", cta: "Analyze results", includes: ["Exposure statistics", "OEL compliance call"],
-      features: [["Sampling Results Analyzer", "Statistics"]],
+      features: [["Sampling Results Analyzer", "Statistics", "soon"]],
       blurb: "Run statistics on your sample results and make the call against the OEL.",
       sections: [
         { name: "Sampling Results", items: ["Exposure Statistics Tool"] }
@@ -244,7 +249,8 @@ function stepIcon(slug, color) { return '<svg viewBox="0 0 24 24" fill="none" st
 // Programs row on the IH home. Each opens a program page: featured tools in big cards, then all of the topic's tools.
 const PROGRAMS = {
   IH: [
-    { slug: "hearing", name: "Hearing Conservation", topic: "Noise", hidden: true, combined: true, guided: "Noise Exposure Assessment",
+    // 25 Nov 2026 (Jonathan): renamed from "Hearing Conservation" so it doesn't share a name with the OH Hearing Conservation program.
+    { slug: "hearing", name: "Noise Tools", topic: "Noise", hidden: true, combined: true, guided: "Noise Exposure Assessment",
       blurb: "Every noise tool: combined tools up top, single calculators below." },
     { slug: "radiation", name: "Radiation", topic: "Radiation", blurb: "Shielding, decay and dose, RF antenna hazards and UV exposure.",
       featured: ["Shielding Calculator HVL / TVL", "RF Antenna Hazard", "Radioactive Decay and Half-Life"],

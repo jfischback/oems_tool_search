@@ -92,7 +92,7 @@
     <div class="tgrid" id="tgrid"></div>
   </section>
 
-  <p id="none">No tools match. <button id="clear">Clear search</button></p>
+  <p id="none">No tools match. <button id="clear">Clear Search →</button></p>
 </div>
 <!-- 24 Nov 2026, Jonathan: the same footer as the main site -->
 <footer class="site-footer">
@@ -131,7 +131,7 @@
   const feat = g.featured.map(n => tools.find(t => t.name === n)).filter(Boolean);
   // 24 Nov 2026 (Jonathan): Occupational Health shows its two programs at the top instead of single tools.
   const progCards = (g.programs || []).map(([name, cat]) => {
-    const list = tools.filter(t => t.category === cat);
+    const list = tools.filter(t => t.category === cat && !hiddenUntilLive(t)); // counts match the tools shown (25 Nov 2026)
     const info = (TOPICS[key] || {})[cat] || {};
     return '<a class="fcard" href="' + topicHref(key, cat) + '"><div class="ic">' + icon(cat, th.tag) + '</div><small>PROGRAM</small><h3>' + esc(name) + '</h3><p>' + esc(info.blurb || '') + '</p><div class="go">' + list.length + ' tools →</div></a>';
   });
@@ -183,7 +183,7 @@
         '<div class="ftop"><span class="sic">' + stepIcon(st.slug, th.label) + '</span></div>' +
         '<small class="kick">' + esc(st.kicker || '') + '</small>' +
         '<h3>' + esc(st.name) + '</h3><p>' + esc(st.blurb) + '</p>' +
-        (st.features ? '<div class="feats">' + st.features.map(([n, cat]) => '<div class="feat-i"><span class="fic">' + icon(cat, th.label) + '</span><strong>' + esc(n) + '</strong></div>').join('') + '</div>'
+        (st.features ? '<div class="feats">' + st.features.map(([n, cat, soon]) => '<div class="feat-i"><span class="fic">' + icon(cat, th.label) + '</span><strong>' + esc(n) + '</strong>' + (soon ? ' <span class="soon">Coming Soon</span>' : '') + '</div>').join('') + '</div>'
           : '<ul class="inc">' + (st.includes || []).map(n => '<li>' + esc(n) + '</li>').join('') + '</ul>') +
         '<div class="meta">' + x.list.length + ' tool' + (x.list.length === 1 ? '' : 's') + (x.live < x.list.length ? ' · ' + (x.list.length - x.live) + ' coming soon' : '') + '</div>' +
         '<span class="btn">' + esc(st.cta || 'Open') + ' <i>→</i></span></a>';
@@ -236,7 +236,7 @@
     document.getElementById('ttitle').textContent = 'Tools';
   }
   if (!steps) document.getElementById('tgrid').innerHTML = topicCats.map(c => {
-    const list = tools.filter(t => t.category === c);
+    const list = tools.filter(t => t.category === c && !hiddenUntilLive(t)); // counts match the tools shown (25 Nov 2026)
     const info = (TOPICS[key] || {})[c] || {};
     const subs = info.subs ? Object.keys(info.subs) : [];
     const single = list.length === 1 && list[0].url;
