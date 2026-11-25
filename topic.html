@@ -131,7 +131,7 @@
   document.title = 'OEMS ' + (step ? fieldName + ': ' + step.name : pageName + (program ? '' : ' Tools'));
   const fl = document.getElementById('fieldlink'); fl.textContent = fieldName; fl.href = 'library.html?g=' + g.slug;
   document.getElementById('crumb').textContent = pageName;
-  const mainTools = tools.filter(t => !isTucked(t) && !(!step && !program && hiddenUntilLive(t))); // counts match the tools shown (25 Nov 2026)
+  const mainTools = tools.filter(t => !(!step && !program && hiddenUntilLive(t))); // counts match the tools shown, including the single calculators now listed out (25 Nov 2026)
   const live = mainTools.filter(t => t.url).length;
   document.getElementById('pill').textContent = (program && program.combined) ? tools.length + ' noise tools' : (step ? 'Step ' + (stepIdx + 1) + ' of ' + steps.length + ' · ' : '') + mainTools.length + ' tool' + (mainTools.length === 1 ? '' : 's') + (live < mainTools.length ? ' · ' + (mainTools.length - live) + ' coming soon' : '');
   document.getElementById('title').textContent = pageName; // one-line title on technical pages (24 Nov 2026)
@@ -145,7 +145,7 @@
       '<em></em><a class="' + (step.rest ? 'on ref' : 'ref') + '" href="topic.html?g=' + g.slug + '&s=tools">Tools</a>';
     document.getElementById('pillwrap').hidden = true;
   }
-  search.placeholder = 'Search ' + pageName.toLowerCase().replace(/ tools$/, '') + ' tools…';
+  const sbase = pageName.toLowerCase().replace(/ ?tools$/, ''); search.placeholder = 'Search ' + (sbase ? sbase + ' ' : '') + 'tools…'; // no "tools tools" (25 Nov 2026)
 
   // Previous / next step
   if (step) {
@@ -214,6 +214,7 @@
   }
   if (ft) {
     const tool = TOOLS.find(x => x.name === ft.name);
+    if (tool && tool.url && !tools.includes(tool)) { const n = mainTools.length + 1; document.getElementById('pill').textContent = n + ' tools'; } // 25 Nov 2026: count the featured tool too
     const steps = ft.steps.map((s, i) => '<span class="ftc-step"><b>' + (i + 1) + '</b>' + esc(s) + '</span>').join('<i class="ftc-line"></i>');
     const btn = tool && tool.url ? '<a class="ftc-btn" href="' + esc(tool.url) + '">Open ' + esc(ft.name) + ' <i>→</i></a>' : '<span class="ftc-btn soon">Coming Soon</span>';
     document.getElementById('bigsec').insertAdjacentHTML('beforebegin', '<div class="fthead"><h2>Featured Tools</h2></div><section class="ftc"><div class="ftc-art" aria-hidden="true">' + (FEATURE_ART[ft.name] || TOPIC_ART[cat] || '') + '</div><div class="ftc-body"><h2>' + esc(ft.name) + '</h2><p>' + esc(tool ? tool.description : '') + '</p><div class="ftc-steps">' + steps + '</div><dl class="ftc-io"><div><dt>You Enter</dt><dd>' + esc(ft.enter) + '</dd></div><div><dt>You Get</dt><dd>' + esc(ft.get) + '</dd></div></dl>' + btn + '</div></section>');

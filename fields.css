@@ -544,3 +544,4 @@
   .fthead { margin: 46px 0 -26px; }
   .fthead h2, .allhead h2 { font-size: 32px; font-weight: 800; letter-spacing: -.035em; color: #0f1b2d; margin: 0; }
   #bigeye:empty { display: none; }
+  @media (max-width: 800px) { .ftc-line { display: none; } } /* 25 Nov 2026: no stray connector when the step chips wrap */

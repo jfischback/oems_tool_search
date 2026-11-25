@@ -113,7 +113,7 @@
   const key = Object.keys(GROUPS).find(k => GROUPS[k].slug === slug) || 'IH';
   const g = GROUPS[key], th = g.theme;
   const fieldName = key === 'IH' ? 'Industrial Hygiene' : key === 'OH' ? 'Occupational Health' : key;
-  const tools = TOOLS.filter(t => t.group === key);
+  const tools = TOOLS.filter(t => t.group === key && !hiddenUntilLive(t)); // 25 Nov 2026: counts match the tools shown
   const cats = [...new Set(tools.map(t => t.category))];
   const search = document.getElementById('search');
 

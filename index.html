@@ -95,6 +95,8 @@
   .gcard:nth-child(n+3) p { font-size: 15px; }
   .gcard:nth-child(n+3) .go { font-size: 16px; }
   @media (max-width: 760px) { .groups { grid-template-columns: 1fr !important; } }
+  /* 25 Nov 2026: Environmental and Safety stack on phones so the text isn't squeezed */
+  @media (max-width: 600px) { .gcard:nth-child(n+3) { grid-template-columns: 1fr; grid-template-areas: "tag" "h2" "p" "go"; } .gcard:nth-child(n+3) .go { flex-direction: row; justify-content: space-between; align-items: center; margin-top: 14px; } }
 
   /* Search across every tool (24 Nov 2026) */
   .hsearch { position: relative; max-width: 620px; margin: 30px auto 0; text-align: left; }
@@ -156,10 +158,11 @@
 </footer>
 <script src="tools.js"></script>
 <script src="groups.js"></script>
+<script>function hiddenUntilLive(t) { return t.group === 'OH' && t.name === 'Respirator Protection Tool' && !t.url; } // same rule as topics.js (25 Nov 2026)</script>
 <script>
   document.getElementById('groups').innerHTML = Object.entries(GROUPS).map(([key, g]) => {
     const c = g.colors;
-    const n = TOOLS.filter(t => t.group === key).length;
+    const n = TOOLS.filter(t => t.group === key && !hiddenUntilLive(t)).length;
     return '<a class="gcard" style="background:' + c.bg + '" href="library.html?g=' + g.slug + '">' +
       '<div class="tag" style="color:' + c.tag + '">' + esc(g.tag) + '</div>' +
       '<h2><span>' + esc(g.title[0]) + '</span><span style="color:' + c.line2 + '">' + esc(g.title[1]) + '</span></h2>' +
@@ -169,7 +172,7 @@
       '</a>';
   }).join('');
 
-  document.getElementById('total').textContent = TOOLS.length;
+  document.getElementById('total').textContent = TOOLS.filter(t => !hiddenUntilLive(t)).length;
 
 </script>
 <script>
