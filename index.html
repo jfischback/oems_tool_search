@@ -89,6 +89,11 @@
   .gcard:nth-child(n+3) h2 span + span { display: none; }
   .gcard:nth-child(n+3) p { grid-area: p; margin: 0; font-size: 14px; }
   .gcard:nth-child(n+3) .go { grid-area: go; flex-direction: column; align-items: flex-end; gap: 4px; margin: 0; padding: 0; border: 0; }
+  /* 24 Nov 2026 (Jonathan): Environmental and Safety a little bigger, still smaller than the top two */
+  .gcard:nth-child(n+3) { padding: 30px 32px; min-height: 170px; }
+  .gcard:nth-child(n+3) h2 { font-size: 25px; margin: 10px 0 8px; }
+  .gcard:nth-child(n+3) p { font-size: 15px; }
+  .gcard:nth-child(n+3) .go { font-size: 16px; }
   @media (max-width: 760px) { .groups { grid-template-columns: 1fr !important; } }
 
   /* Search across every tool (24 Nov 2026) */
