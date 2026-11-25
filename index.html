@@ -29,7 +29,7 @@
   .sv { font-family: Inter, Arial, sans-serif; }
 
   /* Hero */
-  .hero-x { position: relative; overflow: hidden; background: #070d18; color: #fff; }
+  .hero-x { position: relative; overflow-x: clip; overflow-y: visible; z-index: 5; background: #070d18; color: #fff; }
   .hero-x::before { content: ""; position: absolute; inset: 0;
     background-image: linear-gradient(rgba(119,186,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(119,186,255,.07) 1px, transparent 1px);
     background-size: 56px 56px;
@@ -90,6 +90,24 @@
   .gcard:nth-child(n+3) p { grid-area: p; margin: 0; font-size: 14px; }
   .gcard:nth-child(n+3) .go { grid-area: go; flex-direction: column; align-items: flex-end; gap: 4px; margin: 0; padding: 0; border: 0; }
   @media (max-width: 760px) { .groups { grid-template-columns: 1fr !important; } }
+
+  /* Search across every tool (24 Nov 2026) */
+  .hsearch { position: relative; max-width: 620px; margin: 30px auto 0; text-align: left; }
+  .hsearch > svg { position: absolute; left: 20px; top: 29px; transform: translateY(-50%); width: 20px; height: 20px; color: #8a97ab; z-index: 2; }
+  .hsearch input { width: 100%; box-sizing: border-box; font: 500 17px Inter, Arial, sans-serif; color: #fff; padding: 18px 20px 18px 54px; border-radius: 14px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.07); box-shadow: 0 20px 60px rgba(0,0,0,.45); outline: none; }
+  .hsearch input::placeholder { color: #8a97ab; }
+  .hsearch input:focus { border-color: rgba(119,186,255,.6); background: rgba(255,255,255,.1); }
+  .hres { position: absolute; left: 0; right: 0; top: calc(100% + 8px); z-index: 40; background: #fff; border-radius: 14px; box-shadow: 0 24px 60px rgba(7,13,24,.35); overflow: hidden; max-height: 420px; overflow-y: auto; }
+  .hres a, .hres .hr-soon { display: flex; align-items: center; gap: 12px; padding: 12px 16px; text-decoration: none; color: #0b1424; border-bottom: 1px solid #eef1f5; }
+  .hres a:hover, .hres a.on { background: #f3f7fd; }
+  .hr-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .hr-main { min-width: 0; flex: 1; }
+  .hr-main b { display: block; font-size: 15px; }
+  .hr-main small { display: block; color: #6b7a8e; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hr-tag { flex: none; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #7b8798; }
+  .hres .hr-soon { color: #8a97ab; }
+  .hr-none, .hr-all { padding: 12px 16px; font-size: 14px; color: #6b7a8e; }
+  @media (max-width: 600px) { .hsearch input { font-size: 15px; } .hr-tag { display: none; } }
 </style>
 </head>
 <body>
@@ -107,6 +125,12 @@
       <div class="pill">Industrial Hygiene · Occupational Health · Environmental · Safety</div>
       <h1>Practical tools.<br><em>For your field.</em></h1>
       <p class="lede">Exposure assessment, environmental compliance and workplace safety tools, built by an industrial hygienist for the people doing the work.</p>
+      <!-- 24 Nov 2026 (Jonathan): one search across every tool, with a drop-down of matches -->
+      <div class="hsearch" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="hq" type="search" autocomplete="off" placeholder="Search all tools: noise dose, capture velocity, TRIR…" aria-label="Search all tools" aria-controls="hres" aria-expanded="false">
+        <div class="hres" id="hres" role="listbox" hidden></div>
+      </div>
     </div>
   </div>
 </header>
@@ -142,6 +166,40 @@
 
   document.getElementById('total').textContent = TOOLS.length;
 
+</script>
+<script>
+  // Search across every tool (24 Nov 2026, Jonathan). Uses the same matching and order as each field's own search.
+  (function () {
+    const q = document.getElementById('hq'), box = document.getElementById('hres');
+    const FIELD = { IH: 'Industrial Hygiene', OH: 'Occupational Health', Environmental: 'Environmental', Safety: 'Safety' };
+    let sel = -1;
+    function show() {
+      const v = q.value.trim();
+      if (!v) { box.hidden = true; q.setAttribute('aria-expanded', 'false'); return; }
+      const found = rank(TOOLS.filter(t => matches(t, v)), v);
+      const top = found.slice(0, 8);
+      box.innerHTML = top.length ? top.map(t => {
+        const dot = '<span class="hr-dot" style="background:' + GROUPS[t.group].colors.tag + '"></span>';
+        const main = '<span class="hr-main"><b>' + esc(t.name) + '</b><small>' + esc(t.description) + '</small></span>';
+        return t.url ? '<a href="' + esc(t.url) + '" role="option">' + dot + main + '<span class="hr-tag">' + esc(FIELD[t.group]) + '</span></a>'
+                     : '<div class="hr-soon">' + dot + main + '<span class="hr-tag">Coming Soon</span></div>';
+      }).join('') + (found.length > top.length ? '<div class="hr-all">' + found.length + ' tools match. Keep typing to narrow it down.</div>' : '')
+        : '<div class="hr-none">No tools match “' + esc(v) + '”.</div>';
+      box.hidden = false; q.setAttribute('aria-expanded', 'true'); sel = -1;
+    }
+    q.addEventListener('input', show);
+    q.addEventListener('focus', show);
+    q.addEventListener('keydown', e => {
+      const links = [...box.querySelectorAll('a')];
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault(); if (!links.length) return;
+        sel = (sel + (e.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length;
+        links.forEach((a, i) => a.classList.toggle('on', i === sel)); links[sel].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') { const a = links[sel >= 0 ? sel : 0]; if (a) location.href = a.href; }
+      else if (e.key === 'Escape') { box.hidden = true; }
+    });
+    document.addEventListener('click', e => { if (!e.target.closest('.hsearch')) box.hidden = true; });
+  })();
 </script>
 <script src="oems-header.js"></script>
 </body>
