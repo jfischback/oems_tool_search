@@ -257,15 +257,15 @@
       const link = (n, href, soon) => '<div class="feat-i"><span class="fic">' + ico('<path d="M5 12h14M13 6l6 6-6 6"/>') + '</span><div>' + (href && !soon ? '<a class="ih-sub" href="' + href + '"><strong>' + esc(n) + '</strong></a>' : '<strong>' + esc(n) + '</strong>') + (soon ? '<span class="soon">Coming Soon</span>' : '') + '</div></div>';
       const prog = (PROGRAMS.IH || []).filter(p => !p.hidden);
       // 25 Nov 2026 (Jonathan, approved mockup): Industrial Hygiene organized by hazard. One Exposure Assessments card holds the hazards;
-      // Design Reviews is its own card. Open links go to each hazard's current page until its own hub page is built.
+      // Design Reviews is its own card. 25 Nov 2026 (Jonathan): every hazard tile opens its own page with the same four cards as Chemical.
       const CARDS = [
         { art: 'ea', href: 'chemical.html', name: 'Chemical', blurb: 'Chemical, smoke, particulate and welding assessments.', cta: 'Open Chemical', big: true,
           groups: [['Routine and non-routine assessments', ['Chemical', 'Smoke', 'Particulate', 'Welding']], ['Each assessment comes with', ['Programs and procedures', 'Templates and field sheets', 'Tools']]] },
-        { art: 'noise', href: 'topic.html?g=ih&p=hearing', name: 'Noise', blurb: 'Noise exposure, hearing protection and employee notification.', cta: 'Open Noise' },
-        { art: 'laser', href: 'topic.html?g=ih&p=lasers', name: 'Lasers', blurb: 'Laser hazard evaluation, hazard zones and laser eyewear.', cta: 'Open Lasers' },
-        { art: 'rad', href: 'topic.html?g=ih&p=radiation', name: 'Radiation', blurb: 'Shielding, decay and dose, RF and UV.', cta: 'Open Radiation' },
-        { art: 'heat', name: 'Heat', blurb: 'Heat stress and heat illness prevention.', soon: true },
-        { art: 'leg', name: 'Legionella', blurb: 'Water management programs and Legionella risk.', soon: true },
+        { art: 'noise', href: 'noise.html', name: 'Noise', blurb: 'Noise exposure, hearing protection and employee notification.', cta: 'Open Noise' },
+        { art: 'laser', href: 'lasers.html', name: 'Lasers', blurb: 'Laser hazard evaluation, hazard zones and laser eyewear.', cta: 'Open Lasers' },
+        { art: 'rad', href: 'radiation.html', name: 'Radiation', blurb: 'Shielding, decay and dose, RF and UV.', cta: 'Open Radiation' },
+        { art: 'heat', href: 'heat.html', name: 'Heat', blurb: 'Heat stress and heat illness prevention.', cta: 'Open Heat' },
+        { art: 'leg', href: 'legionella.html', name: 'Legionella', blurb: 'Water management programs and Legionella risk.', cta: 'Open Legionella' },
       ];
       const sg = document.getElementById('sgrid');
       sg.classList.add('hzlist');
