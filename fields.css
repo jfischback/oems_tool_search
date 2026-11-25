@@ -444,3 +444,8 @@
   .ih-art { display: grid; place-items: center; background: radial-gradient(420px 260px at 50% 45%, rgba(56,132,255,.22), transparent 70%), #0b1626; border-radius: 14px; padding: 14px; aspect-ratio: 16 / 9; margin-bottom: 18px; }
   .ih-art.oh-art { background: radial-gradient(420px 260px at 50% 45%, rgba(179,157,255,.2), transparent 70%), #1c1433; }
   .ih-art svg { width: 100%; height: 100%; max-height: 220px; }
+  /* 25 Nov 2026 (Jonathan): Industrial Hygiene shows three cards in a row */
+  .flow-steps.ih5.ih3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 1000px) { .flow-steps.ih5.ih3 { grid-template-columns: 1fr; } }
+  .ih-art { overflow: hidden; grid-template-rows: minmax(0, 1fr); }
+  .ih-art svg { min-height: 0; }

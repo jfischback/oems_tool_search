@@ -256,13 +256,13 @@
         { icon: stepIcon('assess', th.label), art: 'ea', kick: 'Exposure assessments', name: 'Exposure Assessments', blurb: 'Run a chemical exposure assessment and find out who is exposed, to what, and how much.',
           feats: [link('Manufacturing Exposure Assessment', '', true), link('Non-Manufacturing Exposure Assessment', 'https://oemswebsite.vercel.app/chemical-exposure-assessment')],
           href: 'https://oemswebsite.vercel.app/exposure-assessments', cta: 'View Exposure Assessments' },
-        { icon: ico(DOC), art: 'prog', kick: 'Programs', name: 'Programs', blurb: 'Everything for one program in one place.',
-          feats: prog.map(p => { const live = p.tool ? !!(TOOLS.find(x => x.name === p.tool) || {}).url : TOOLS.some(t => t.group === key && t.category === p.topic); return link(p.name, 'topic.html?g=' + g.slug + '&p=' + p.slug, !live); }) },
+        // 25 Nov 2026 (Jonathan): Programs card removed from Industrial Hygiene (programs belong to Occupational Health).
+        // Radiation and Lasers stay reachable through the Reference Library; the old card is on ih-saved.html.
         { icon: ico('<path d="M9 3h6M10 3v6L5 18a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7.5 14h9"/>'), art: 'dr', kick: 'Scale-up', name: 'Design Reviews', blurb: 'Compare an R&D process with its planned manufacturing design and find the exposure gaps before scale-up.', soon: true },
         { icon: ico(DOC), art: 'tmpl', kick: 'Field forms', name: 'Templates and Field Sheets', blurb: 'Pump calibration logs and air sampling field data sheets to take into the field.', soon: true },
       ];
       const sg = document.getElementById('sgrid');
-      sg.classList.add('ih5', 'ih4'); // 25 Nov 2026 (Jonathan): four cards, two by two; Tools moved to the Reference Library bar
+      sg.classList.add('ih5', 'ih3'); // 25 Nov 2026 (Jonathan): three cards in a row; Tools moved to the Reference Library bar
       refHref = ref ? 'topic.html?g=' + g.slug + '&s=' + ref.slug : null;
       refCount = toolsCount;
       sg.innerHTML = CARDS.map(c => {
