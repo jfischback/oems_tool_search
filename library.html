@@ -120,7 +120,11 @@
 
   document.title = 'OEMS ' + fieldName + ' Tools';
   document.getElementById('crumb').textContent = fieldName;
-  document.getElementById('pill').textContent = tools.length + ' ' + g.noun + ' tools';
+  // 25 Nov 2026 (Jonathan): show how many tools are free and how many are paid. Paid = the OEMS assessments behind the login
+  // (his six: manufacturing chemical, non-manufacturing chemical, smoke, particulate, welding, design review); everything else is free.
+  const PAID = ['Manufacturing Exposure Assessment', 'Non-Manufacturing Exposure Assessment'];
+  const nPaid = tools.filter((t) => PAID.includes(t.name)).length;
+  document.getElementById('pill').textContent = tools.length + ' ' + g.noun + ' tools' + (nPaid ? ' · ' + (tools.length - nPaid) + ' free · ' + nPaid + ' paid' : '');
   document.getElementById('title').innerHTML = esc(g.title[0]) + '<span>' + esc(g.title[1]) + '</span>';
   document.getElementById('blurb').textContent = g.blurb;
   document.getElementById('art').innerHTML = g.art;
