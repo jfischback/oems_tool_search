@@ -14,7 +14,7 @@ const TOPICS = {
       subs: {
         "Exposure and Hearing Conservation": ["Noise Exposure Assessment", "Noise Exposure Calculator", "Hearing Protection Selector", "Noise Sampling Notification Template", "Standard Threshold Shift (STS) with Age Correction"],
         "Sound Levels": ["Sound Pressure, Intensity and Power Level", "Decibel Addition Calculator", "Equivalent Continuous Sound Level (Leq)", "Sound Pressure Level Calculator", "Sound Intensity Level Calculator", "Sound Power Level Calculator"],
-        "Distance, Barriers and Directivity": ["Sound Pressure Level from Sound Power Level (feet or meters)", "Sound Level Change with Distance", "Transmission Loss Calculator", "Directivity Index Calculator", "Sound Pressure Level from Sound Power Level (feet)", "Sound Pressure Level from Sound Power Level (meters)"],
+        "Distance, Barriers and Directivity": ["Community Noise Exposure", "Sound Pressure Level from Sound Power Level (feet or meters)", "Sound Level Change with Distance", "Transmission Loss Calculator", "Directivity Index Calculator", "Sound Pressure Level from Sound Power Level (feet)", "Sound Pressure Level from Sound Power Level (meters)"],
         "Frequency": ["Octave Band Frequencies", "Frequency from Rotational Speed", "Frequency from Wavelength", "Octave Band Upper Frequency", "Band Center Frequency", "One-Third Octave Band Upper Frequency"]
       }
     },
@@ -52,8 +52,7 @@ const TOPICS = {
     "Air Emissions": { blurb: "Estimate emission rates from stack data, emission factors and mass balance, and check potential to emit." },
     "Greenhouse Gas & Refrigerant": { blurb: "Calculate Scope 1 and Scope 2 emissions and track refrigerant leak rates against repair triggers." },
     "Water & Spill Prevention": { blurb: "Check SPCC applicability, size secondary containment, and estimate wastewater loading and stormwater runoff." },
-    "Waste & Chemical Reporting": { blurb: "Determine hazardous waste generator status and check EPCRA Tier II and TRI reporting thresholds." },
-    "Noise": { blurb: "Estimate how sound levels drop with distance from a source." }
+    "Waste & Chemical Reporting": { blurb: "Determine hazardous waste generator status and check EPCRA Tier II and TRI reporting thresholds." }
   },
   Safety: {
     "Injury & Illness Rates": { blurb: "Calculate TRIR, DART and lost time case rates from case counts and hours worked." },
