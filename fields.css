@@ -407,3 +407,4 @@
 .ftc-btn.soon { background: #f0f2f5; color: #7b8798; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; padding: 8px 14px; }
 @media (max-width: 800px) { .ftc { grid-template-columns: 1fr; } .ftc-art { max-height: 200px; } .ftc-io { grid-template-columns: 1fr; } .ftc-body { padding: 22px 20px; } }
 .ftc-art { overflow: hidden; } @media (min-width: 801px) { .ftc-art svg { transform: scale(1.6); } } @media (max-width: 800px) { .ftc-art svg { max-height: 180px; } }
+.featured.oh-flow .fgrid.one { grid-template-columns: 1fr; }
