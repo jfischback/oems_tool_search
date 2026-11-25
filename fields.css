@@ -423,3 +423,19 @@
 @media (max-width: 800px) { .ftc { grid-template-columns: 1fr; } .ftc-art { max-height: 200px; } .ftc-io { grid-template-columns: 1fr; } .ftc-body { padding: 22px 20px; } }
 .ftc-art { overflow: hidden; } @media (min-width: 801px) { .ftc-art svg { transform: scale(1.6); } } @media (max-width: 800px) { .ftc-art svg { max-height: 180px; } }
 .featured.oh-flow .fgrid.one { grid-template-columns: 1fr; }
+  /* 25 Nov 2026 (Jonathan): search in the blue header; IH four cards two by two; slim Reference Library bar at the bottom,
+     in the page's header color (blue on Industrial Hygiene). */
+  .hsearch { margin-top: 28px; }
+  .flow-steps.ih5.ih4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lsearch:has(#count:empty) { display: none; }
+  .refslim { position: relative; overflow: hidden; display: flex; align-items: center; gap: 18px; margin: 28px 0 56px; padding: 20px 26px; border-radius: 18px; text-decoration: none; color: #fff; background: linear-gradient(120deg, var(--fstart) 0%, var(--bg) 55%, #0a1526 100%); border: 1px solid rgba(255,255,255,.06); box-shadow: 0 14px 34px rgba(16,29,48,.2); transition: transform .15s, box-shadow .15s; }
+  .refslim:hover { transform: translateY(-2px); box-shadow: 0 20px 44px rgba(16,29,48,.28); }
+  .refslim[hidden] { display: none; }
+  .refslim > div { flex: 1; min-width: 0; }
+  .refslim small { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tag); }
+  .refslim strong { display: block; font-size: 20px; font-weight: 800; letter-spacing: -.02em; margin: 2px 0; }
+  .refslim p { margin: 0; font-size: 14px; color: #aab7c8; }
+  .refslim b { flex: 0 0 auto; color: #fff; font-size: 15px; font-weight: 700; white-space: nowrap; }
+  .refslim b i { font-style: normal; display: inline-block; transition: transform .15s; }
+  .refslim:hover b i { transform: translateX(4px); }
+  @media (max-width: 700px) { .refslim { flex-wrap: wrap; } .refslim b { flex-basis: 100%; padding-left: 66px; } .flow-steps.ih5.ih4 { grid-template-columns: 1fr; } }
