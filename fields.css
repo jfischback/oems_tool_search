@@ -497,3 +497,9 @@
   @media (max-width: 700px) { .flow-steps.hzlist, .drgroup { padding: 14px; } .hz { padding: 12px; gap: 12px; } .hz > * { min-width: 0; } .drwide { grid-template-columns: 1fr !important; } }
   /* 25 Nov 2026 (Jonathan): green dot on the Industrial Hygiene page label, matching the homepage */
   .fh.fh-ih .pill i { background: #3ecf8e; box-shadow: 0 0 8px #3ecf8e; }
+  .cagroup { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
+  .cagroup .grp-head { margin-bottom: 4px; }
+  .ca-tl { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .ca-tl li { font-size: 14px; font-weight: 600; color: #13243d; background: #eaf1fe; border-radius: 999px; padding: 5px 12px; display: flex; align-items: center; gap: 8px; }
+  .ca-tl a { color: #1761a8; text-decoration: none; }
+  .ca-tl .soon { font-size: 10.5px; padding: 2px 8px; }
