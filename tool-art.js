@@ -1,9 +1,48 @@
 // 25 Nov 2026 (Jonathan): a picture on every featured tool card.
 const TOOL_ART = (() => {
-  const C = '#77baff', D = '#2c5f99', G = '#9da2aa';
+  let C = '#77baff', D = '#2c5f99', G = '#9da2aa';
   const wrap = (id, body) => '<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><defs><radialGradient id="' + id + '"><stop offset="0" stop-color="' + C + '" stop-opacity=".35"/><stop offset="1" stop-color="' + C + '" stop-opacity="0"/></radialGradient></defs><circle cx="160" cy="100" r="95" fill="url(#' + id + ')"/>' + body + '</svg>';
   const t = (x, y, s, a) => '<text x="' + x + '" y="' + y + '" fill="' + G + '" font-family="Inter, Arial" font-size="10" letter-spacing="1.5"' + (a ? ' text-anchor="' + a + '"' : '') + '>' + s + '</text>';
-  return {
+  const A = {
+    // Ventilation (25 Nov 2026)
+    'Duct Airflow Basics': () => wrap('v1',
+      '<path d="M30 80h200M30 120h200" stroke="' + C + '" stroke-width="3"/><path d="M230 80l30-22M230 120l30 22" stroke="' + C + '" stroke-width="3"/>' +
+      '<path d="M60 100h40M110 100h40M160 100h40" stroke="' + C + '" stroke-width="2"/><path d="M92 94l8 6-8 6M142 94l8 6-8 6M192 94l8 6-8 6" stroke="' + C + '" stroke-width="2"/>' + t(130, 160, 'Q = V × A', 'middle')),
+    'Hood Pressure and Flow': () => wrap('v2',
+      '<path d="M70 150l40-50h100l40 50z" stroke="' + C + '" stroke-width="3"/><path d="M140 100V50h40v50" stroke="' + C + '" stroke-width="3"/>' +
+      '<circle cx="230" cy="58" r="16" stroke="' + C + '" stroke-width="2.5"/><path d="M230 58l8-8" stroke="' + C + '" stroke-width="2.5"/><path d="M180 70h34" stroke="' + D + '" stroke-width="1.5"/>' + t(230, 92, 'SP', 'middle') + t(160, 178, 'Ce', 'middle')),
+    'Duct Junctions': () => wrap('v3',
+      '<path d="M30 90h260M30 120h120l60 60M190 120h100" stroke="' + C + '" stroke-width="3"/><path d="M180 150l30 30" stroke="' + C + '" stroke-width="0"/>' +
+      '<path d="M60 105h40M220 105h40" stroke="' + C + '" stroke-width="2"/><path d="M92 99l8 6-8 6M252 99l8 6-8 6" stroke="' + C + '" stroke-width="2"/>' + t(160, 70, 'BRANCH ENTRY', 'middle')),
+  };
+  const pal = (c, d, g, list) => { const o = {}; Object.keys(list).forEach(k => { o[k] = () => { const s0 = [C, D, G]; C = c; D = d; G = g; const r = list[k](); [C, D, G] = s0; return r; }; }); return o; };
+  const ENV = pal('#6fdc9c', '#2f7a52', '#9fb0a7', {
+    'Environmental Compliance Checker': () => wrap('e1',
+      '<rect x="110" y="36" width="100" height="130" rx="10" stroke="' + C + '" stroke-width="3"/><rect x="138" y="28" width="44" height="16" rx="5" stroke="' + C + '" stroke-width="3"/>' +
+      [70, 100, 130].map(y => '<path d="M128 ' + y + 'l7 7 12-13" stroke="' + C + '" stroke-width="3"/><path d="M158 ' + (y + 3) + 'h36" stroke="' + D + '" stroke-width="2"/>').join('')),
+    'Emission Rate from Stack Concentration (ppm or mg/m³)': () => wrap('e2',
+      '<path d="M120 170V70h30v100" stroke="' + C + '" stroke-width="3"/><path d="M100 170h120" stroke="' + D + '" stroke-width="1.5"/>' +
+      '<path d="M135 60c-10-12 6-20 0-32M150 56c10-14 30-10 30-28M180 46c14-6 30 0 40-10" stroke="' + C + '" stroke-width="2.5"/>' + t(230, 120, 'lb/hr', 'start')),
+    'GHG Emissions (Scope 1 and Scope 2)': () => wrap('e3',
+      '<path d="M60 160h200" stroke="' + D + '" stroke-width="1.5"/><g stroke="' + C + '" stroke-width="3"><rect x="100" y="70" width="40" height="90" rx="4"/><rect x="180" y="100" width="40" height="60" rx="4"/></g>' +
+      t(120, 180, 'SCOPE 1', 'middle') + t(200, 180, 'SCOPE 2', 'middle') + t(160, 50, 'CO₂e', 'middle')),
+    'SPCC: Applicability and Secondary Containment': () => wrap('e4',
+      '<path d="M70 110v50h180v-50" stroke="' + D + '" stroke-width="2.5"/><rect x="110" y="60" width="100" height="90" rx="14" stroke="' + C + '" stroke-width="3"/>' +
+      '<path d="M110 85h100" stroke="' + C + '" stroke-width="2"/><path d="M80 150c20-8 40 8 60 0s40-8 60 0 30 8 40 0" stroke="' + C + '" stroke-width="2"/>' + t(160, 190, '110%', 'middle')),
+  });
+  const SAF = pal('#ff8a80', '#8f1d1d', '#b5a3a3', {
+    'Injury and Illness Rates (TRIR, DART, LTCR)': () => wrap('s1',
+      '<path d="M60 40v120h210" stroke="' + D + '" stroke-width="1.5"/><path d="M70 140l50-30 40 16 50-50 50 10" stroke="' + C + '" stroke-width="3"/>' +
+      '<circle cx="120" cy="110" r="4" fill="' + C + '"/><circle cx="160" cy="126" r="4" fill="' + C + '"/><circle cx="210" cy="76" r="4" fill="' + C + '"/>' + t(165, 182, 'PER 200,000 HRS', 'middle')),
+    'Recordability Determination Tool': () => wrap('s2',
+      '<rect x="80" y="40" width="160" height="120" rx="10" stroke="' + C + '" stroke-width="3"/><path d="M80 70h160M80 100h160M80 130h160M130 40v120" stroke="' + D + '" stroke-width="1.5"/>' +
+      '<path d="M190 108l10 10 22-24" stroke="' + C + '" stroke-width="3.5"/>' + t(160, 182, 'OSHA 300', 'middle')),
+  });
+  const out = {};
+  Object.keys(A).forEach(k => { out[k] = A[k](); });
+  Object.keys(ENV).forEach(k => { out[k] = ENV[k](); });
+  Object.keys(SAF).forEach(k => { out[k] = SAF[k](); });
+  return Object.assign(out, {
     // Noise
     'Sound Pressure Level from Sound Power Level (Feet or Meters)': wrap('a1',
       '<rect x="40" y="80" width="36" height="44" rx="6" stroke="' + C + '" stroke-width="3"/><circle cx="58" cy="102" r="9" stroke="' + C + '" stroke-width="2.5"/>' +
@@ -42,5 +81,5 @@ const TOOL_ART = (() => {
       '<path d="M60 40v120h210" stroke="' + D + '" stroke-width="1.5"/>' +
       '<path d="M62 50C100 110 140 140 260 154" stroke="' + C + '" stroke-width="3"/>' +
       '<path d="M100 98v62M140 128v32" stroke="' + G + '" stroke-width="1.5" stroke-dasharray="4 5"/>' + t(100, 178, 'T½', 'middle') + t(140, 178, '2T½', 'middle')),
-  };
+  });
 })();

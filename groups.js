@@ -3,7 +3,7 @@
 const GROUPS = {
   IH: {
     slug: "ih",
-    tag: "OEMS · PRACTICAL TOOLS",
+    tag: "OEMS · INDUSTRIAL HYGIENE TOOLS",
     title: ["Industrial hygiene.", "Made practical."],
     blurb: "Tools to support clearer decisions about workplace exposures and controls.",
     theme: { hero: "#070d18", bg: "#101d30", deep: "#2c5f99", tag: "#77baff", line2: "#9da2aa", label: "#1761a8", glow: "rgba(56,132,255,.35)", iconbg: "#e8f1fb", fstart: "#13243d" },
@@ -110,14 +110,14 @@ const ICONS = {
   "Statistics": '<path d="M3 3v18h18"/><path d="M7 16v-4"/><path d="M12 16V8"/><path d="M17 16v-7"/>',
   "Compliance": '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/>',
   "Air Emissions": '<path d="M2 21h20"/><path d="M4 21V11l5 3v-3l5 3V7h4v14"/><path d="M15 4c0-1.1.9-2 2-2s2 .9 2 2"/>',
-  "Greenhouse Gas & Refrigerant": '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>',
-  "Water & Spill Prevention": '<path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/>',
-  "Waste & Chemical Reporting": '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/>',
+  "Greenhouse Gas and Refrigerant": '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>',
+  "Water and Spill Prevention": '<path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/>',
+  "Waste and Chemical Reporting": '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/>',
   "PPE": '<path d="M4 15a8 8 0 0 1 16 0"/><path d="M2 15h20v3H2z"/><path d="M10 7V5h4v2"/>',
   "Heat": '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/><path d="M11.5 9v8"/><path d="M18 4l2-1M19 8h2M18 12l2 1"/>',
-  "Injury & Illness Rates": '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
+  "Injury and Illness Rates": '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
   "Fall Protection": '<circle cx="12" cy="4" r="2"/><path d="M12 6v6"/><path d="M8 9h8"/><path d="M12 12l-3 5"/><path d="M12 12l3 5"/><path d="M4 21h16"/>',
-  "Lifting & Rigging": '<path d="M12 2v4"/><path d="M9 6h6"/><path d="M12 6l-7 9"/><path d="M12 6l7 9"/><rect x="4" y="15" width="16" height="6" rx="1"/>',
+  "Lifting and Rigging": '<path d="M12 2v4"/><path d="M9 6h6"/><path d="M12 6l-7 9"/><path d="M12 6l7 9"/><rect x="4" y="15" width="16" height="6" rx="1"/>',
   "Recordkeeping": '<path d="M9 4h6l1 2h3v15H5V6h3z"/><path d="M9 14l2 2 4-4"/>'
 };
 function icon(cat, color) { return '<svg viewBox="0 0 24 24" fill="none" stroke="' + color + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[cat] || '') + '</svg>'; }

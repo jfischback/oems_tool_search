@@ -157,7 +157,7 @@
   function clip(s, n) { return s.length > n ? s.slice(0, n - 3).trim() + '…' : s; }
   function tile(t) {
     return t.url
-      ? '<a class="tile" href="' + esc(t.url) + '"><h3>' + esc(t.name) + featuredBadge(t) + '</h3><p>' + esc(clip(t.description, 110)) + '</p><span>Open →</span></a>'
+      ? '<a class="tile" href="' + esc(t.url) + '"><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 110)) + '</p><span>Open →</span></a>'
       : '<div class="tile soon"><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 110)) + '</p><span>Coming soon</span></div>';
   }
   function irow(t) {
@@ -219,7 +219,17 @@
     const btn = tool && tool.url ? '<a class="ftc-btn" href="' + esc(tool.url) + '">Open ' + esc(ft.name) + ' <i>→</i></a>' : '<span class="ftc-btn soon">Coming Soon</span>';
     document.getElementById('bigsec').insertAdjacentHTML('beforebegin', '<div class="fthead"><h2>Featured Tools</h2></div><section class="ftc"><div class="ftc-art" aria-hidden="true">' + (FEATURE_ART[ft.name] || TOPIC_ART[cat] || '') + '</div><div class="ftc-body"><h2>' + esc(ft.name) + '</h2><p>' + esc(tool ? tool.description : '') + '</p><div class="ftc-steps">' + steps + '</div><dl class="ftc-io"><div><dt>You Enter</dt><dd>' + esc(ft.enter) + '</dd></div><div><dt>You Get</dt><dd>' + esc(ft.get) + '</dd></div></dl>' + btn + '</div></section>');
   }
-  const hasBig = cardsOnly || !!program || ohFeature;
+  // 25 Nov 2026 (Jonathan): topic pages with combined tools (Ventilation, Environmental, Safety) lead with up to three of them as
+  // Featured Tools with pictures, then Single Tools; nothing is listed twice.
+  const topicFeat = (!step && !program && !ohFeature) ? rank(tools.filter(x => isCombined(x) && x.url), '').slice(0, 3) : [];
+  if (topicFeat.length) {
+    document.getElementById('bigeye').textContent = '';
+    document.getElementById('bigtitle').textContent = 'Featured Tools';
+    document.getElementById('bgrid').classList.toggle('one', topicFeat.length === 1);
+    document.getElementById('bgrid').classList.toggle('two', topicFeat.length === 2);
+    document.getElementById('bgrid').innerHTML = topicFeat.map(x => bigCard(x, { cta: 'Open tool' }, th)).join('');
+  }
+  const hasBig = cardsOnly || !!program || ohFeature || topicFeat.length > 0;
 
   function render() {
     const q = search.value.trim();
@@ -247,8 +257,8 @@
       return;
     }
     // 25 Nov 2026 (Jonathan): like Noise, featured tools up top, then Single Tools below with nothing repeated.
-    const feat = (program && program.featured) || [];
-    document.getElementById('secs').innerHTML = (program ? '<div class="allhead"><h2>Single Tools</h2></div>' : '') + groups.map(([name, list, eyebrow]) => {
+    const feat = ((program && program.featured) || []).concat(topicFeat.map(x => x.name));
+    document.getElementById('secs').innerHTML = (program || topicFeat.length ? '<div class="allhead"><h2>Single Tools</h2></div>' : '') + groups.map(([name, list, eyebrow]) => {
       const main = rank(list.filter(t => !isTucked(t) && !feat.includes(t.name) && !(ohFeature && t.url) && !(ohFeature && t.name === 'Respirator Protection Tool')), ''); // nothing listed twice; the combined respirator tool shows once it is live
       if (!main.length) return '';
       return name ? section(name, main, eyebrow) : '<section class="sec"><div class="grid">' + main.map(tile).join('') + '</div></section>';

@@ -108,6 +108,7 @@
 <script src="groups.js"></script>
 <script src="topics.js"></script>
 <script src="ih-art.js"></script>
+<script src="tool-art.js"></script>
 <script>
   const slug = new URLSearchParams(location.search).get('g');
   const key = Object.keys(GROUPS).find(k => GROUPS[k].slug === slug) || 'IH';
@@ -170,7 +171,7 @@
   }
   document.getElementById('fgrid').classList.toggle('one', feat.length + progCards.length === 1);
   document.getElementById('fgrid').innerHTML = feat.map(t => {
-    const inner = '<div class="ic">' + icon(t.category, th.tag) + '</div><small>' + esc(t.category.toUpperCase()) + '</small><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 120)) + '</p>';
+    const inner = (TOOL_ART[t.name] ? '<div class="fpic" aria-hidden="true" style="background:radial-gradient(240px 160px at 50% 45%,' + th.glow + ',transparent 70%),' + th.hero + '">' + TOOL_ART[t.name] + '</div>' : '<div class="ic">' + icon(t.category, th.tag) + '</div>') + '<small>' + esc(t.category.toUpperCase()) + '</small><h3>' + esc(t.name) + '</h3><p>' + esc(clip(t.description, 120)) + '</p>';
     return t.url ? '<a class="fcard" href="' + esc(t.url) + '">' + inner + '<div class="go">Open tool →</div></a>'
                  : '<div class="fcard soon">' + inner + '<div class="go">Coming soon</div></div>';
   }).join('') + progCards.join('');
@@ -241,7 +242,7 @@
       const parts = {};
       x.secs.forEach(s => { const k = s.eyebrow || s.name; parts[k] = (parts[k] || 0) + s.tools.filter(t => !isTucked(t)).length; });
       rb.innerHTML = '<div class="rb-main"><span class="sic dark big">' + stepIcon(ref.slug, th.tag) + '</span><div><small>Reference library</small><strong>' + esc(ref.name) + '</strong>' +
-        '<p>Calculators for the math behind the work. ' + x.list.length + ' tools you can use at any step.</p>' +
+        '<p>Calculators for the math behind the work. ' + x.list.length + ' tools.</p>' +
         '<div class="rb-chips">' + Object.entries(parts).map(([k, n]) => '<span>' + icon(k, th.tag) + esc(k) + ' <em>' + n + '</em></span>').join('') + '</div></div></div>' +
         '<b>Browse all tools <i>→</i></b>';
     }
@@ -327,7 +328,7 @@
   const rs = document.getElementById('refslim');
   if (refHref) {
     rs.href = refHref;
-    rs.innerHTML = '<span class="sic dark">' + stepIcon('tools', th.tag) + '</span><div><small>Reference library</small><strong>Free ' + esc(fieldName) + ' Tools</strong><p>Calculators for the math behind the work. ' + refCount + ' tools you can use at any step.</p></div><b>Browse the Reference Library <i>→</i></b>';
+    rs.innerHTML = '<span class="sic dark">' + stepIcon('tools', th.tag) + '</span><div><small>Reference library</small><strong>Free ' + esc(fieldName) + ' Tools</strong><p>Calculators for the math behind the work. ' + (tools.some(t => t.url) ? refCount + ' tools.' : 'Coming soon.') + '</p></div><b>Browse the Reference Library <i>→</i></b>';
   }
   if (REF) { document.getElementById('teyebrow').textContent = 'Reference library'; document.getElementById('ttitle').textContent = 'Free ' + fieldName + ' Tools'; }
 

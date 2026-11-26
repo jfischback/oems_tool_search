@@ -545,3 +545,9 @@
   .fthead h2, .allhead h2 { font-size: 32px; font-weight: 800; letter-spacing: -.035em; color: #0f1b2d; margin: 0; }
   #bigeye:empty { display: none; }
   @media (max-width: 800px) { .ftc-line { display: none; } } /* 25 Nov 2026: no stray connector when the step chips wrap */
+  /* 25 Nov 2026: pictures on the Environmental and Safety featured cards */
+  .fcard .fpic { margin: -6px -6px 16px; border-radius: 14px; aspect-ratio: 16/9; max-height: 260px; display: grid; place-items: center; padding: 8px; }
+  .fcard .fpic svg { width: 100%; height: 100%; }
+  .fgrid.one .fcard { display: grid; grid-template-columns: minmax(0, 420px) 1fr; column-gap: 32px; align-items: center; }
+  .fgrid.one .fcard .fpic { grid-row: 1 / span 5; margin: 0; }
+  @media (max-width: 760px) { .fgrid.one .fcard { grid-template-columns: 1fr; } .fgrid.one .fcard .fpic { grid-row: auto; margin: 0 0 16px; } }

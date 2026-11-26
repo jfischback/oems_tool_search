@@ -50,14 +50,14 @@ const TOPICS = {
   Environmental: {
     "Compliance": { blurb: "See which federal environmental programs apply to your site, all in one place." },
     "Air Emissions": { blurb: "Estimate emission rates from stack data, emission factors and mass balance, and check potential to emit." },
-    "Greenhouse Gas & Refrigerant": { blurb: "Calculate Scope 1 and Scope 2 emissions and track refrigerant leak rates against repair triggers." },
-    "Water & Spill Prevention": { blurb: "Check SPCC applicability, size secondary containment, and estimate wastewater loading and stormwater runoff." },
-    "Waste & Chemical Reporting": { blurb: "Determine hazardous waste generator status and check EPCRA Tier II and TRI reporting thresholds." }
+    "Greenhouse Gas and Refrigerant": { blurb: "Calculate Scope 1 and Scope 2 emissions and track refrigerant leak rates against repair triggers." },
+    "Water and Spill Prevention": { blurb: "Check SPCC applicability, size secondary containment, and estimate wastewater loading and stormwater runoff." },
+    "Waste and Chemical Reporting": { blurb: "Determine hazardous waste generator status and check EPCRA Tier II and TRI reporting thresholds." }
   },
   Safety: {
-    "Injury & Illness Rates": { blurb: "Calculate TRIR, DART and lost time case rates from case counts and hours worked." },
+    "Injury and Illness Rates": { blurb: "Calculate TRIR, DART and lost time case rates from case counts and hours worked." },
     "Fall Protection": { blurb: "Calculate the clearance needed below an anchor point for a personal fall arrest system." },
-    "Lifting & Rigging": { blurb: "Calculate sling leg tension, a combined load's center of gravity, and the percent of crane capacity used." },
+    "Lifting and Rigging": { blurb: "Calculate sling leg tension, a combined load's center of gravity, and the percent of crane capacity used." },
     "Recordkeeping": { blurb: "Determine whether an injury or illness is OSHA recordable and what to enter on the 300 log." }
   }
 };
@@ -286,7 +286,7 @@ function bigCard(t, o, th) {
   const also = o.also ? TOOLS.find(x => x.name === o.also) : null;
   const btn = t.url ? '<a class="bbtn" href="' + esc(t.url) + '">' + esc(o.cta || 'Start') + ' <i>→</i></a>' : '<span class="bbtn soon">Coming soon</span>';
   return '<div class="bcard' + (t.url ? '' : ' is-soon') + '">' +
-    (typeof TOOL_ART !== 'undefined' && TOOL_ART[t.name] ? '<div class="bpic" aria-hidden="true">' + TOOL_ART[t.name] + '</div>' : '<span class="sic">' + icon(o.topic || t.category, th.label) + '</span>') +
+    (typeof TOOL_ART !== 'undefined' && TOOL_ART[t.name] ? '<div class="bpic" aria-hidden="true" style="background:radial-gradient(240px 160px at 50% 45%,' + th.glow + ',transparent 70%),' + th.hero + '">' + TOOL_ART[t.name] + '</div>' : '<span class="sic">' + icon(o.topic || t.category, th.label) + '</span>') +
     '<small class="kick">' + esc(kick) + '</small><h3>' + esc(title) + '</h3>' +
     (o.title && o.title !== t.name ? '<div class="bsub">' + esc(t.name) + '</div>' : '') +
     '<p>' + esc(o.desc || t.description) + '</p>' + (outs ? '<ul class="inc">' + outs + '</ul>' : '') +
