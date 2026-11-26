@@ -62,6 +62,7 @@
     <h2>Featured tools</h2>
     <div class="fgrid" id="fgrid"></div>
   </section>
+  <section class="moresec" id="moresec" hidden></section>
   <a class="refbar" id="toolsbar" href="#topicsSec" hidden></a>
   <section class="flow" id="stepsSec" hidden>
     <div class="flow-panel">
@@ -176,6 +177,28 @@
                  : '<div class="fcard soon">' + inner + '<div class="go">Coming soon</div></div>';
   }).join('') + progCards.join('');
   if (!feat.length && !progCards.length) document.getElementById('featured').hidden = true;
+  // 25 Nov 2026 (Jonathan, approved mockup): Safety lists its other tools under the featured ones, one full-width row each.
+  const MORE_IC = {
+    'Required Fall Clearance': '<path d="M12 3v5M9 8h6l-1 4h-4zM12 12v4M8 21l4-5 4 5"/>',
+    'Sling Leg Tension': '<path d="M12 3v4M12 7L5 17M12 7l7 10M3 17h18v3H3z"/>',
+    'Center of Gravity (Combined Load)': '<path d="M3 14h18M12 4v10M8 14v3M16 14v3"/><circle cx="12" cy="14" r="2.2"/>',
+    'Crane Capacity Percentage': '<path d="M5 21V5h10l5 5M5 5l6 6M15 5v4M18 10v4M16 14h4v3h-4zM3 21h6"/>',
+  };
+  const MORE_TXT = {
+    'Required Fall Clearance': 'Clearance needed below the anchor point.',
+    'Sling Leg Tension': 'Tension in each leg from load, legs and angle.',
+    'Center of Gravity (Combined Load)': 'Center of gravity of a load of up to three parts.',
+    'Crane Capacity Percentage': 'Percent of rated capacity a lift uses.',
+  };
+  const moreSec = document.getElementById('moresec');
+  if (key === 'Safety' && !REF && moreSec) {
+    const more = tools.filter(t => MORE_IC[t.name]);
+    moreSec.innerHTML = '<h2>More Safety Tools</h2><div class="mgrid">' + more.map(t => {
+      const inner = '<span class="mic" aria-hidden="true" style="background:' + th.hero + '"><svg viewBox="0 0 24 24" fill="none" stroke="' + th.tag + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + MORE_IC[t.name] + '</svg></span><span class="mtx"><small>' + esc(t.category) + '</small><strong>' + esc(t.name.replace(' (Combined Load)', '')) + '</strong><em>' + esc(MORE_TXT[t.name]) + '</em></span>';
+      return t.url ? '<a class="mrow" href="' + esc(t.url) + '">' + inner + '<b>Open <i aria-hidden="true">→</i></b></a>' : '<div class="mrow soon">' + inner + '<span class="soonpill">Coming soon</span></div>';
+    }).join('') + '</div>';
+    moreSec.hidden = !more.length;
+  }
 
   function clip(s, n) { return s.length > n ? s.slice(0, n - 3).trim() + '…' : s; }
 
@@ -337,6 +360,7 @@
     const q = search.value.trim();
     const searching = !!q;
     if (!steps) document.getElementById('featured').hidden = searching || (!feat.length && !progCards.length);
+    if (moreSec && moreSec.innerHTML) moreSec.hidden = searching;
     if (steps) document.getElementById('stepsSec').hidden = searching;
     if (!steps) document.getElementById('topicsSec').hidden = searching || !REF; // landing pages show the bar instead of the grid
     rs.hidden = searching || !refHref;

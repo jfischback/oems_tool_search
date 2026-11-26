@@ -555,3 +555,20 @@
   /* 25 Nov 2026: Templates rows on a topic page */
   .tmplsec { margin: 34px 0 10px; display: grid; gap: 12px; }
   .tmplsec .allhead { margin-bottom: 2px; }
+
+  /* 25 Nov 2026 (Jonathan): Safety's other tools, one full-width row each, under the featured tools */
+  .moresec { margin: 34px 0 8px; }
+  .moresec h2 { font-size: 30px; font-weight: 800; letter-spacing: -.035em; margin: 0 0 16px; color: #0f1b2d; }
+  .mgrid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .mrow { display: flex; align-items: center; gap: 14px; background: #fff; border: 1.5px solid #e3e8ef; border-radius: 14px; padding: 14px 18px; text-decoration: none; color: inherit; transition: border-color .15s, box-shadow .15s; }
+  a.mrow:hover { border-color: #c9d6e6; box-shadow: 0 8px 20px rgba(16,29,48,.08); }
+  .mic { flex: 0 0 44px; height: 44px; border-radius: 11px; background: var(--hero, #2a1012); display: grid; place-items: center; }
+  .mic svg { width: 24px; height: 24px; }
+  .mtx { flex: 1; min-width: 0; }
+  .mtx small { display: block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #c0443b; }
+  .mtx strong { display: block; font-size: 16px; font-weight: 800; color: #0f1b2d; }
+  .mtx em { display: block; font-style: normal; font-size: 13.5px; color: #3b4a5e; }
+  .mrow > b { color: #1761a8; font-size: 15px; white-space: nowrap; }
+  .mrow .soonpill { flex: 0 0 auto; align-self: center; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .mgrid .mrow .soonpill { align-self: center !important; }
+  @media (max-width: 560px) { .mrow { flex-wrap: wrap; row-gap: 8px; } .mrow .mtx { flex: 1 1 calc(100% - 60px); } .mrow > b, .mgrid .mrow .soonpill { margin-left: 58px; } }
