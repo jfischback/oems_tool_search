@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="tools-icon.svg" type="image/svg+xml">
+<link rel="icon" href="tools-icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="tools-apple-touch-icon.png">
 <meta name="description" content="Practical calculators for industrial hygiene, environmental compliance and workplace safety, built by OEMS.">
 <meta name="theme-color" content="#070d18">
 <meta property="og:type" content="website">
@@ -21,9 +21,10 @@
 <title>OEMS Legionella</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="fields.css">
 <link rel="stylesheet" href="oems-header.css">
+<link rel="stylesheet" href="app-theme.css">
 <style>
   :root { --hero: #070d18; --bg: #101d30; --deep: #2c5f99; --tag: #77baff; --line2: #9da2aa; --label: #1761a8; --glow: rgba(56,132,255,.35); --iconbg: #e8f1fb; --fstart: #13243d; --grid: #77baff12; }
   .hzp { margin-top: -96px; position: relative; z-index: 3; background: #fff; border-radius: 24px; border: 1px solid #e6eaf0; box-shadow: 0 30px 80px rgba(7,13,24,.28), 0 2px 6px rgba(7,13,24,.06); padding: 28px; }
@@ -47,12 +48,12 @@
 </style>
 </head>
 <body>
-<!-- 24 Nov 2026, Jonathan: the main site's white OEMS header, so Tools feels like part of the site -->
+<!-- 26 Nov 2026, Jonathan: OEMS Tools app bar (its own look, separate from the consulting site) -->
 <header class="site-header">
-  <div class="wrap header-inner">
-    <a class="sh-brand" href="https://oemswebsite.vercel.app/" aria-label="OEMS home"><img src="oems-logo.webp" alt="OEMS — Occupational Exposure Management Systems" width="1109" height="417"></a>
+  <div class="ab-inner">
+    <a class="ab-brand" href="index.html" aria-label="OEMS Tools home"><svg viewBox="-60 -60 120 120" aria-hidden="true"><defs><linearGradient id="abg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".55" stop-color="#3b82f6"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><path d="M0,-50L43.3,-25V25L0,50L-43.3,25V-25Z" fill="none" stroke="url(#abg)" stroke-width="11" stroke-linejoin="round" stroke-dasharray="268 32" stroke-dashoffset="-14"/><path d="M0,-22L19,-11V11L0,22L-19,11V-11Z" fill="url(#abg)" opacity=".18"/><circle r="9" fill="url(#abg)"/><path d="M0,0L43.3,-25" stroke="url(#abg)" stroke-width="5" stroke-linecap="round"/><circle cx="43.3" cy="-25" r="8" fill="#fff" stroke="url(#abg)" stroke-width="5"/></svg><b>oems <span>tools</span></b></a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Menu</span><span class="nb" aria-hidden="true"></span></button>
-    <nav id="site-nav" class="site-nav" aria-label="Main"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li><li class="nav-pill-li"><a class="nav-pill" href="index.html">Free Tools</a></li></ul></nav><!-- Free Tools pill: exception to two-button rule, approved by Jonathan 25 Nov 2026 -->
+    <nav id="site-nav" class="site-nav" aria-label="Fields"><ul><li><a href="library.html?g=ih" data-g="ih">Industrial Hygiene</a></li><li><a href="library.html?g=oh" data-g="oh">Occupational Health</a></li><li><a href="library.html?g=environmental" data-g="environmental">Environmental</a></li><li><a href="library.html?g=safety" data-g="safety">Safety</a></li><li class="ab-out-li"><a class="ab-out" href="https://oemswebsite.vercel.app/">OEMS Consulting ↗</a></li></ul></nav>
   </div>
 </header>
 <header class="fh has-flow" id="fh">
@@ -76,12 +77,9 @@
   <!-- 25 Nov 2026 (Jonathan): no Reference Library bar here; the Support Tools card covers it. -->
 </div>
 <!-- 25 Nov 2026 (Jonathan, approved mockup): Legionella hazard page, same four cards as Chemical. 25 Nov 2026 (Jonathan): only chemical assessments are paid; this one is free. -->
-<!-- 24 Nov 2026, Jonathan: the same footer as the main site -->
-<footer class="site-footer">
-  <div class="wrap footer-inner">
-    <div class="footer-id"><a class="footer-brand" href="https://oemswebsite.vercel.app/"><strong>OEMS</strong> <span>Occupational Exposure Management Systems</span></a><p class="footer-slogan">We help companies turn data into decisions.</p></div>
-    <nav aria-label="Footer"><ul><li><a href="https://oemswebsite.vercel.app/services">Services</a></li><li><a href="index.html">Tools</a></li><li><a href="https://oemswebsite.vercel.app/about">About</a></li><li><a href="https://oemswebsite.vercel.app/contact">Contact</a></li></ul></nav>
-  </div>
+<!-- 26 Nov 2026, Jonathan: OEMS Tools footer, one link back to OEMS -->
+<footer class="site-footer app-foot">
+  <div class="wrap af-inner"><span>Tools from OEMS · Occupational Exposure Management Systems</span><a href="https://oemswebsite.vercel.app/contact">Need help with your program? Talk to OEMS →</a></div>
 </footer>
 <script src="ih-art.js"></script>
 <script>

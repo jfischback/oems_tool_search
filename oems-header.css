@@ -1,31 +1,42 @@
-/* White OEMS header, the same as the main site (24 Nov 2026, Jonathan). Used on every page. */
-.site-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.96); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid #e3e8ef; font-family: Inter, system-ui, sans-serif; }
-.site-header .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; position: relative; }
-.sh-brand img { height: 40px; width: auto; display: block; }
-.site-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 2px; margin: 0; padding: 0; }
-.site-nav a { display: block; padding: 8px 11px; border-radius: 8px; color: #0b1b30; text-decoration: none; font-size: 14.4px; font-weight: 500; white-space: nowrap; line-height: 1.6; }
-.site-nav a:hover { background: #f3f4f7; color: #1761a8; }
-.site-nav a[aria-current="page"] { color: #1761a8; background: #eaf1fe; }
-/* "Free Tools" pill, copied from the main site (styles.css). Exception to two-button rule, approved by Jonathan 25 Nov 2026. */
-.site-nav a.nav-pill { background: #e8f1ff; color: #0055cc; border: 1px solid #b9d3ff; border-radius: 999px; padding: 8px 18px; font-weight: 700; margin-left: 8px; }
-.site-nav a.nav-pill:hover { background: #d8e7ff; color: #0055cc; }
-.nav-toggle { display: none; background: none; border: 1px solid #e3e8ef; border-radius: 10px; width: 44px; height: 44px; cursor: pointer; position: relative; }
-.nav-toggle .nb, .nav-toggle .nb::before, .nav-toggle .nb::after { position: absolute; left: 12px; width: 18px; height: 2px; background: #0b1b30; content: ''; transition: transform .2s; }
+/* OEMS Tools app bar (26 Nov 2026, Jonathan): dark bar, hexagon logo and "oems tools", the four fields, and a link back to OEMS Consulting.
+   Replaces the white consulting header so Tools looks like its own app. */
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(10,18,32,.96); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid #1b2840; font-family: Inter, system-ui, sans-serif; }
+.site-header .ab-inner { display: flex; align-items: center; gap: 28px; min-height: 64px; max-width: 1180px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; position: relative; }
+.ab-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: none; }
+.ab-brand svg { width: 32px; height: 32px; display: block; filter: drop-shadow(0 0 6px rgba(59,130,246,.55)); }
+.ab-brand b { font-family: Poppins, Inter, system-ui, sans-serif; font-weight: 500; font-size: 22px; letter-spacing: -.03em; color: #fff; line-height: 1; }
+.ab-brand b span { color: #5aa8ff; }
+.site-nav { flex: 1; }
+.site-nav ul { list-style: none; display: flex; align-items: center; gap: 4px; margin: 0; padding: 0; }
+.site-nav a { display: block; padding: 8px 12px; border-radius: 9px; color: #9fb0c8; text-decoration: none; font-size: 14px; font-weight: 600; white-space: nowrap; line-height: 1.5; }
+.site-nav a:hover { background: #13203a; color: #fff; }
+.site-nav a[aria-current="page"] { background: #13203a; color: #fff; }
+.site-nav .ab-out-li { margin-left: auto; }
+.site-nav a.ab-out { color: #9fb0c8; font-size: 13px; font-weight: 500; border: 1px solid #24344f; padding: 7px 12px; }
+.site-nav a.ab-out:hover { color: #fff; border-color: #3a4d6e; background: transparent; }
+.nav-toggle { display: none; margin-left: auto; background: none; border: 1px solid #24344f; border-radius: 10px; width: 44px; height: 44px; cursor: pointer; position: relative; }
+.nav-toggle .nb, .nav-toggle .nb::before, .nav-toggle .nb::after { position: absolute; left: 12px; width: 18px; height: 2px; background: #dbe6f5; content: ''; transition: transform .2s; }
 .nav-toggle .nb { top: 21px; } .nav-toggle .nb::before { left: 0; top: -6px; } .nav-toggle .nb::after { left: 0; top: 6px; }
 .nav-toggle[aria-expanded="true"] .nb { background: transparent; }
 .nav-toggle[aria-expanded="true"] .nb::before { transform: translateY(6px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] .nb::after { transform: translateY(-6px) rotate(-45deg); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-@media (max-width: 1100px) {
+@media (max-width: 960px) {
+  .site-header .ab-inner { padding: 0 16px; min-height: 60px; }
   .nav-toggle { display: block; }
-  .site-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 1px solid #e3e8ef; box-shadow: 0 10px 30px rgba(11,27,48,.08); }
+  .site-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: #0a1220; border-bottom: 1px solid #1b2840; box-shadow: 0 14px 30px rgba(0,0,0,.4); }
   .site-nav.open { display: block; }
-  .site-nav ul { flex-direction: column; padding: 8px 16px 16px; }
-  .site-nav a { padding: 12px; font-size: 16px; }
-  .sh-brand img { height: 34px; }
+  .site-nav ul { flex-direction: column; align-items: stretch; padding: 8px 16px 16px; }
+  .site-nav a { font-size: 16px; padding: 12px; }
+  .site-nav .ab-out-li { margin: 8px 0 0; }
+  .site-nav a.ab-out { display: inline-block; font-size: 15px; }
 }
-@media (max-width: 860px) { .site-nav a.nav-pill { display: inline-block; margin: 8px 0 0; } }
 
+/* OEMS Tools footer (26 Nov 2026) */
+.site-footer.app-foot { background: transparent; padding: 0 0 36px; margin-top: 44px; }
+.app-foot .af-inner { border-top: 1px solid #1b2840; padding-top: 22px !important; display: flex; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; color: #7f91ab; font-size: 13.5px; }
+.app-foot .af-inner a { color: #9fc6ff; text-decoration: none; font-weight: 600; font-size: 13.5px; }
+.app-foot .af-inner a:hover { text-decoration: underline; }
 /* Shared footer, the same as the main site (24 Nov 2026) */
 .site-footer { background: #07111f; color: #a9b4c4; padding: 36px 0; margin-top: 40px; font-family: Inter, system-ui, sans-serif; text-align: left; }
 .site-footer .footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }

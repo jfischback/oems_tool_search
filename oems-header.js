@@ -39,3 +39,15 @@
   window.addEventListener('load', run);
   document.addEventListener('input', function () { setTimeout(run, 0); });
 })();
+
+// App bar: highlight the field you're in (26 Nov 2026). Field comes from ?g= or the page's breadcrumb link to its field.
+(function () {
+  function mark() {
+    var g = new URLSearchParams(location.search).get('g');
+    if (!g) { var a = document.querySelector('.crumb a[href*="library.html?g="]'); if (a) g = new URL(a.href, location.href).searchParams.get('g'); }
+    if (!g) return;
+    document.querySelectorAll('.site-nav a[data-g]').forEach(function (l) { if (l.getAttribute('data-g') === g) l.setAttribute('aria-current', 'page'); else l.removeAttribute('aria-current'); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mark); else mark();
+  window.addEventListener('load', mark);
+})();
