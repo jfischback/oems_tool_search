@@ -209,8 +209,9 @@
     const live = tools.filter(x => x.url && !(ft && x.name === ft.name));
     document.getElementById('bigeye').textContent = ft ? '' : 'Featured';
     document.getElementById('bigtitle').textContent = ft ? 'Single Tools' : 'Start Here';
-    document.getElementById('bgrid').classList.toggle('two', live.length === 2);
-    document.getElementById('bgrid').innerHTML = live.map(x => bigCard(x, { cta: 'Open Tool' }, th)).join('');
+    // 25 Nov 2026 (Jonathan): single tools are small tiles everywhere; only featured tools get big cards.
+    document.getElementById('bgrid').classList.remove('bgrid'); document.getElementById('bgrid').classList.add('grid');
+    document.getElementById('bgrid').innerHTML = live.map(tile).join('');
   }
   if (ft) {
     const tool = TOOLS.find(x => x.name === ft.name);
