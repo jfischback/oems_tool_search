@@ -94,7 +94,7 @@
   ];
   document.getElementById('cards').innerHTML = C.map(c => (c.soon || c.links ? '<div class="hc">' : '<a class="hc" href="' + c.href + '">') + '<div class="hz-art" aria-hidden="true">' + (c.svg || IH_ART[c.art]) + '</div><div>' +
     (c.tag ? '<span class="tagp ' + c.tag[0] + '">' + c.tag[1] + '</span>' : '') + '<h3>' + c.name + '</h3><p>' + c.text + '</p>' +
-    (c.list ? '<ul class="hc-list">' + c.list.map(i => '<li>' + i + '</li>').join('') + '</ul>' : '') + (c.links ? '<ul class="hc-list">' + c.links.map(([n, h]) => '<li><a href="' + h + '">' + n + ' →</a></li>').join('') + '</ul>' : '') + (c.soon ? '<span class="soonp">Coming Soon</span></div></div>' : c.links ? '</div></div>' : '<b>' + c.cta + ' →</b></div></a>')).join('');
+    (c.list ? '<ul class="hc-list">' + c.list.map(i => '<li>' + i + '</li>').join('') + '</ul>' : '') + (c.links ? '<ul class="hc-list">' + c.links.map(([n, h]) => /\.xlsx$/.test(h) ? '<li><a href="' + h + '" download>' + n + ' <span aria-hidden="true">↓</span><span class="sr-only"> (Excel download)</span></a></li>' : '<li><a href="' + h + '">' + n + ' →</a></li>').join('') + '</ul>' : '') + (c.soon ? '<span class="soonp">Coming Soon</span></div></div>' : c.links ? '</div></div>' : '<b>' + c.cta + ' →</b></div></a>')).join('');
 </script>
 <script src="oems-header.js"></script>
 </body>
