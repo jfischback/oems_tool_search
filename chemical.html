@@ -41,6 +41,12 @@
   .hc-list { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
   .hc-list a { color: inherit; text-decoration: none; }
   .hc-list li { font-size: 12.5px; font-weight: 600; color: #1761a8; background: #eaf1fe; border-radius: 999px; padding: 4px 10px; }
+  /* 25 Nov 2026 (Q30): tags that open their own assessment */
+  .hc-tags li { padding: 0; }
+  .hc-tags a { display: block; padding: 4px 10px; border-radius: 999px; }
+  .hc-tags a:hover, .hc-tags a:focus-visible { background: #d6e6fd; text-decoration: underline; }
+  .hc-cta { text-decoration: none; display: inline-block; }
+  .hc-cta:hover b { text-decoration: underline; }
   .soonp { display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #64748b; background: #e8edf3; border-radius: 999px; padding: 5px 12px; }
   @media (max-width: 900px) { .hzp-grid { grid-template-columns: 1fr; } }
   @media (max-width: 600px) { .hzp { margin-top: -70px; padding: 18px 14px; } .hc { grid-template-columns: 1fr; } }
@@ -87,14 +93,14 @@
 <script>
   document.getElementById('art').innerHTML = IH_ART.ea;
   const C = [
-    { art: 'ea', name: 'Exposure Assessment', tag: ['paid', 'Paid tool'], text: 'Routine and non-routine assessments.', list: ['Chemical', 'Smoke', 'Particulate', 'Welding'], cta: 'Start an assessment', href: 'https://oemswebsite.vercel.app/chemical-exposure-assessment' },
+    { art: 'ea', name: 'Exposure Assessment', tag: ['paid', 'Paid tool'], text: 'Routine and non-routine assessments.', tags: [['Chemical', 'https://oemswebsite.vercel.app/assess/chemical'], ['Smoke', 'https://oemswebsite.vercel.app/assess/smoke'], ['Particulate', 'https://oemswebsite.vercel.app/assess/particulate'], ['Welding', 'https://oemswebsite.vercel.app/assess/welding']], cta: 'Start an assessment', href: 'https://oemswebsite.vercel.app/chemical-exposure-assessment' }, // 25 Nov 2026 (Q30): each tag opens its own assessment
     { art: 'prog', name: 'Programs and Procedures', tag: ['paid', 'Paid download'], text: 'Written programs and procedures for chemical hazards.', cta: 'Request a quote', href: 'https://oemswebsite.vercel.app/contact' },
     { art: 'tmpl', name: 'Templates and Field Sheets', tag: ['free', 'Free download'], text: 'Forms and data sheets for site visits and sampling.', soon: true },
     { svg: '<svg viewBox="0 0 320 230" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-linecap="round" stroke-linejoin="round"><defs><radialGradient id="clG"><stop offset="0" stop-color="#77baff" stop-opacity=".35"/><stop offset="1" stop-color="#77baff" stop-opacity="0"/></radialGradient></defs><circle cx="160" cy="115" r="105" fill="url(#clG)"/><rect x="110" y="40" width="100" height="150" rx="12" stroke="#77baff" stroke-width="4"/><rect x="126" y="56" width="68" height="30" rx="5" stroke="#77baff" stroke-width="3"/><g stroke="#77baff" stroke-width="3"><rect x="126" y="102" width="16" height="16" rx="3"/><rect x="152" y="102" width="16" height="16" rx="3"/><rect x="178" y="102" width="16" height="16" rx="3"/><rect x="126" y="128" width="16" height="16" rx="3"/><rect x="152" y="128" width="16" height="16" rx="3"/><rect x="178" y="128" width="16" height="42" rx="3"/><rect x="126" y="154" width="42" height="16" rx="3"/></g></svg>', name: 'Support Tools', tag: ['free', 'Free tools'], text: 'Calculators that support chemical work.', links: [['ppm to mg/m³', 'https://conversions.oemsgroup.com/ppm-and-mg-m3/'], ['Exposure Statistics', 'https://oemsexposurestats.vercel.app/'], ['Ventilation', 'topic.html?g=ih&t=ventilation']] },
   ];
-  document.getElementById('cards').innerHTML = C.map(c => (c.soon || c.links ? '<div class="hc">' : '<a class="hc" href="' + c.href + '">') + '<div class="hz-art" aria-hidden="true">' + (c.svg || IH_ART[c.art]) + '</div><div>' +
+  document.getElementById('cards').innerHTML = C.map(c => (c.soon || c.links || c.tags ? '<div class="hc">' : '<a class="hc" href="' + c.href + '">') + '<div class="hz-art" aria-hidden="true">' + (c.svg || IH_ART[c.art]) + '</div><div>' +
     (c.tag ? '<span class="tagp ' + c.tag[0] + '">' + c.tag[1] + '</span>' : '') + '<h3>' + c.name + '</h3><p>' + c.text + '</p>' +
-    (c.list ? '<ul class="hc-list">' + c.list.map(i => '<li>' + i + '</li>').join('') + '</ul>' : '') + (c.links ? '<ul class="hc-list">' + c.links.map(([n, h]) => '<li><a href="' + h + '">' + n + ' →</a></li>').join('') + '</ul>' : '') + (c.soon ? '<span class="soonp">Coming Soon</span></div></div>' : c.links ? '</div></div>' : '<b>' + c.cta + ' →</b></div></a>')).join('');
+    (c.tags ? '<ul class="hc-list hc-tags">' + c.tags.map(([n, h]) => '<li><a href="' + h + '">' + n + '</a></li>').join('') + '</ul><a class="hc-cta" href="' + c.href + '"><b>' + c.cta + ' →</b></a></div></div>' : '') + (c.list ? '<ul class="hc-list">' + c.list.map(i => '<li>' + i + '</li>').join('') + '</ul>' : '') + (c.links ? '<ul class="hc-list">' + c.links.map(([n, h]) => '<li><a href="' + h + '">' + n + ' →</a></li>').join('') + '</ul>' : '') + (c.tags ? '' : c.soon ? '<span class="soonp">Coming Soon</span></div></div>' : c.links ? '</div></div>' : '<b>' + c.cta + ' →</b></div></a>')).join('');
 </script>
 <script src="oems-header.js"></script>
 </body>
