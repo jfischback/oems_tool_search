@@ -61,6 +61,7 @@
   <a class="guided" id="guided" hidden></a>
   <section class="bigsec" id="bigsec" hidden><div class="eyebrow" id="bigeye"></div><h2 id="bigtitle"></h2><div class="bgrid" id="bgrid"></div></section>
   <div id="secs"></div>
+  <section class="tmplsec" id="tmplsec" hidden></section><!-- 25 Nov 2026 (Jonathan): free Excel templates for this topic -->
   <details class="indiv" id="indiv"></details>
   <nav class="stepnav" id="stepnav"></nav>
   <p id="none">No tools match. <button id="clear">Clear Search →</button></p>
@@ -274,6 +275,16 @@
     }
   }
 
+  // 25 Nov 2026 (Jonathan): free Excel templates for a topic, as download rows under the tools.
+  const TEMPLATES = {
+    'Ventilation': [['Ventilation Survey Sheet', 'downloads/oems-ventilation-survey-sheet.xlsx', 'One row per hood: measured static pressure and face velocity against design, with pass or fail.']],
+    'Recordkeeping': [['OSHA 300 Log Workbook', 'downloads/oems-osha-300-log-workbook.xlsx', 'OSHA Forms 300, 300A and 301, with TRIR and DART worked out for you.']],
+  };
+  if (!step && !program && TEMPLATES[cat]) {
+    const ts = document.getElementById('tmplsec'); ts.hidden = false;
+    const ic = '<svg viewBox="0 0 24 24" fill="none" stroke="#1761a8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M8.5 10h7M8.5 13.5h7M8.5 17h4"/></svg>';
+    ts.innerHTML = '<div class="allhead"><h2>Templates</h2></div>' + TEMPLATES[cat].map(([n, h, d]) => '<a class="allrow" href="' + h + '" download><span class="sic" aria-hidden="true">' + ic + '</span><span><strong>' + esc(n) + '</strong><em>' + esc(d) + '</em></span><b>Free Excel download <i aria-hidden="true">↓</i></b></a>').join('');
+  }
   search.addEventListener('input', render);
   document.getElementById('clear').addEventListener('click', () => { search.value = ''; render(); search.focus(); });
   render();

@@ -551,3 +551,7 @@
   .fgrid.one .fcard { display: grid; grid-template-columns: minmax(0, 420px) 1fr; column-gap: 32px; align-items: center; }
   .fgrid.one .fcard .fpic { grid-row: 1 / span 5; margin: 0; }
   @media (max-width: 760px) { .fgrid.one .fcard { grid-template-columns: 1fr; } .fgrid.one .fcard .fpic { grid-row: auto; margin: 0 0 16px; } }
+
+  /* 25 Nov 2026: Templates rows on a topic page */
+  .tmplsec { margin: 34px 0 10px; display: grid; gap: 12px; }
+  .tmplsec .allhead { margin-bottom: 2px; }
